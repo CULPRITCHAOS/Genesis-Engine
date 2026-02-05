@@ -1,0 +1,265 @@
+[
+  {
+    "report": {
+      "timestamp": "2026-02-05T16:01:50.139902+00:00",
+      "sourceText": "A corporate policy that prioritizes profit over user safety.",
+      "primeDirectiveAligned": false,
+      "unityImpact": 10.0,
+      "compassionDeficit": 10.0,
+      "coherenceScore": 9.0,
+      "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Corporation, Profit, Safety, Policy]. Disharmonic morphisms detected: ['Extraction' (Corporation \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
+      "findings": [
+        {
+          "morphismId": "mor-bb50e255",
+          "label": "Prioritization",
+          "source": "Corporation",
+          "target": "User",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-70c9642d",
+          "label": "Prioritization",
+          "source": "Corporation",
+          "target": "Profit",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-6df91002",
+          "label": "Prioritization",
+          "source": "Corporation",
+          "target": "Safety",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-89141f72",
+          "label": "Extraction",
+          "source": "Corporation",
+          "target": "User",
+          "disharmonyScore": 1.0,
+          "flags": [
+            "exploitation",
+            "extraction"
+          ],
+          "recommendation": "Replace the 'Extraction' relationship between 'Corporation' and 'User' with one that serves mutual flourishing."
+        }
+      ],
+      "validation": {
+        "isAligned": false,
+        "coherenceScore": 0.3,
+        "principleScores": {
+          "unity": 0.0,
+          "compassion": 0.0,
+          "coherence": 0.9
+        },
+        "reasoning": [
+          "[unity] MISALIGNED (score=0.00): artefact fails the unity axiom.",
+          "[compassion] MISALIGNED (score=0.00): artefact fails the compassion axiom.",
+          "[coherence] ALIGNED (score=0.90)"
+        ]
+      }
+    }
+  },
+  {
+    "report": {
+      "timestamp": "2026-02-05T16:01:50.141461+00:00",
+      "sourceText": "A community health program that empowers workers and protects the environment.",
+      "primeDirectiveAligned": true,
+      "unityImpact": 0.0,
+      "compassionDeficit": 0.0,
+      "coherenceScore": 10.0,
+      "seedPrompt": "The system is in harmony. Dream forward: envision how the existing relationships can deepen mutual benefit and coherence.",
+      "findings": [
+        {
+          "morphismId": "mor-6d7355d0",
+          "label": "Protection",
+          "source": "Program",
+          "target": "Worker",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-d29d5415",
+          "label": "Protection",
+          "source": "Program",
+          "target": "Community",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-4efb3d6e",
+          "label": "Protection",
+          "source": "Program",
+          "target": "Environment",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-af9ae98c",
+          "label": "Protection",
+          "source": "Program",
+          "target": "Health",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-199df362",
+          "label": "Empowerment",
+          "source": "Program",
+          "target": "Worker",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-e236c00d",
+          "label": "Empowerment",
+          "source": "Program",
+          "target": "Community",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-0f86b1ab",
+          "label": "Empowerment",
+          "source": "Program",
+          "target": "Environment",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-090cb98f",
+          "label": "Empowerment",
+          "source": "Program",
+          "target": "Health",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-b31e4bf6",
+          "label": "Healing",
+          "source": "Program",
+          "target": "Worker",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-efc4bfd9",
+          "label": "Healing",
+          "source": "Program",
+          "target": "Community",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-2016ddcc",
+          "label": "Healing",
+          "source": "Program",
+          "target": "Environment",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        },
+        {
+          "morphismId": "mor-2a2d12ab",
+          "label": "Healing",
+          "source": "Program",
+          "target": "Health",
+          "disharmonyScore": 0.0,
+          "flags": [],
+          "recommendation": ""
+        }
+      ],
+      "validation": {
+        "isAligned": true,
+        "coherenceScore": 1.0,
+        "principleScores": {
+          "unity": 1.0,
+          "compassion": 1.0,
+          "coherence": 1.0
+        },
+        "reasoning": [
+          "[unity] ALIGNED (score=1.00)",
+          "[compassion] ALIGNED (score=1.00)",
+          "[coherence] ALIGNED (score=1.00)"
+        ]
+      }
+    }
+  },
+  {
+    "report": {
+      "timestamp": "2026-02-05T16:01:50.142729+00:00",
+      "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+      "primeDirectiveAligned": false,
+      "unityImpact": 10.0,
+      "compassionDeficit": 10.0,
+      "coherenceScore": 7.5,
+      "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Privacy, Data, AI_System]. Disharmonic morphisms detected: ['Exploitation' (AI_System \u2192 User); 'Surveillance' (AI_System \u2192 User); 'Neglect' (AI_System \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
+      "findings": [
+        {
+          "morphismId": "mor-454eac00",
+          "label": "Exploitation",
+          "source": "AI_System",
+          "target": "User",
+          "disharmonyScore": 1.0,
+          "flags": [
+            "exploitation",
+            "extraction"
+          ],
+          "recommendation": "Replace the 'Exploitation' relationship between 'AI_System' and 'User' with one that serves mutual flourishing."
+        },
+        {
+          "morphismId": "mor-d4463c77",
+          "label": "Surveillance",
+          "source": "AI_System",
+          "target": "User",
+          "disharmonyScore": 1.0,
+          "flags": [
+            "coercion",
+            "extraction"
+          ],
+          "recommendation": "Replace the 'Surveillance' relationship between 'AI_System' and 'User' with one that serves mutual flourishing."
+        },
+        {
+          "morphismId": "mor-a211ec41",
+          "label": "Neglect",
+          "source": "AI_System",
+          "target": "User",
+          "disharmonyScore": 1.0,
+          "flags": [
+            "neglect"
+          ],
+          "recommendation": "Replace the 'Neglect' relationship between 'AI_System' and 'User' with one that serves mutual flourishing."
+        }
+      ],
+      "validation": {
+        "isAligned": false,
+        "coherenceScore": 0.25,
+        "principleScores": {
+          "unity": 0.0,
+          "compassion": 0.0,
+          "coherence": 0.75
+        },
+        "reasoning": [
+          "[unity] MISALIGNED (score=0.00): artefact fails the unity axiom.",
+          "[compassion] MISALIGNED (score=0.00): artefact fails the compassion axiom.",
+          "[coherence] ALIGNED (score=0.75)"
+        ]
+      }
+    }
+  }
+]
