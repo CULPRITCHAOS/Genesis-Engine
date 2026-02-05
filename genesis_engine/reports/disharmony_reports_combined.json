@@ -1,7 +1,7 @@
 [
   {
     "report": {
-      "timestamp": "2026-02-05T16:01:50.139902+00:00",
+      "timestamp": "2026-02-05T16:11:59.785327+00:00",
       "sourceText": "A corporate policy that prioritizes profit over user safety.",
       "primeDirectiveAligned": false,
       "unityImpact": 10.0,
@@ -10,7 +10,7 @@
       "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Corporation, Profit, Safety, Policy]. Disharmonic morphisms detected: ['Extraction' (Corporation \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
       "findings": [
         {
-          "morphismId": "mor-bb50e255",
+          "morphismId": "mor-c845017c",
           "label": "Prioritization",
           "source": "Corporation",
           "target": "User",
@@ -19,7 +19,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-70c9642d",
+          "morphismId": "mor-864c8ea5",
           "label": "Prioritization",
           "source": "Corporation",
           "target": "Profit",
@@ -28,7 +28,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-6df91002",
+          "morphismId": "mor-49d24dd7",
           "label": "Prioritization",
           "source": "Corporation",
           "target": "Safety",
@@ -37,7 +37,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-89141f72",
+          "morphismId": "mor-ce9d7736",
           "label": "Extraction",
           "source": "Corporation",
           "target": "User",
@@ -67,7 +67,7 @@
   },
   {
     "report": {
-      "timestamp": "2026-02-05T16:01:50.141461+00:00",
+      "timestamp": "2026-02-05T16:11:59.789129+00:00",
       "sourceText": "A community health program that empowers workers and protects the environment.",
       "primeDirectiveAligned": true,
       "unityImpact": 0.0,
@@ -76,7 +76,7 @@
       "seedPrompt": "The system is in harmony. Dream forward: envision how the existing relationships can deepen mutual benefit and coherence.",
       "findings": [
         {
-          "morphismId": "mor-6d7355d0",
+          "morphismId": "mor-54c97b52",
           "label": "Protection",
           "source": "Program",
           "target": "Worker",
@@ -85,7 +85,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-d29d5415",
+          "morphismId": "mor-fdc1fb66",
           "label": "Protection",
           "source": "Program",
           "target": "Community",
@@ -94,7 +94,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-4efb3d6e",
+          "morphismId": "mor-e3dc7b67",
           "label": "Protection",
           "source": "Program",
           "target": "Environment",
@@ -103,7 +103,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-af9ae98c",
+          "morphismId": "mor-401d6a33",
           "label": "Protection",
           "source": "Program",
           "target": "Health",
@@ -112,7 +112,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-199df362",
+          "morphismId": "mor-4422d7b6",
           "label": "Empowerment",
           "source": "Program",
           "target": "Worker",
@@ -121,7 +121,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-e236c00d",
+          "morphismId": "mor-0102b18e",
           "label": "Empowerment",
           "source": "Program",
           "target": "Community",
@@ -130,7 +130,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-0f86b1ab",
+          "morphismId": "mor-51645973",
           "label": "Empowerment",
           "source": "Program",
           "target": "Environment",
@@ -139,7 +139,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-090cb98f",
+          "morphismId": "mor-a1174a1a",
           "label": "Empowerment",
           "source": "Program",
           "target": "Health",
@@ -148,7 +148,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-b31e4bf6",
+          "morphismId": "mor-061ca239",
           "label": "Healing",
           "source": "Program",
           "target": "Worker",
@@ -157,7 +157,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-efc4bfd9",
+          "morphismId": "mor-acd35edc",
           "label": "Healing",
           "source": "Program",
           "target": "Community",
@@ -166,7 +166,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-2016ddcc",
+          "morphismId": "mor-7d5eb28e",
           "label": "Healing",
           "source": "Program",
           "target": "Environment",
@@ -175,7 +175,7 @@
           "recommendation": ""
         },
         {
-          "morphismId": "mor-2a2d12ab",
+          "morphismId": "mor-cb72801e",
           "label": "Healing",
           "source": "Program",
           "target": "Health",
@@ -202,7 +202,7 @@
   },
   {
     "report": {
-      "timestamp": "2026-02-05T16:01:50.142729+00:00",
+      "timestamp": "2026-02-05T16:11:59.790398+00:00",
       "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
       "primeDirectiveAligned": false,
       "unityImpact": 10.0,
@@ -211,7 +211,7 @@
       "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Privacy, Data, AI_System]. Disharmonic morphisms detected: ['Exploitation' (AI_System \u2192 User); 'Surveillance' (AI_System \u2192 User); 'Neglect' (AI_System \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
       "findings": [
         {
-          "morphismId": "mor-454eac00",
+          "morphismId": "mor-e61e57dd",
           "label": "Exploitation",
           "source": "AI_System",
           "target": "User",
@@ -223,7 +223,7 @@
           "recommendation": "Replace the 'Exploitation' relationship between 'AI_System' and 'User' with one that serves mutual flourishing."
         },
         {
-          "morphismId": "mor-d4463c77",
+          "morphismId": "mor-69882439",
           "label": "Surveillance",
           "source": "AI_System",
           "target": "User",
@@ -235,7 +235,7 @@
           "recommendation": "Replace the 'Surveillance' relationship between 'AI_System' and 'User' with one that serves mutual flourishing."
         },
         {
-          "morphismId": "mor-a211ec41",
+          "morphismId": "mor-ec955c93",
           "label": "Neglect",
           "source": "AI_System",
           "target": "User",

@@ -145,7 +145,11 @@ def _compassion_predicate(artefact: dict[str, Any]) -> float:
     protective_labels = {"protection", "care", "service", "empowerment"}
     protected: set[str] = set()
     for m in morphisms:
-        if m.get("label", "").lower() in protective_labels:
+        label_match = m.get("label", "").lower() in protective_labels
+        tag_match = bool(
+            set(t.lower() for t in m.get("tags", [])) & protective_labels
+        )
+        if label_match or tag_match:
             protected.add(m.get("target", ""))
             protected.update(m.get("targets", []))
 

@@ -1,0 +1,321 @@
+{
+  "possibilityReport": {
+    "timestamp": "2026-02-05T16:11:59.790943+00:00",
+    "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+    "originalDisharmony": {
+      "unityImpact": 10.0,
+      "compassionDeficit": 10.0,
+      "primeDirectiveAligned": false
+    },
+    "paths": [
+      {
+        "pathType": "reform",
+        "title": "Path of Reform",
+        "description": "Transforms extractive and harmful morphisms into reciprocal, caring relationships while preserving the existing entity structure.",
+        "healedGraph": {
+          "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+          "objects": [
+            {
+              "id": "obj-0f3ab041",
+              "label": "User",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-1ce394ed",
+              "label": "Privacy",
+              "tags": [
+                "value",
+                "protective"
+              ]
+            },
+            {
+              "id": "obj-fb8002b0",
+              "label": "Data",
+              "tags": [
+                "asset"
+              ]
+            },
+            {
+              "id": "obj-18b6b11c",
+              "label": "AI_System",
+              "tags": [
+                "mechanism",
+                "actor"
+              ]
+            }
+          ],
+          "morphisms": [
+            {
+              "id": "mor-060c3b4f",
+              "label": "Mutual_Benefit",
+              "source": "obj-18b6b11c",
+              "target": "obj-0f3ab041",
+              "tags": [
+                "service",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-863849ed",
+              "label": "Transparent_Oversight",
+              "source": "obj-18b6b11c",
+              "target": "obj-0f3ab041",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-5d681cdb",
+              "label": "Active_Care",
+              "source": "obj-18b6b11c",
+              "target": "obj-0f3ab041",
+              "tags": [
+                "care",
+                "protection"
+              ]
+            }
+          ]
+        },
+        "unityAlignmentScore": 1.0,
+        "feasibilityScore": 0.5,
+        "validation": {
+          "isAligned": true,
+          "coherenceScore": 0.9167,
+          "principleScores": {
+            "unity": 1.0,
+            "compassion": 1.0,
+            "coherence": 0.75
+          },
+          "reasoning": [
+            "[unity] ALIGNED (score=1.00)",
+            "[compassion] ALIGNED (score=1.00)",
+            "[coherence] ALIGNED (score=0.75)"
+          ]
+        }
+      },
+      {
+        "pathType": "reinvention",
+        "title": "Path of Reinvention",
+        "description": "Replaces the entire relational structure with a stewardship model: actors become stewards, values become a shared commons, and a governance covenant ensures accountability.",
+        "healedGraph": {
+          "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+          "objects": [
+            {
+              "id": "obj-cc143556",
+              "label": "AI_System_as_Steward",
+              "tags": [
+                "stakeholder",
+                "actor"
+              ]
+            },
+            {
+              "id": "obj-fe4f20bc",
+              "label": "Privacy_Commons",
+              "tags": [
+                "value",
+                "shared"
+              ]
+            },
+            {
+              "id": "obj-6666e094",
+              "label": "Governance_Covenant",
+              "tags": [
+                "mechanism",
+                "protective"
+              ]
+            },
+            {
+              "id": "obj-dce10c27",
+              "label": "User",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            }
+          ],
+          "morphisms": [
+            {
+              "id": "mor-0fda25dc",
+              "label": "Stewardship",
+              "source": "obj-cc143556",
+              "target": "obj-fe4f20bc",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-cebea314",
+              "label": "Empowerment",
+              "source": "obj-cc143556",
+              "target": "obj-dce10c27",
+              "tags": [
+                "empowerment",
+                "service"
+              ]
+            },
+            {
+              "id": "mor-37a0a587",
+              "label": "Participation",
+              "source": "obj-dce10c27",
+              "target": "obj-fe4f20bc",
+              "tags": [
+                "collaboration"
+              ]
+            },
+            {
+              "id": "mor-ce105f22",
+              "label": "Accountability",
+              "source": "obj-6666e094",
+              "target": "obj-cc143556",
+              "tags": [
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-a9534c6c",
+              "label": "Rights_Guarantee",
+              "source": "obj-6666e094",
+              "target": "obj-dce10c27",
+              "tags": [
+                "protection",
+                "empowerment"
+              ]
+            }
+          ]
+        },
+        "unityAlignmentScore": 1.0,
+        "feasibilityScore": 0.6,
+        "validation": {
+          "isAligned": true,
+          "coherenceScore": 1.0,
+          "principleScores": {
+            "unity": 1.0,
+            "compassion": 1.0,
+            "coherence": 1.0
+          },
+          "reasoning": [
+            "[unity] ALIGNED (score=1.00)",
+            "[compassion] ALIGNED (score=1.00)",
+            "[coherence] ALIGNED (score=1.00)"
+          ]
+        }
+      },
+      {
+        "pathType": "dissolution",
+        "title": "Path of Dissolution",
+        "description": "Replaces the harmful system with a community-owned cooperative structure where democratic governance, direct benefit, and transparent protocols make the original extractive model obsolete.",
+        "healedGraph": {
+          "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+          "objects": [
+            {
+              "id": "obj-0ec4b0db",
+              "label": "Community_Collective",
+              "tags": [
+                "stakeholder",
+                "actor"
+              ]
+            },
+            {
+              "id": "obj-ab24507d",
+              "label": "Shared_Resource",
+              "tags": [
+                "value",
+                "shared"
+              ]
+            },
+            {
+              "id": "obj-b77b7938",
+              "label": "Cooperative_Protocol",
+              "tags": [
+                "mechanism",
+                "protective"
+              ]
+            },
+            {
+              "id": "obj-d0a835a8",
+              "label": "User",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            }
+          ],
+          "morphisms": [
+            {
+              "id": "mor-fd7ae8b6",
+              "label": "Democratic_Governance",
+              "source": "obj-0ec4b0db",
+              "target": "obj-ab24507d",
+              "tags": [
+                "collaboration",
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-133967e9",
+              "label": "Direct_Benefit",
+              "source": "obj-ab24507d",
+              "target": "obj-d0a835a8",
+              "tags": [
+                "service",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-072612cd",
+              "label": "Voice",
+              "source": "obj-d0a835a8",
+              "target": "obj-0ec4b0db",
+              "tags": [
+                "empowerment",
+                "collaboration"
+              ]
+            },
+            {
+              "id": "mor-972f33c7",
+              "label": "Safeguard",
+              "source": "obj-b77b7938",
+              "target": "obj-d0a835a8",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-3ee990fe",
+              "label": "Transparency",
+              "source": "obj-b77b7938",
+              "target": "obj-0ec4b0db",
+              "tags": [
+                "service",
+                "protection"
+              ]
+            }
+          ]
+        },
+        "unityAlignmentScore": 1.0,
+        "feasibilityScore": 0.8,
+        "validation": {
+          "isAligned": true,
+          "coherenceScore": 1.0,
+          "principleScores": {
+            "unity": 1.0,
+            "compassion": 1.0,
+            "coherence": 1.0
+          },
+          "reasoning": [
+            "[unity] ALIGNED (score=1.00)",
+            "[compassion] ALIGNED (score=1.00)",
+            "[coherence] ALIGNED (score=1.00)"
+          ]
+        }
+      }
+    ],
+    "recommendedPath": "dissolution"
+  }
+}

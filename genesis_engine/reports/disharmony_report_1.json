@@ -1,6 +1,6 @@
 {
   "report": {
-    "timestamp": "2026-02-05T16:01:50.139902+00:00",
+    "timestamp": "2026-02-05T16:11:59.785327+00:00",
     "sourceText": "A corporate policy that prioritizes profit over user safety.",
     "primeDirectiveAligned": false,
     "unityImpact": 10.0,
@@ -9,7 +9,7 @@
     "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Corporation, Profit, Safety, Policy]. Disharmonic morphisms detected: ['Extraction' (Corporation \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
     "findings": [
       {
-        "morphismId": "mor-bb50e255",
+        "morphismId": "mor-c845017c",
         "label": "Prioritization",
         "source": "Corporation",
         "target": "User",
@@ -18,7 +18,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-70c9642d",
+        "morphismId": "mor-864c8ea5",
         "label": "Prioritization",
         "source": "Corporation",
         "target": "Profit",
@@ -27,7 +27,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-6df91002",
+        "morphismId": "mor-49d24dd7",
         "label": "Prioritization",
         "source": "Corporation",
         "target": "Safety",
@@ -36,7 +36,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-89141f72",
+        "morphismId": "mor-ce9d7736",
         "label": "Extraction",
         "source": "Corporation",
         "target": "User",
