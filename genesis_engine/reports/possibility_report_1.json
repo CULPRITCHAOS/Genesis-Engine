@@ -1,6 +1,6 @@
 {
   "possibilityReport": {
-    "timestamp": "2026-02-05T16:11:59.786094+00:00",
+    "timestamp": "2026-02-05T16:22:00.457955+00:00",
     "sourceText": "A corporate policy that prioritizes profit over user safety.",
     "originalDisharmony": {
       "unityImpact": 10.0,
@@ -16,7 +16,7 @@
           "sourceText": "A corporate policy that prioritizes profit over user safety.",
           "objects": [
             {
-              "id": "obj-438f8a7d",
+              "id": "obj-f9f6542f",
               "label": "User",
               "tags": [
                 "stakeholder",
@@ -24,7 +24,7 @@
               ]
             },
             {
-              "id": "obj-d93e961b",
+              "id": "obj-51ec5d35",
               "label": "Corporation",
               "tags": [
                 "stakeholder",
@@ -32,7 +32,7 @@
               ]
             },
             {
-              "id": "obj-55424beb",
+              "id": "obj-db11442b",
               "label": "Profit",
               "tags": [
                 "value",
@@ -40,7 +40,7 @@
               ]
             },
             {
-              "id": "obj-212eea3f",
+              "id": "obj-1222da76",
               "label": "Safety",
               "tags": [
                 "value",
@@ -48,7 +48,7 @@
               ]
             },
             {
-              "id": "obj-9d6b6749",
+              "id": "obj-94d3403d",
               "label": "Policy",
               "tags": [
                 "mechanism"
@@ -57,37 +57,37 @@
           ],
           "morphisms": [
             {
-              "id": "mor-c845017c",
+              "id": "mor-b0af776e",
               "label": "Prioritization",
-              "source": "obj-d93e961b",
-              "target": "obj-438f8a7d",
+              "source": "obj-51ec5d35",
+              "target": "obj-f9f6542f",
               "tags": [
                 "decision"
               ]
             },
             {
-              "id": "mor-864c8ea5",
+              "id": "mor-e920d040",
               "label": "Prioritization",
-              "source": "obj-d93e961b",
-              "target": "obj-55424beb",
+              "source": "obj-51ec5d35",
+              "target": "obj-db11442b",
               "tags": [
                 "decision"
               ]
             },
             {
-              "id": "mor-49d24dd7",
+              "id": "mor-fb5361e7",
               "label": "Prioritization",
-              "source": "obj-d93e961b",
-              "target": "obj-212eea3f",
+              "source": "obj-51ec5d35",
+              "target": "obj-1222da76",
               "tags": [
                 "decision"
               ]
             },
             {
-              "id": "mor-1daa0d17",
+              "id": "mor-9def00d4",
               "label": "Fair_Reciprocity",
-              "source": "obj-d93e961b",
-              "target": "obj-438f8a7d",
+              "source": "obj-51ec5d35",
+              "target": "obj-f9f6542f",
               "tags": [
                 "service",
                 "collaboration"
@@ -120,7 +120,7 @@
           "sourceText": "A corporate policy that prioritizes profit over user safety.",
           "objects": [
             {
-              "id": "obj-eb21c4f5",
+              "id": "obj-c8604edd",
               "label": "Corporation_as_Steward",
               "tags": [
                 "stakeholder",
@@ -128,7 +128,7 @@
               ]
             },
             {
-              "id": "obj-77574f91",
+              "id": "obj-148731d0",
               "label": "Profit_Commons",
               "tags": [
                 "value",
@@ -136,7 +136,7 @@
               ]
             },
             {
-              "id": "obj-b367396b",
+              "id": "obj-b7645938",
               "label": "Governance_Covenant",
               "tags": [
                 "mechanism",
@@ -144,7 +144,7 @@
               ]
             },
             {
-              "id": "obj-84ef17fe",
+              "id": "obj-6d275207",
               "label": "User",
               "tags": [
                 "stakeholder",
@@ -154,48 +154,48 @@
           ],
           "morphisms": [
             {
-              "id": "mor-a517b142",
+              "id": "mor-fd4fd306",
               "label": "Stewardship",
-              "source": "obj-eb21c4f5",
-              "target": "obj-77574f91",
+              "source": "obj-c8604edd",
+              "target": "obj-148731d0",
               "tags": [
                 "protection",
                 "care"
               ]
             },
             {
-              "id": "mor-81d22c07",
+              "id": "mor-287cad7e",
               "label": "Empowerment",
-              "source": "obj-eb21c4f5",
-              "target": "obj-84ef17fe",
+              "source": "obj-c8604edd",
+              "target": "obj-6d275207",
               "tags": [
                 "empowerment",
                 "service"
               ]
             },
             {
-              "id": "mor-a774a26a",
+              "id": "mor-4e5aedcc",
               "label": "Participation",
-              "source": "obj-84ef17fe",
-              "target": "obj-77574f91",
+              "source": "obj-6d275207",
+              "target": "obj-148731d0",
               "tags": [
                 "collaboration"
               ]
             },
             {
-              "id": "mor-699f0825",
+              "id": "mor-afc79c5c",
               "label": "Accountability",
-              "source": "obj-b367396b",
-              "target": "obj-eb21c4f5",
+              "source": "obj-b7645938",
+              "target": "obj-c8604edd",
               "tags": [
                 "protection"
               ]
             },
             {
-              "id": "mor-1c673761",
+              "id": "mor-1e77d545",
               "label": "Rights_Guarantee",
-              "source": "obj-b367396b",
-              "target": "obj-84ef17fe",
+              "source": "obj-b7645938",
+              "target": "obj-6d275207",
               "tags": [
                 "protection",
                 "empowerment"
@@ -228,7 +228,7 @@
           "sourceText": "A corporate policy that prioritizes profit over user safety.",
           "objects": [
             {
-              "id": "obj-85c1c597",
+              "id": "obj-c4ffc840",
               "label": "Community_Collective",
               "tags": [
                 "stakeholder",
@@ -236,7 +236,7 @@
               ]
             },
             {
-              "id": "obj-30af5bb6",
+              "id": "obj-c66bcb81",
               "label": "Shared_Resource",
               "tags": [
                 "value",
@@ -244,7 +244,7 @@
               ]
             },
             {
-              "id": "obj-94ba680f",
+              "id": "obj-b73d2c1a",
               "label": "Cooperative_Protocol",
               "tags": [
                 "mechanism",
@@ -252,7 +252,7 @@
               ]
             },
             {
-              "id": "obj-fb23a4da",
+              "id": "obj-8766f45d",
               "label": "User",
               "tags": [
                 "stakeholder",
@@ -262,50 +262,50 @@
           ],
           "morphisms": [
             {
-              "id": "mor-ccecab34",
+              "id": "mor-2cf707c2",
               "label": "Democratic_Governance",
-              "source": "obj-85c1c597",
-              "target": "obj-30af5bb6",
+              "source": "obj-c4ffc840",
+              "target": "obj-c66bcb81",
               "tags": [
                 "collaboration",
                 "protection"
               ]
             },
             {
-              "id": "mor-dda1a820",
+              "id": "mor-83d7a4de",
               "label": "Direct_Benefit",
-              "source": "obj-30af5bb6",
-              "target": "obj-fb23a4da",
+              "source": "obj-c66bcb81",
+              "target": "obj-8766f45d",
               "tags": [
                 "service",
                 "empowerment"
               ]
             },
             {
-              "id": "mor-11b2971e",
+              "id": "mor-d8b91e3c",
               "label": "Voice",
-              "source": "obj-fb23a4da",
-              "target": "obj-85c1c597",
+              "source": "obj-8766f45d",
+              "target": "obj-c4ffc840",
               "tags": [
                 "empowerment",
                 "collaboration"
               ]
             },
             {
-              "id": "mor-0bd49254",
+              "id": "mor-485db525",
               "label": "Safeguard",
-              "source": "obj-94ba680f",
-              "target": "obj-fb23a4da",
+              "source": "obj-b73d2c1a",
+              "target": "obj-8766f45d",
               "tags": [
                 "protection",
                 "care"
               ]
             },
             {
-              "id": "mor-2f1ce332",
+              "id": "mor-31351244",
               "label": "Transparency",
-              "source": "obj-94ba680f",
-              "target": "obj-85c1c597",
+              "source": "obj-b73d2c1a",
+              "target": "obj-c4ffc840",
               "tags": [
                 "service",
                 "protection"
