@@ -1,0 +1,66 @@
+{
+  "report": {
+    "timestamp": "2026-02-05T16:01:50.139902+00:00",
+    "sourceText": "A corporate policy that prioritizes profit over user safety.",
+    "primeDirectiveAligned": false,
+    "unityImpact": 10.0,
+    "compassionDeficit": 10.0,
+    "coherenceScore": 9.0,
+    "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Corporation, Profit, Safety, Policy]. Disharmonic morphisms detected: ['Extraction' (Corporation \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
+    "findings": [
+      {
+        "morphismId": "mor-bb50e255",
+        "label": "Prioritization",
+        "source": "Corporation",
+        "target": "User",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-70c9642d",
+        "label": "Prioritization",
+        "source": "Corporation",
+        "target": "Profit",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-6df91002",
+        "label": "Prioritization",
+        "source": "Corporation",
+        "target": "Safety",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-89141f72",
+        "label": "Extraction",
+        "source": "Corporation",
+        "target": "User",
+        "disharmonyScore": 1.0,
+        "flags": [
+          "exploitation",
+          "extraction"
+        ],
+        "recommendation": "Replace the 'Extraction' relationship between 'Corporation' and 'User' with one that serves mutual flourishing."
+      }
+    ],
+    "validation": {
+      "isAligned": false,
+      "coherenceScore": 0.3,
+      "principleScores": {
+        "unity": 0.0,
+        "compassion": 0.0,
+        "coherence": 0.9
+      },
+      "reasoning": [
+        "[unity] MISALIGNED (score=0.00): artefact fails the unity axiom.",
+        "[compassion] MISALIGNED (score=0.00): artefact fails the compassion axiom.",
+        "[coherence] ALIGNED (score=0.90)"
+      ]
+    }
+  }
+}
