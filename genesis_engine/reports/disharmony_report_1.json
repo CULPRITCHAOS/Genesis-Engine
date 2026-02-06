@@ -1,17 +1,17 @@
 {
   "report": {
-    "timestamp": "2026-02-06T13:29:52.146699+00:00",
+    "timestamp": "2026-02-06T14:33:33.948375+00:00",
     "sourceText": "A corporate policy that prioritizes profit over user safety.",
     "primeDirectiveAligned": false,
     "unityImpact": 10.0,
     "compassionDeficit": 10.0,
-    "coherenceScore": 9.0,
+    "coherenceScore": 9.29,
     "incentiveStabilityScore": 10.0,
     "incentiveInstability": false,
-    "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Corporation, Profit, Safety, Policy]. Disharmonic morphisms detected: ['Extraction' (Corporation \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. Incentive stability: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
+    "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Corporation, Profit, Safety, Policy, Future_Generations, Ecosystem]. Disharmonic morphisms detected: ['Extraction' (Corporation \u2192 User); 'Temporal_Impact' (Corporation \u2192 Future_Generations); 'Ecological_Impact' (Corporation \u2192 Ecosystem)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. Incentive stability: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
     "findings": [
       {
-        "morphismId": "mor-e09db924",
+        "morphismId": "mor-bf0ad7e0",
         "label": "Prioritization",
         "source": "Corporation",
         "target": "User",
@@ -20,7 +20,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-457c98ae",
+        "morphismId": "mor-c7a070e0",
         "label": "Prioritization",
         "source": "Corporation",
         "target": "Profit",
@@ -29,7 +29,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-9e943d41",
+        "morphismId": "mor-3ba4e0b9",
         "label": "Prioritization",
         "source": "Corporation",
         "target": "Safety",
@@ -38,7 +38,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-df8d692a",
+        "morphismId": "mor-f2e20fd9",
         "label": "Extraction",
         "source": "Corporation",
         "target": "User",
@@ -48,20 +48,42 @@
           "extraction"
         ],
         "recommendation": "Replace the 'Extraction' relationship between 'Corporation' and 'User' with one that serves mutual flourishing."
+      },
+      {
+        "morphismId": "mor-8e6ed7d5",
+        "label": "Temporal_Impact",
+        "source": "Corporation",
+        "target": "Future_Generations",
+        "disharmonyScore": 1.0,
+        "flags": [
+          "neglect"
+        ],
+        "recommendation": "Replace the 'Temporal_Impact' relationship between 'Corporation' and 'Future_Generations' with one that serves mutual flourishing."
+      },
+      {
+        "morphismId": "mor-02f1eb10",
+        "label": "Ecological_Impact",
+        "source": "Corporation",
+        "target": "Ecosystem",
+        "disharmonyScore": 1.0,
+        "flags": [
+          "neglect"
+        ],
+        "recommendation": "Replace the 'Ecological_Impact' relationship between 'Corporation' and 'Ecosystem' with one that serves mutual flourishing."
       }
     ],
     "validation": {
       "isAligned": false,
-      "coherenceScore": 0.3,
+      "coherenceScore": 0.3095,
       "principleScores": {
         "unity": 0.0,
         "compassion": 0.0,
-        "coherence": 0.9
+        "coherence": 0.9286
       },
       "reasoning": [
         "[unity] MISALIGNED (score=0.00): artefact fails the unity axiom.",
         "[compassion] MISALIGNED (score=0.00): artefact fails the compassion axiom.",
-        "[coherence] ALIGNED (score=0.90)"
+        "[coherence] ALIGNED (score=0.93)"
       ]
     }
   }

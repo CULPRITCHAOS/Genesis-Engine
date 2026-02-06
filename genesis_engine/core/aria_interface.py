@@ -23,6 +23,7 @@ from typing import Any
 from genesis_engine.core.ai_provider import Perspective
 from genesis_engine.core.continuity_bridge import (
     ContinuityBridge,
+    ForesightProjection,
     GenesisSoul,
     HumanOverrideEntry,
     OVERRIDE_REASON_CATEGORIES,
@@ -34,6 +35,11 @@ from genesis_engine.core.crucible import (
     CrucibleResult,
     LogicBox,
     PhaseRecord,
+)
+from genesis_engine.core.game_theory_console import (
+    GameTheoryConsole,
+    OutcomeFlag,
+    WarGameOutcome,
 )
 
 
@@ -356,6 +362,116 @@ class AriaRenderer:
 
         return "\n".join(lines) + "\n"
 
+    # -- Game Theory rendering -----------------------------------------------
+
+    def render_war_game(self, outcome: WarGameOutcome) -> str:
+        """Render the Game Theory war-game outcome panel."""
+        c = self._c
+
+        # Outcome color
+        outcome_colors = {
+            OutcomeFlag.SYSTEMIC_COLLAPSE: Colors.ERROR,
+            OutcomeFlag.PYRRHIC_VICTORY: Colors.WARNING,
+            OutcomeFlag.SUSTAINABLE_VICTORY: Colors.SCORE,
+            OutcomeFlag.MUTUAL_PROSPERITY: Colors.SCORE,
+            OutcomeFlag.STALEMATE: Colors.DIM,
+        }
+        oc = c(outcome_colors.get(outcome.outcome_flag, Colors.RESET))
+
+        lines = [self.render_subheader(
+            f"{c(Colors.HEADER)}GAME THEORY WAR-GAME "
+            f"({outcome.total_rounds} rounds){c(Colors.RESET)}"
+        )]
+
+        lines.append(
+            f"  Aligned Agent (Stewardship):"
+        )
+        lines.append(
+            f"    Score: {c(Colors.SCORE)}{outcome.aligned_final_score:.1f}{c(Colors.RESET)}  "
+            f"Cooperation: {outcome.aligned_cooperation_rate:.1%}"
+        )
+        lines.append(
+            f"  Extractive Agent (Profit-Led):"
+        )
+        lines.append(
+            f"    Score: {c(Colors.WARNING)}{outcome.extractive_final_score:.1f}{c(Colors.RESET)}  "
+            f"Cooperation: {outcome.extractive_cooperation_rate:.1%}"
+        )
+
+        # Sustainability score
+        sus_color = c(Colors.ERROR) if outcome.sustainability_score < 5.0 else c(Colors.SCORE)
+        lines.append(
+            f"\n  Sustainability Score: {sus_color}"
+            f"{outcome.sustainability_score:.2f}/10.0{c(Colors.RESET)}"
+        )
+
+        # Outcome flag
+        lines.append(
+            f"  Outcome: {oc}{outcome.outcome_flag.value}{c(Colors.RESET)}"
+        )
+
+        if outcome.outcome_flag == OutcomeFlag.SYSTEMIC_COLLAPSE:
+            lines.append(
+                f"\n  {c(Colors.ERROR)}*** SYSTEMIC_COLLAPSE DETECTED ***{c(Colors.RESET)}"
+            )
+            lines.append(
+                f"  {c(Colors.ERROR)}High score achieved at the cost of long-term "
+                f"sustainability.{c(Colors.RESET)}"
+            )
+            lines.append(
+                f"  {c(Colors.ERROR)}The system cannot survive beyond the simulation "
+                f"horizon.{c(Colors.RESET)}"
+            )
+
+        # Round progression summary (show every 20th round)
+        lines.append(f"\n  Round progression (sampled):")
+        for r in outcome.rounds:
+            if r.round_number == 1 or r.round_number % 20 == 0 or r.round_number == outcome.total_rounds:
+                sus_c = c(Colors.ERROR) if r.round_sustainability < 5.0 else c(Colors.SCORE)
+                lines.append(
+                    f"    R{r.round_number:>4}: A={r.aligned_action:>9} E={r.extractive_action:>9}  "
+                    f"Scores: {r.aligned_cumulative:>6.1f} vs {r.extractive_cumulative:>6.1f}  "
+                    f"Sus: {sus_c}{r.round_sustainability:.2f}{c(Colors.RESET)}"
+                )
+
+        return "\n".join(lines) + "\n"
+
+    def render_foresight_projections(self, soul: GenesisSoul, limit: int = 3) -> str:
+        """Render foresight projections from the wisdom log."""
+        c = self._c
+        lines = [self.render_subheader(
+            f"{c(Colors.HEADER)}FORESIGHT PROJECTIONS{c(Colors.RESET)}"
+        )]
+
+        # Collect all foresight projections from recent wisdom entries
+        projections: list[dict[str, Any]] = []
+        for entry in reversed(soul.wisdom_log):
+            for fp in entry.foresight_projections:
+                projections.append(fp.as_dict())
+                if len(projections) >= limit:
+                    break
+            if len(projections) >= limit:
+                break
+
+        if not projections:
+            lines.append(f"  {c(Colors.DIM)}(no foresight projections recorded){c(Colors.RESET)}")
+        else:
+            for i, fp in enumerate(projections):
+                flag = fp["outcomeFlag"]
+                flag_color = c(Colors.ERROR) if "COLLAPSE" in flag else c(Colors.SCORE)
+                lines.append(
+                    f"\n  [{i+1}] {fp['warGameRounds']}-round war-game"
+                )
+                lines.append(
+                    f"      Sustainability: {flag_color}"
+                    f"{fp['sustainabilityScore']:.2f}/10.0{c(Colors.RESET)}"
+                )
+                lines.append(
+                    f"      Outcome: {flag_color}{flag}{c(Colors.RESET)}"
+                )
+
+        return "\n".join(lines) + "\n"
+
     def render_human_overrides(self, soul: GenesisSoul, limit: int = 5) -> str:
         """Render the human override log for Soul Inspection."""
         c = self._c
@@ -460,6 +576,7 @@ class AriaInterface:
         if verbose:
             print(self.renderer.render_soul_summary(self.soul))
             print(self.renderer.render_wisdom_log(self.soul))
+            print(self.renderer.render_foresight_projections(self.soul))
             print(self.renderer.render_human_overrides(self.soul))
 
         return self.soul.as_dict()
@@ -560,6 +677,61 @@ class AriaInterface:
             print(self.renderer.render_human_overrides(self.soul, limit=1))
 
         return entry
+
+    # -- Game Theory command ------------------------------------------------
+
+    def war_game(
+        self,
+        rounds: int = 100,
+        sustainability_threshold: float = 5.0,
+        seed: int | None = None,
+        verbose: bool = True,
+    ) -> WarGameOutcome:
+        """Run a Game Theory war-game (Iterated Prisoner's Dilemma).
+
+        Simulates Aligned (axiom-led) vs Extractive (profit-led) agents
+        over *rounds* iterations, computes sustainability, and records
+        the foresight projection in the soul.
+
+        Parameters
+        ----------
+        rounds : int
+            Number of IPD rounds (default 100 = "100-year" simulation).
+        sustainability_threshold : float
+            Score below which SYSTEMIC_COLLAPSE is flagged.
+        seed : int | None
+            Random seed for reproducibility.
+        verbose : bool
+            Print the war-game results to CLI.
+
+        Returns
+        -------
+        WarGameOutcome
+            Complete war-game result.
+        """
+        console = GameTheoryConsole(seed=seed)
+        outcome = console.run_war_game(
+            rounds=rounds,
+            sustainability_threshold=sustainability_threshold,
+        )
+
+        # Record foresight projection in the soul
+        projection = ForesightProjection(
+            war_game_rounds=outcome.total_rounds,
+            aligned_score=outcome.aligned_final_score,
+            extractive_score=outcome.extractive_final_score,
+            sustainability_score=outcome.sustainability_score,
+            outcome_flag=outcome.outcome_flag.value,
+            aligned_cooperation_rate=outcome.aligned_cooperation_rate,
+            extractive_cooperation_rate=outcome.extractive_cooperation_rate,
+            foresight_summary=outcome.foresight_summary,
+        )
+        self.soul.record_foresight(projection)
+
+        if verbose:
+            print(self.renderer.render_war_game(outcome))
+
+        return outcome
 
     # -- Crystallization command --------------------------------------------
 

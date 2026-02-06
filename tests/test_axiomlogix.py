@@ -89,7 +89,9 @@ class TestAxiomLogixTranslator:
         t = AxiomLogixTranslator()
         graph = t.translate("")
         assert isinstance(graph, CategoricalGraph)
-        assert len(graph.objects) == 0
+        # Shadow entities (Future_Generations, Ecosystem) are always inferred
+        explicit_objects = [o for o in graph.objects if "shadow_entity" not in o.tags]
+        assert len(explicit_objects) == 0
 
     def test_source_text_preserved(self):
         t = AxiomLogixTranslator()

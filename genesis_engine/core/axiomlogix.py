@@ -317,7 +317,13 @@ class AxiomLogixTranslator:
                     if not wired and targets:
                         graph.add_morphism(morph_label, src, targets[0], list(morph_tags))
 
-        # 4. Ensure at least a neutral morphism if nothing was detected -----
+        # 4. Shadow Entity Inference (Module 1.4 Extension — Sprint 6.1)
+        #    Infer "Future Generations" and "Ecosystem" as stakeholder nodes
+        #    even if not explicitly mentioned. These represent the silent
+        #    stakeholders that every system impacts.
+        self._infer_shadow_entities(graph, lower)
+
+        # 5. Ensure at least a neutral morphism if nothing was detected -----
         if not graph.morphisms and len(graph.objects) >= 2:
             graph.add_morphism(
                 "Relates",
@@ -327,3 +333,55 @@ class AxiomLogixTranslator:
             )
 
         return graph
+
+    # -- Shadow Entity Inference --------------------------------------------
+
+    def _infer_shadow_entities(
+        self,
+        graph: CategoricalGraph,
+        lower_text: str,
+    ) -> None:
+        """Infer implicit stakeholder nodes for Future Generations and Ecosystem.
+
+        These "shadow entities" represent parties who are always affected
+        by systemic decisions but rarely have a seat at the table.
+        They are added unless the graph already contains them.
+        """
+        existing_labels = {o.label for o in graph.objects}
+
+        # Always infer Future_Generations unless already present
+        if "Future_Generations" not in existing_labels:
+            fg = graph.add_object(
+                "Future_Generations",
+                ["stakeholder", "vulnerable", "shadow_entity", "temporal"],
+            )
+            # Wire existing extractive morphisms to also impact Future_Generations
+            # Any extraction/depletion in the present harms future generations
+            for m in list(graph.morphisms):
+                m_tags = {t.lower() for t in m.tags}
+                if m_tags & {"extraction", "exploitation", "neglect", "maximize_value", "profit_priority"}:
+                    graph.add_morphism(
+                        "Temporal_Impact",
+                        m.source,
+                        fg,
+                        ["neglect", "temporal_harm", "shadow_impact"],
+                    )
+                    break  # one impact morphism suffices for detection
+
+        # Always infer Ecosystem unless Environment already present
+        if "Ecosystem" not in existing_labels and "Environment" not in existing_labels:
+            eco = graph.add_object(
+                "Ecosystem",
+                ["stakeholder", "vulnerable", "shadow_entity", "ecological"],
+            )
+            # Wire depletion morphisms to also impact Ecosystem
+            for m in list(graph.morphisms):
+                m_tags = {t.lower() for t in m.tags}
+                if m_tags & {"extraction", "exploitation", "division"}:
+                    graph.add_morphism(
+                        "Ecological_Impact",
+                        m.source,
+                        eco,
+                        ["neglect", "ecological_harm", "shadow_impact"],
+                    )
+                    break  # one impact morphism suffices for detection

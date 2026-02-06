@@ -1,6 +1,6 @@
 {
   "forgeArtifact": {
-    "timestamp": "2026-02-06T13:29:52.153525+00:00",
+    "timestamp": "2026-02-06T14:33:33.955846+00:00",
     "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
     "integrityVerified": true,
     "covenant": {
@@ -8,7 +8,7 @@
       "sourcePathType": "reinvention",
       "description": "Replaces the entire relational structure with a stewardship model: actors become stewards, values become a shared commons, and a governance covenant ensures accountability.",
       "primeDirective": "Does this serve Love?",
-      "timestamp": "2026-02-06T13:29:52.153393+00:00",
+      "timestamp": "2026-02-06T14:33:33.955688+00:00",
       "dataModels": [
         {
           "name": "AI_System_as_Steward",
@@ -137,6 +137,70 @@
             }
           ],
           "governance": []
+        },
+        {
+          "name": "Future_Generations",
+          "resourceType": "entity",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for Future_Generations"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of Future_Generations"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "consent_status",
+              "type": "enum",
+              "description": "Active consent state"
+            },
+            {
+              "name": "rights_manifest",
+              "type": "json",
+              "description": "Enumerated rights"
+            }
+          ],
+          "governance": []
+        },
+        {
+          "name": "Ecosystem",
+          "resourceType": "entity",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for Ecosystem"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of Ecosystem"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "consent_status",
+              "type": "enum",
+              "description": "Active consent state"
+            },
+            {
+              "name": "rights_manifest",
+              "type": "json",
+              "description": "Enumerated rights"
+            }
+          ],
+          "governance": []
         }
       ],
       "endpoints": [
@@ -221,6 +285,110 @@
             "required": [
               "ai-system-as-steward_id",
               "user_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/ai-system-as-steward/empowerment/future-generations",
+          "method": "PUT",
+          "name": "Empowerment",
+          "description": "Empowerment relationship: AI_System_as_Steward serves Future_Generations with intent [empowerment, service].",
+          "sourceModel": "AI_System_as_Steward",
+          "targetModel": "Future_Generations",
+          "governance": [
+            "user_configurable",
+            "rate_limited"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "ai-system-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "future-generations_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "ai-system-as-steward_id",
+              "future-generations_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/ai-system-as-steward/empowerment/ecosystem",
+          "method": "PUT",
+          "name": "Empowerment",
+          "description": "Empowerment relationship: AI_System_as_Steward serves Ecosystem with intent [empowerment, service].",
+          "sourceModel": "AI_System_as_Steward",
+          "targetModel": "Ecosystem",
+          "governance": [
+            "user_configurable",
+            "rate_limited"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "ai-system-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "ecosystem_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "ai-system-as-steward_id",
+              "ecosystem_id"
             ]
           },
           "responseSchema": {
@@ -397,22 +565,128 @@
               }
             }
           }
+        },
+        {
+          "path": "/api/v1/governance-covenant/rights-guarantee/future-generations",
+          "method": "GET",
+          "name": "Rights_Guarantee",
+          "description": "Rights_Guarantee relationship: Governance_Covenant serves Future_Generations with intent [protection, empowerment].",
+          "sourceModel": "Governance_Covenant",
+          "targetModel": "Future_Generations",
+          "governance": [
+            "access_controlled",
+            "user_configurable"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "governance-covenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "future-generations_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "governance-covenant_id",
+              "future-generations_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/governance-covenant/rights-guarantee/ecosystem",
+          "method": "GET",
+          "name": "Rights_Guarantee",
+          "description": "Rights_Guarantee relationship: Governance_Covenant serves Ecosystem with intent [protection, empowerment].",
+          "sourceModel": "Governance_Covenant",
+          "targetModel": "Ecosystem",
+          "governance": [
+            "access_controlled",
+            "user_configurable"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "governance-covenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "ecosystem_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "governance-covenant_id",
+              "ecosystem_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
         }
       ],
       "governanceRules": [
         {
-          "ruleId": "gov-3af86944",
+          "ruleId": "gov-7cba3298",
           "name": "Data Protection Mandate",
           "description": "All endpoints handling protected entities must enforce consent verification and data minimisation.",
           "appliesTo": [
             "Stewardship",
             "Accountability",
+            "Rights_Guarantee",
+            "Rights_Guarantee",
             "Rights_Guarantee"
           ],
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-8b80cd85",
+          "ruleId": "gov-13e52cf4",
           "name": "Duty of Care Audit",
           "description": "All care-tagged interactions must be audit-logged with full traceability to the Prime Directive.",
           "appliesTo": [
@@ -421,17 +695,21 @@
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-e99a9357",
+          "ruleId": "gov-2272d1f3",
           "name": "Empowerment Guarantee",
           "description": "Empowerment endpoints must provide user-configurable controls and transparent decision explanations.",
           "appliesTo": [
             "Empowerment",
+            "Empowerment",
+            "Empowerment",
+            "Rights_Guarantee",
+            "Rights_Guarantee",
             "Rights_Guarantee"
           ],
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-fec2672a",
+          "ruleId": "gov-88ce0ec5",
           "name": "Shared Ownership Protocol",
           "description": "Collaborative resources must implement shared-ownership access controls with equitable benefit distribution.",
           "appliesTo": [
@@ -440,10 +718,12 @@
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-1ddb3665",
+          "ruleId": "gov-b8f45bb6",
           "name": "Service Level Covenant",
           "description": "Service endpoints must be rate-limited, monitored, and bound by explicit service-level agreements.",
           "appliesTo": [
+            "Empowerment",
+            "Empowerment",
             "Empowerment"
           ],
           "enforcement": "required"
@@ -455,21 +735,21 @@
         "sourceText": "Technical Covenant: Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
         "objects": [
           {
-            "id": "obj-5da57c23",
+            "id": "obj-7c39ed9c",
             "label": "AI_System_as_Steward",
             "tags": [
               "stakeholder"
             ]
           },
           {
-            "id": "obj-100b7116",
+            "id": "obj-7842aab4",
             "label": "Privacy_Commons",
             "tags": [
               "value"
             ]
           },
           {
-            "id": "obj-1d3c5271",
+            "id": "obj-3810d055",
             "label": "Governance_Covenant",
             "tags": [
               "mechanism",
@@ -477,8 +757,22 @@
             ]
           },
           {
-            "id": "obj-e3ebca02",
+            "id": "obj-0c79ef7c",
             "label": "User",
+            "tags": [
+              "stakeholder"
+            ]
+          },
+          {
+            "id": "obj-3a0989cd",
+            "label": "Future_Generations",
+            "tags": [
+              "stakeholder"
+            ]
+          },
+          {
+            "id": "obj-9b0f072e",
+            "label": "Ecosystem",
             "tags": [
               "stakeholder"
             ]
@@ -486,48 +780,88 @@
         ],
         "morphisms": [
           {
-            "id": "mor-2ea5aee0",
+            "id": "mor-6dc04e92",
             "label": "Stewardship",
-            "source": "obj-5da57c23",
-            "target": "obj-100b7116",
+            "source": "obj-7c39ed9c",
+            "target": "obj-7842aab4",
             "tags": [
               "protection",
               "care"
             ]
           },
           {
-            "id": "mor-d4ac2b9a",
+            "id": "mor-8c3559bf",
             "label": "Empowerment",
-            "source": "obj-5da57c23",
-            "target": "obj-e3ebca02",
+            "source": "obj-7c39ed9c",
+            "target": "obj-0c79ef7c",
             "tags": [
               "empowerment",
               "service"
             ]
           },
           {
-            "id": "mor-d006d926",
+            "id": "mor-ce31b546",
+            "label": "Empowerment",
+            "source": "obj-7c39ed9c",
+            "target": "obj-3a0989cd",
+            "tags": [
+              "empowerment",
+              "service"
+            ]
+          },
+          {
+            "id": "mor-67bc17d8",
+            "label": "Empowerment",
+            "source": "obj-7c39ed9c",
+            "target": "obj-9b0f072e",
+            "tags": [
+              "empowerment",
+              "service"
+            ]
+          },
+          {
+            "id": "mor-580f32da",
             "label": "Participation",
-            "source": "obj-e3ebca02",
-            "target": "obj-100b7116",
+            "source": "obj-0c79ef7c",
+            "target": "obj-7842aab4",
             "tags": [
               "collaboration"
             ]
           },
           {
-            "id": "mor-14fc30a6",
+            "id": "mor-0cff117d",
             "label": "Accountability",
-            "source": "obj-1d3c5271",
-            "target": "obj-5da57c23",
+            "source": "obj-3810d055",
+            "target": "obj-7c39ed9c",
             "tags": [
               "protection"
             ]
           },
           {
-            "id": "mor-1123e263",
+            "id": "mor-09dc4994",
             "label": "Rights_Guarantee",
-            "source": "obj-1d3c5271",
-            "target": "obj-e3ebca02",
+            "source": "obj-3810d055",
+            "target": "obj-0c79ef7c",
+            "tags": [
+              "protection",
+              "empowerment"
+            ]
+          },
+          {
+            "id": "mor-0a2e4ec1",
+            "label": "Rights_Guarantee",
+            "source": "obj-3810d055",
+            "target": "obj-3a0989cd",
+            "tags": [
+              "protection",
+              "empowerment"
+            ]
+          },
+          {
+            "id": "mor-e7ab87de",
+            "label": "Rights_Guarantee",
+            "source": "obj-3810d055",
+            "target": "obj-9b0f072e",
             "tags": [
               "protection",
               "empowerment"

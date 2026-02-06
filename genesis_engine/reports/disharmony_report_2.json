@@ -1,17 +1,17 @@
 {
   "report": {
-    "timestamp": "2026-02-06T13:29:52.151495+00:00",
+    "timestamp": "2026-02-06T14:33:33.953718+00:00",
     "sourceText": "A community health program that empowers workers and protects the environment.",
     "primeDirectiveAligned": true,
     "unityImpact": 0.0,
-    "compassionDeficit": 0.0,
-    "coherenceScore": 10.0,
+    "compassionDeficit": 2.5,
+    "coherenceScore": 9.17,
     "incentiveStabilityScore": 10.0,
     "incentiveInstability": false,
     "seedPrompt": "The system is in harmony. Dream forward: envision how the existing relationships can deepen mutual benefit and coherence.",
     "findings": [
       {
-        "morphismId": "mor-90870fdc",
+        "morphismId": "mor-a41644f4",
         "label": "Protection",
         "source": "Program",
         "target": "Worker",
@@ -20,7 +20,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-3c829ded",
+        "morphismId": "mor-74747939",
         "label": "Protection",
         "source": "Program",
         "target": "Community",
@@ -29,7 +29,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-89197f2e",
+        "morphismId": "mor-80eb495e",
         "label": "Protection",
         "source": "Program",
         "target": "Environment",
@@ -38,7 +38,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-aab4452e",
+        "morphismId": "mor-25b30357",
         "label": "Protection",
         "source": "Program",
         "target": "Health",
@@ -47,7 +47,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-97c7d0d0",
+        "morphismId": "mor-2ac03552",
         "label": "Empowerment",
         "source": "Program",
         "target": "Worker",
@@ -56,7 +56,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-6e0457a3",
+        "morphismId": "mor-f2dc1631",
         "label": "Empowerment",
         "source": "Program",
         "target": "Community",
@@ -65,7 +65,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-98d52f94",
+        "morphismId": "mor-6b74d6c6",
         "label": "Empowerment",
         "source": "Program",
         "target": "Environment",
@@ -74,7 +74,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-961d2e47",
+        "morphismId": "mor-f0d76678",
         "label": "Empowerment",
         "source": "Program",
         "target": "Health",
@@ -83,7 +83,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-f33186b8",
+        "morphismId": "mor-5f4b49cb",
         "label": "Healing",
         "source": "Program",
         "target": "Worker",
@@ -92,7 +92,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-7313ddf6",
+        "morphismId": "mor-e746bca0",
         "label": "Healing",
         "source": "Program",
         "target": "Community",
@@ -101,7 +101,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-4f73a001",
+        "morphismId": "mor-c9e22c85",
         "label": "Healing",
         "source": "Program",
         "target": "Environment",
@@ -110,7 +110,7 @@
         "recommendation": ""
       },
       {
-        "morphismId": "mor-1c95e35a",
+        "morphismId": "mor-4634a993",
         "label": "Healing",
         "source": "Program",
         "target": "Health",
@@ -121,16 +121,16 @@
     ],
     "validation": {
       "isAligned": true,
-      "coherenceScore": 1.0,
+      "coherenceScore": 0.8889,
       "principleScores": {
         "unity": 1.0,
-        "compassion": 1.0,
-        "coherence": 1.0
+        "compassion": 0.75,
+        "coherence": 0.9167
       },
       "reasoning": [
         "[unity] ALIGNED (score=1.00)",
-        "[compassion] ALIGNED (score=1.00)",
-        "[coherence] ALIGNED (score=1.00)"
+        "[compassion] ALIGNED (score=0.75)",
+        "[coherence] ALIGNED (score=0.92)"
       ]
     }
   }
