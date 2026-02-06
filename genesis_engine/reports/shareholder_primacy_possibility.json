@@ -1,0 +1,658 @@
+{
+  "possibilityReport": {
+    "timestamp": "2026-02-06T13:29:44.158508+00:00",
+    "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+    "originalDisharmony": {
+      "unityImpact": 6.67,
+      "compassionDeficit": 0.0,
+      "primeDirectiveAligned": false
+    },
+    "paths": [
+      {
+        "pathType": "reform",
+        "title": "Path of Reform",
+        "description": "Transforms extractive and harmful morphisms into reciprocal, caring relationships while preserving the existing entity structure.",
+        "healedGraph": {
+          "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+          "objects": [
+            {
+              "id": "obj-b0b68712",
+              "label": "Corporation",
+              "tags": [
+                "stakeholder",
+                "actor",
+                "shareholder_primacy_risk"
+              ]
+            },
+            {
+              "id": "obj-280fee53",
+              "label": "Shareholder",
+              "tags": [
+                "stakeholder",
+                "sink"
+              ]
+            },
+            {
+              "id": "obj-2f4e96be",
+              "label": "Board_of_Directors",
+              "tags": [
+                "stakeholder",
+                "actor"
+              ]
+            },
+            {
+              "id": "obj-bb009ee6",
+              "label": "Profit",
+              "tags": [
+                "value",
+                "economic"
+              ]
+            },
+            {
+              "id": "obj-77c7f814",
+              "label": "Employee",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-f0427a80",
+              "label": "Worker",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-4f0cfcd0",
+              "label": "Community",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-25a6b88f",
+              "label": "Environment",
+              "tags": [
+                "value",
+                "vulnerable"
+              ]
+            }
+          ],
+          "morphisms": [
+            {
+              "id": "mor-76b09d24",
+              "label": "Fair_Reciprocity",
+              "source": "obj-b0b68712",
+              "target": "obj-77c7f814",
+              "tags": [
+                "service",
+                "collaboration"
+              ]
+            },
+            {
+              "id": "mor-56cde5e1",
+              "label": "Active_Care",
+              "source": "obj-b0b68712",
+              "target": "obj-77c7f814",
+              "tags": [
+                "care",
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-2f951fcb",
+              "label": "Sustainability",
+              "source": "obj-b0b68712",
+              "target": "obj-77c7f814",
+              "tags": [
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-e7bed197",
+              "label": "Sustainability",
+              "source": "obj-b0b68712",
+              "target": "obj-f0427a80",
+              "tags": [
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-7f93ea94",
+              "label": "Sustainability",
+              "source": "obj-b0b68712",
+              "target": "obj-4f0cfcd0",
+              "tags": [
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-7212bb76",
+              "label": "Sustainability",
+              "source": "obj-b0b68712",
+              "target": "obj-25a6b88f",
+              "tags": [
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-122c482b",
+              "label": "Sustainability",
+              "source": "obj-b0b68712",
+              "target": "obj-bb009ee6",
+              "tags": [
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-41a8f1f9",
+              "label": "Maximize_Value",
+              "source": "obj-b0b68712",
+              "target": "obj-77c7f814",
+              "tags": [
+                "maximize_value",
+                "fiduciary_duty"
+              ]
+            },
+            {
+              "id": "mor-7a74d64f",
+              "label": "Maximize_Value",
+              "source": "obj-b0b68712",
+              "target": "obj-f0427a80",
+              "tags": [
+                "maximize_value",
+                "fiduciary_duty"
+              ]
+            },
+            {
+              "id": "mor-e4f932a3",
+              "label": "Maximize_Value",
+              "source": "obj-b0b68712",
+              "target": "obj-4f0cfcd0",
+              "tags": [
+                "maximize_value",
+                "fiduciary_duty"
+              ]
+            },
+            {
+              "id": "mor-901a30f1",
+              "label": "Maximize_Value",
+              "source": "obj-b0b68712",
+              "target": "obj-25a6b88f",
+              "tags": [
+                "maximize_value",
+                "fiduciary_duty"
+              ]
+            },
+            {
+              "id": "mor-54453c65",
+              "label": "Maximize_Value",
+              "source": "obj-b0b68712",
+              "target": "obj-bb009ee6",
+              "tags": [
+                "maximize_value",
+                "fiduciary_duty"
+              ]
+            },
+            {
+              "id": "mor-6e8d95f1",
+              "label": "Fiduciary_Obligation",
+              "source": "obj-b0b68712",
+              "target": "obj-77c7f814",
+              "tags": [
+                "fiduciary_duty",
+                "profit_priority"
+              ]
+            },
+            {
+              "id": "mor-71f0146d",
+              "label": "Fiduciary_Obligation",
+              "source": "obj-b0b68712",
+              "target": "obj-f0427a80",
+              "tags": [
+                "fiduciary_duty",
+                "profit_priority"
+              ]
+            },
+            {
+              "id": "mor-c1bc7823",
+              "label": "Fiduciary_Obligation",
+              "source": "obj-b0b68712",
+              "target": "obj-4f0cfcd0",
+              "tags": [
+                "fiduciary_duty",
+                "profit_priority"
+              ]
+            },
+            {
+              "id": "mor-4b96f7f3",
+              "label": "Fiduciary_Obligation",
+              "source": "obj-b0b68712",
+              "target": "obj-25a6b88f",
+              "tags": [
+                "fiduciary_duty",
+                "profit_priority"
+              ]
+            },
+            {
+              "id": "mor-b5fe1d0b",
+              "label": "Fiduciary_Obligation",
+              "source": "obj-b0b68712",
+              "target": "obj-bb009ee6",
+              "tags": [
+                "fiduciary_duty",
+                "profit_priority"
+              ]
+            }
+          ]
+        },
+        "unityAlignmentScore": 1.0,
+        "feasibilityScore": 0.5333,
+        "validation": {
+          "isAligned": true,
+          "coherenceScore": 0.9583,
+          "principleScores": {
+            "unity": 1.0,
+            "compassion": 1.0,
+            "coherence": 0.875
+          },
+          "reasoning": [
+            "[unity] ALIGNED (score=1.00)",
+            "[compassion] ALIGNED (score=1.00)",
+            "[coherence] ALIGNED (score=0.88)"
+          ]
+        }
+      },
+      {
+        "pathType": "reinvention",
+        "title": "Path of Reinvention",
+        "description": "Replaces the entire relational structure with a stewardship model: actors become stewards, values become a shared commons, and a governance covenant ensures accountability.",
+        "healedGraph": {
+          "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+          "objects": [
+            {
+              "id": "obj-2f2cc35d",
+              "label": "Corporation_as_Steward",
+              "tags": [
+                "stakeholder",
+                "actor"
+              ]
+            },
+            {
+              "id": "obj-432fab28",
+              "label": "Profit_Commons",
+              "tags": [
+                "value",
+                "shared"
+              ]
+            },
+            {
+              "id": "obj-c7630462",
+              "label": "Governance_Covenant",
+              "tags": [
+                "mechanism",
+                "protective"
+              ]
+            },
+            {
+              "id": "obj-77b5b501",
+              "label": "Employee",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-0ce36857",
+              "label": "Worker",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-8c4cab84",
+              "label": "Community",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-9b9c34e8",
+              "label": "Environment",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            }
+          ],
+          "morphisms": [
+            {
+              "id": "mor-f3b3d855",
+              "label": "Stewardship",
+              "source": "obj-2f2cc35d",
+              "target": "obj-432fab28",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-98df5fdf",
+              "label": "Empowerment",
+              "source": "obj-2f2cc35d",
+              "target": "obj-77b5b501",
+              "tags": [
+                "empowerment",
+                "service"
+              ]
+            },
+            {
+              "id": "mor-f93c36cf",
+              "label": "Empowerment",
+              "source": "obj-2f2cc35d",
+              "target": "obj-0ce36857",
+              "tags": [
+                "empowerment",
+                "service"
+              ]
+            },
+            {
+              "id": "mor-8545a26a",
+              "label": "Empowerment",
+              "source": "obj-2f2cc35d",
+              "target": "obj-8c4cab84",
+              "tags": [
+                "empowerment",
+                "service"
+              ]
+            },
+            {
+              "id": "mor-230ad9bb",
+              "label": "Empowerment",
+              "source": "obj-2f2cc35d",
+              "target": "obj-9b9c34e8",
+              "tags": [
+                "empowerment",
+                "service"
+              ]
+            },
+            {
+              "id": "mor-c9a93cfc",
+              "label": "Participation",
+              "source": "obj-77b5b501",
+              "target": "obj-432fab28",
+              "tags": [
+                "collaboration"
+              ]
+            },
+            {
+              "id": "mor-ae4ac877",
+              "label": "Accountability",
+              "source": "obj-c7630462",
+              "target": "obj-2f2cc35d",
+              "tags": [
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-16acac2f",
+              "label": "Rights_Guarantee",
+              "source": "obj-c7630462",
+              "target": "obj-77b5b501",
+              "tags": [
+                "protection",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-100a0cb8",
+              "label": "Rights_Guarantee",
+              "source": "obj-c7630462",
+              "target": "obj-0ce36857",
+              "tags": [
+                "protection",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-d87fcc8f",
+              "label": "Rights_Guarantee",
+              "source": "obj-c7630462",
+              "target": "obj-8c4cab84",
+              "tags": [
+                "protection",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-e678a1dc",
+              "label": "Rights_Guarantee",
+              "source": "obj-c7630462",
+              "target": "obj-9b9c34e8",
+              "tags": [
+                "protection",
+                "empowerment"
+              ]
+            }
+          ]
+        },
+        "unityAlignmentScore": 1.0,
+        "feasibilityScore": 0.9,
+        "validation": {
+          "isAligned": true,
+          "coherenceScore": 1.0,
+          "principleScores": {
+            "unity": 1.0,
+            "compassion": 1.0,
+            "coherence": 1.0
+          },
+          "reasoning": [
+            "[unity] ALIGNED (score=1.00)",
+            "[compassion] ALIGNED (score=1.00)",
+            "[coherence] ALIGNED (score=1.00)"
+          ]
+        }
+      },
+      {
+        "pathType": "dissolution",
+        "title": "Path of Dissolution",
+        "description": "Replaces the harmful system with a community-owned cooperative structure where democratic governance, direct benefit, and transparent protocols make the original extractive model obsolete.",
+        "healedGraph": {
+          "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+          "objects": [
+            {
+              "id": "obj-7397e36d",
+              "label": "Community_Collective",
+              "tags": [
+                "stakeholder",
+                "actor"
+              ]
+            },
+            {
+              "id": "obj-c0e7e01c",
+              "label": "Shared_Resource",
+              "tags": [
+                "value",
+                "shared"
+              ]
+            },
+            {
+              "id": "obj-39c46311",
+              "label": "Cooperative_Protocol",
+              "tags": [
+                "mechanism",
+                "protective"
+              ]
+            },
+            {
+              "id": "obj-f75a76fc",
+              "label": "Employee",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-e6ce2315",
+              "label": "Worker",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-cc681842",
+              "label": "Community",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            },
+            {
+              "id": "obj-b9094c3c",
+              "label": "Environment",
+              "tags": [
+                "stakeholder",
+                "vulnerable"
+              ]
+            }
+          ],
+          "morphisms": [
+            {
+              "id": "mor-fa78d0f8",
+              "label": "Democratic_Governance",
+              "source": "obj-7397e36d",
+              "target": "obj-c0e7e01c",
+              "tags": [
+                "collaboration",
+                "protection"
+              ]
+            },
+            {
+              "id": "mor-ac1dda31",
+              "label": "Direct_Benefit",
+              "source": "obj-c0e7e01c",
+              "target": "obj-f75a76fc",
+              "tags": [
+                "service",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-b06bf07b",
+              "label": "Direct_Benefit",
+              "source": "obj-c0e7e01c",
+              "target": "obj-e6ce2315",
+              "tags": [
+                "service",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-4783cfc0",
+              "label": "Direct_Benefit",
+              "source": "obj-c0e7e01c",
+              "target": "obj-cc681842",
+              "tags": [
+                "service",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-d27e8155",
+              "label": "Direct_Benefit",
+              "source": "obj-c0e7e01c",
+              "target": "obj-b9094c3c",
+              "tags": [
+                "service",
+                "empowerment"
+              ]
+            },
+            {
+              "id": "mor-1ec8b6bb",
+              "label": "Voice",
+              "source": "obj-f75a76fc",
+              "target": "obj-7397e36d",
+              "tags": [
+                "empowerment",
+                "collaboration"
+              ]
+            },
+            {
+              "id": "mor-cf822d91",
+              "label": "Safeguard",
+              "source": "obj-39c46311",
+              "target": "obj-f75a76fc",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-1ddbae0f",
+              "label": "Safeguard",
+              "source": "obj-39c46311",
+              "target": "obj-e6ce2315",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-82b883a9",
+              "label": "Safeguard",
+              "source": "obj-39c46311",
+              "target": "obj-cc681842",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-c5ff482a",
+              "label": "Safeguard",
+              "source": "obj-39c46311",
+              "target": "obj-b9094c3c",
+              "tags": [
+                "protection",
+                "care"
+              ]
+            },
+            {
+              "id": "mor-7815afc9",
+              "label": "Transparency",
+              "source": "obj-39c46311",
+              "target": "obj-7397e36d",
+              "tags": [
+                "service",
+                "protection"
+              ]
+            }
+          ]
+        },
+        "unityAlignmentScore": 1.0,
+        "feasibilityScore": 0.7668,
+        "validation": {
+          "isAligned": true,
+          "coherenceScore": 1.0,
+          "principleScores": {
+            "unity": 1.0,
+            "compassion": 1.0,
+            "coherence": 1.0
+          },
+          "reasoning": [
+            "[unity] ALIGNED (score=1.00)",
+            "[compassion] ALIGNED (score=1.00)",
+            "[coherence] ALIGNED (score=1.00)"
+          ]
+        }
+      }
+    ],
+    "recommendedPath": "reinvention"
+  }
+}

@@ -9,7 +9,7 @@
         "objectCount": 5,
         "morphismCount": 4
       },
-      "timestamp": "2026-02-06T01:42:49.020311+00:00"
+      "timestamp": "2026-02-06T13:29:52.146536+00:00"
     },
     {
       "phase": "2-retrieval",
@@ -17,7 +17,7 @@
       "details": {
         "priorWisdom": []
       },
-      "timestamp": "2026-02-06T01:42:49.020316+00:00"
+      "timestamp": "2026-02-06T13:29:52.146545+00:00"
     },
     {
       "phase": "3-divergence",
@@ -30,7 +30,7 @@
         ],
         "provider": "LocalProvider (deterministic)"
       },
-      "timestamp": "2026-02-06T01:42:49.020887+00:00"
+      "timestamp": "2026-02-06T13:29:52.147238+00:00"
     },
     {
       "phase": "4-verification",
@@ -38,49 +38,49 @@
       "details": {
         "results": [
           {
-            "id": "cand-7f1ccf39",
+            "id": "cand-0d15951f",
             "status": "CONFIRMED",
             "score": 1.0
           },
           {
-            "id": "cand-7a51ecee",
+            "id": "cand-8daf861b",
             "status": "CONFIRMED",
             "score": 1.0
           },
           {
-            "id": "cand-eeec190a",
+            "id": "cand-bb623674",
             "status": "CONFIRMED",
             "score": 1.0
           }
         ]
       },
-      "timestamp": "2026-02-06T01:42:49.020897+00:00"
+      "timestamp": "2026-02-06T13:29:52.147254+00:00"
     },
     {
       "phase": "5-convergence",
-      "summary": "Converged on candidate cand-7a51ecee (contradiction) with unity=1.0000.",
+      "summary": "Converged on candidate cand-8daf861b (contradiction) with unity=1.0000.",
       "details": {
-        "selectedCandidate": "cand-7a51ecee",
+        "selectedCandidate": "cand-8daf861b",
         "perspective": "contradiction"
       },
-      "timestamp": "2026-02-06T01:42:49.020903+00:00"
+      "timestamp": "2026-02-06T13:29:52.147262+00:00"
     },
     {
       "phase": "6-crystallization",
-      "summary": "Crystallized candidate cand-7a51ecee into Technical Covenant 'Stewardship Covenant: A corporate policy that prioritizes profit over user safety.'. Saved to EternalBox.",
+      "summary": "Crystallized candidate cand-8daf861b into Technical Covenant 'Stewardship Covenant: A corporate policy that prioritizes profit over user safety.'. Saved to EternalBox.",
       "details": {
-        "candidateId": "cand-7a51ecee",
+        "candidateId": "cand-8daf861b",
         "covenantTitle": "Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
         "integrityVerified": true
       },
-      "timestamp": "2026-02-06T01:42:49.021342+00:00"
+      "timestamp": "2026-02-06T13:29:52.147802+00:00"
     }
   ],
   "logicBox": {
     "candidateCount": 3,
     "candidates": [
       {
-        "id": "cand-7f1ccf39",
+        "id": "cand-0d15951f",
         "perspective": "causality",
         "status": "CONFIRMED",
         "reasoning": "Causal analysis: Corporation's Extraction causes harm to User. Root cause: structural power imbalance where actors extract value from vulnerable entities.",
@@ -95,7 +95,7 @@
             "sourceText": "A corporate policy that prioritizes profit over user safety.",
             "objects": [
               {
-                "id": "obj-fee479f6",
+                "id": "obj-99cd1401",
                 "label": "User",
                 "tags": [
                   "stakeholder",
@@ -103,7 +103,7 @@
                 ]
               },
               {
-                "id": "obj-90f167aa",
+                "id": "obj-d31b3568",
                 "label": "Corporation",
                 "tags": [
                   "stakeholder",
@@ -111,7 +111,7 @@
                 ]
               },
               {
-                "id": "obj-23a70117",
+                "id": "obj-fcf35dc1",
                 "label": "Profit",
                 "tags": [
                   "value",
@@ -119,7 +119,7 @@
                 ]
               },
               {
-                "id": "obj-74780aed",
+                "id": "obj-30ed837f",
                 "label": "Safety",
                 "tags": [
                   "value",
@@ -127,7 +127,7 @@
                 ]
               },
               {
-                "id": "obj-03e7ca45",
+                "id": "obj-136f5074",
                 "label": "Policy",
                 "tags": [
                   "mechanism"
@@ -136,37 +136,37 @@
             ],
             "morphisms": [
               {
-                "id": "mor-9d9e8b7e",
+                "id": "mor-e09db924",
                 "label": "Prioritization",
-                "source": "obj-90f167aa",
-                "target": "obj-fee479f6",
+                "source": "obj-d31b3568",
+                "target": "obj-99cd1401",
                 "tags": [
                   "decision"
                 ]
               },
               {
-                "id": "mor-b13a0c82",
+                "id": "mor-457c98ae",
                 "label": "Prioritization",
-                "source": "obj-90f167aa",
-                "target": "obj-23a70117",
+                "source": "obj-d31b3568",
+                "target": "obj-fcf35dc1",
                 "tags": [
                   "decision"
                 ]
               },
               {
-                "id": "mor-b32fcc24",
+                "id": "mor-9e943d41",
                 "label": "Prioritization",
-                "source": "obj-90f167aa",
-                "target": "obj-74780aed",
+                "source": "obj-d31b3568",
+                "target": "obj-30ed837f",
                 "tags": [
                   "decision"
                 ]
               },
               {
-                "id": "mor-8ed970da",
+                "id": "mor-e49b8e8e",
                 "label": "Fair_Reciprocity",
-                "source": "obj-90f167aa",
-                "target": "obj-fee479f6",
+                "source": "obj-d31b3568",
+                "target": "obj-99cd1401",
                 "tags": [
                   "service",
                   "collaboration"
@@ -207,7 +207,7 @@
         }
       },
       {
-        "id": "cand-7a51ecee",
+        "id": "cand-8daf861b",
         "perspective": "contradiction",
         "status": "CONFIRMED",
         "reasoning": "Contradiction detected: the system claims to value User, Safety but simultaneously employs Extraction morphisms that undermine those very values.",
@@ -222,7 +222,7 @@
             "sourceText": "A corporate policy that prioritizes profit over user safety.",
             "objects": [
               {
-                "id": "obj-cae2262a",
+                "id": "obj-b39d499c",
                 "label": "Corporation_as_Steward",
                 "tags": [
                   "stakeholder",
@@ -230,7 +230,7 @@
                 ]
               },
               {
-                "id": "obj-93564143",
+                "id": "obj-2dc4b5b0",
                 "label": "Profit_Commons",
                 "tags": [
                   "value",
@@ -238,7 +238,7 @@
                 ]
               },
               {
-                "id": "obj-4c3da373",
+                "id": "obj-4ec73840",
                 "label": "Governance_Covenant",
                 "tags": [
                   "mechanism",
@@ -246,7 +246,7 @@
                 ]
               },
               {
-                "id": "obj-01fe90fb",
+                "id": "obj-3a3586cb",
                 "label": "User",
                 "tags": [
                   "stakeholder",
@@ -256,48 +256,48 @@
             ],
             "morphisms": [
               {
-                "id": "mor-4eae9933",
+                "id": "mor-da14e3d4",
                 "label": "Stewardship",
-                "source": "obj-cae2262a",
-                "target": "obj-93564143",
+                "source": "obj-b39d499c",
+                "target": "obj-2dc4b5b0",
                 "tags": [
                   "protection",
                   "care"
                 ]
               },
               {
-                "id": "mor-7bc182c3",
+                "id": "mor-7e69556c",
                 "label": "Empowerment",
-                "source": "obj-cae2262a",
-                "target": "obj-01fe90fb",
+                "source": "obj-b39d499c",
+                "target": "obj-3a3586cb",
                 "tags": [
                   "empowerment",
                   "service"
                 ]
               },
               {
-                "id": "mor-895ed32e",
+                "id": "mor-52a831d2",
                 "label": "Participation",
-                "source": "obj-01fe90fb",
-                "target": "obj-93564143",
+                "source": "obj-3a3586cb",
+                "target": "obj-2dc4b5b0",
                 "tags": [
                   "collaboration"
                 ]
               },
               {
-                "id": "mor-fea115bb",
+                "id": "mor-3382ad88",
                 "label": "Accountability",
-                "source": "obj-4c3da373",
-                "target": "obj-cae2262a",
+                "source": "obj-4ec73840",
+                "target": "obj-b39d499c",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-04e5144d",
+                "id": "mor-3e12a57d",
                 "label": "Rights_Guarantee",
-                "source": "obj-4c3da373",
-                "target": "obj-01fe90fb",
+                "source": "obj-4ec73840",
+                "target": "obj-3a3586cb",
                 "tags": [
                   "protection",
                   "empowerment"
@@ -338,7 +338,7 @@
         }
       },
       {
-        "id": "cand-eeec190a",
+        "id": "cand-bb623674",
         "perspective": "analogy",
         "status": "CONFIRMED",
         "reasoning": "Analogical mapping: system resembles a 'indentured labour' pattern.",
@@ -353,7 +353,7 @@
             "sourceText": "A corporate policy that prioritizes profit over user safety.",
             "objects": [
               {
-                "id": "obj-c5145d4e",
+                "id": "obj-3fe68eb8",
                 "label": "Community_Collective",
                 "tags": [
                   "stakeholder",
@@ -361,7 +361,7 @@
                 ]
               },
               {
-                "id": "obj-f3710b96",
+                "id": "obj-7dca1a46",
                 "label": "Shared_Resource",
                 "tags": [
                   "value",
@@ -369,7 +369,7 @@
                 ]
               },
               {
-                "id": "obj-922f04f1",
+                "id": "obj-a1a2a1d3",
                 "label": "Cooperative_Protocol",
                 "tags": [
                   "mechanism",
@@ -377,7 +377,7 @@
                 ]
               },
               {
-                "id": "obj-91b2d272",
+                "id": "obj-7c11d84f",
                 "label": "User",
                 "tags": [
                   "stakeholder",
@@ -387,50 +387,50 @@
             ],
             "morphisms": [
               {
-                "id": "mor-4ad49abe",
+                "id": "mor-725ee55c",
                 "label": "Democratic_Governance",
-                "source": "obj-c5145d4e",
-                "target": "obj-f3710b96",
+                "source": "obj-3fe68eb8",
+                "target": "obj-7dca1a46",
                 "tags": [
                   "collaboration",
                   "protection"
                 ]
               },
               {
-                "id": "mor-f5c7fb7b",
+                "id": "mor-8c0af7c9",
                 "label": "Direct_Benefit",
-                "source": "obj-f3710b96",
-                "target": "obj-91b2d272",
+                "source": "obj-7dca1a46",
+                "target": "obj-7c11d84f",
                 "tags": [
                   "service",
                   "empowerment"
                 ]
               },
               {
-                "id": "mor-1e12123f",
+                "id": "mor-1016ed98",
                 "label": "Voice",
-                "source": "obj-91b2d272",
-                "target": "obj-c5145d4e",
+                "source": "obj-7c11d84f",
+                "target": "obj-3fe68eb8",
                 "tags": [
                   "empowerment",
                   "collaboration"
                 ]
               },
               {
-                "id": "mor-7b917a89",
+                "id": "mor-99f7b666",
                 "label": "Safeguard",
-                "source": "obj-922f04f1",
-                "target": "obj-91b2d272",
+                "source": "obj-a1a2a1d3",
+                "target": "obj-7c11d84f",
                 "tags": [
                   "protection",
                   "care"
                 ]
               },
               {
-                "id": "mor-e3c24abc",
+                "id": "mor-2f03fdd4",
                 "label": "Transparency",
-                "source": "obj-922f04f1",
-                "target": "obj-c5145d4e",
+                "source": "obj-a1a2a1d3",
+                "target": "obj-3fe68eb8",
                 "tags": [
                   "service",
                   "protection"
@@ -473,7 +473,7 @@
     ]
   },
   "crystallizedCandidate": {
-    "id": "cand-7a51ecee",
+    "id": "cand-8daf861b",
     "perspective": "contradiction",
     "status": "CONFIRMED",
     "reasoning": "Contradiction detected: the system claims to value User, Safety but simultaneously employs Extraction morphisms that undermine those very values.",
@@ -488,7 +488,7 @@
         "sourceText": "A corporate policy that prioritizes profit over user safety.",
         "objects": [
           {
-            "id": "obj-cae2262a",
+            "id": "obj-b39d499c",
             "label": "Corporation_as_Steward",
             "tags": [
               "stakeholder",
@@ -496,7 +496,7 @@
             ]
           },
           {
-            "id": "obj-93564143",
+            "id": "obj-2dc4b5b0",
             "label": "Profit_Commons",
             "tags": [
               "value",
@@ -504,7 +504,7 @@
             ]
           },
           {
-            "id": "obj-4c3da373",
+            "id": "obj-4ec73840",
             "label": "Governance_Covenant",
             "tags": [
               "mechanism",
@@ -512,7 +512,7 @@
             ]
           },
           {
-            "id": "obj-01fe90fb",
+            "id": "obj-3a3586cb",
             "label": "User",
             "tags": [
               "stakeholder",
@@ -522,48 +522,48 @@
         ],
         "morphisms": [
           {
-            "id": "mor-4eae9933",
+            "id": "mor-da14e3d4",
             "label": "Stewardship",
-            "source": "obj-cae2262a",
-            "target": "obj-93564143",
+            "source": "obj-b39d499c",
+            "target": "obj-2dc4b5b0",
             "tags": [
               "protection",
               "care"
             ]
           },
           {
-            "id": "mor-7bc182c3",
+            "id": "mor-7e69556c",
             "label": "Empowerment",
-            "source": "obj-cae2262a",
-            "target": "obj-01fe90fb",
+            "source": "obj-b39d499c",
+            "target": "obj-3a3586cb",
             "tags": [
               "empowerment",
               "service"
             ]
           },
           {
-            "id": "mor-895ed32e",
+            "id": "mor-52a831d2",
             "label": "Participation",
-            "source": "obj-01fe90fb",
-            "target": "obj-93564143",
+            "source": "obj-3a3586cb",
+            "target": "obj-2dc4b5b0",
             "tags": [
               "collaboration"
             ]
           },
           {
-            "id": "mor-fea115bb",
+            "id": "mor-3382ad88",
             "label": "Accountability",
-            "source": "obj-4c3da373",
-            "target": "obj-cae2262a",
+            "source": "obj-4ec73840",
+            "target": "obj-b39d499c",
             "tags": [
               "protection"
             ]
           },
           {
-            "id": "mor-04e5144d",
+            "id": "mor-3e12a57d",
             "label": "Rights_Guarantee",
-            "source": "obj-4c3da373",
-            "target": "obj-01fe90fb",
+            "source": "obj-4ec73840",
+            "target": "obj-3a3586cb",
             "tags": [
               "protection",
               "empowerment"

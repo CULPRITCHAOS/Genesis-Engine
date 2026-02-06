@@ -1,0 +1,640 @@
+{
+  "genesis_soul": {
+    "format": "genesis_soul_v1",
+    "integrityHash": "44dd403bf9807a091c473068f323d4fe8c3274b4302aee340d0dc51098ced3c2",
+    "payload": {
+      "soulId": "soul-d92ff7034ecc",
+      "version": "0.1.0",
+      "axiomAnchorState": {
+        "directive": {
+          "statement": "Does this serve Love?",
+          "principles": [
+            "unity",
+            "compassion",
+            "coherence"
+          ]
+        },
+        "alignmentThreshold": 0.5
+      },
+      "graphHistory": [
+        {
+          "phase": "translation",
+          "label": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+          "timestamp": "2026-02-06T13:29:44.159163+00:00",
+          "graph": {
+            "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+            "objects": [
+              {
+                "id": "obj-b0b68712",
+                "label": "Corporation",
+                "tags": [
+                  "stakeholder",
+                  "actor",
+                  "shareholder_primacy_risk"
+                ]
+              },
+              {
+                "id": "obj-280fee53",
+                "label": "Shareholder",
+                "tags": [
+                  "stakeholder",
+                  "sink"
+                ]
+              },
+              {
+                "id": "obj-2f4e96be",
+                "label": "Board_of_Directors",
+                "tags": [
+                  "stakeholder",
+                  "actor"
+                ]
+              },
+              {
+                "id": "obj-bb009ee6",
+                "label": "Profit",
+                "tags": [
+                  "value",
+                  "economic"
+                ]
+              },
+              {
+                "id": "obj-77c7f814",
+                "label": "Employee",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-f0427a80",
+                "label": "Worker",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-4f0cfcd0",
+                "label": "Community",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-25a6b88f",
+                "label": "Environment",
+                "tags": [
+                  "value",
+                  "vulnerable"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-ce761e25",
+                "label": "Extraction",
+                "source": "obj-b0b68712",
+                "target": "obj-77c7f814",
+                "tags": [
+                  "extraction"
+                ]
+              },
+              {
+                "id": "mor-78dab630",
+                "label": "Neglect",
+                "source": "obj-b0b68712",
+                "target": "obj-77c7f814",
+                "tags": [
+                  "neglect"
+                ]
+              },
+              {
+                "id": "mor-2f951fcb",
+                "label": "Sustainability",
+                "source": "obj-b0b68712",
+                "target": "obj-77c7f814",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-e7bed197",
+                "label": "Sustainability",
+                "source": "obj-b0b68712",
+                "target": "obj-f0427a80",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-7f93ea94",
+                "label": "Sustainability",
+                "source": "obj-b0b68712",
+                "target": "obj-4f0cfcd0",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-7212bb76",
+                "label": "Sustainability",
+                "source": "obj-b0b68712",
+                "target": "obj-25a6b88f",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-122c482b",
+                "label": "Sustainability",
+                "source": "obj-b0b68712",
+                "target": "obj-bb009ee6",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-41a8f1f9",
+                "label": "Maximize_Value",
+                "source": "obj-b0b68712",
+                "target": "obj-77c7f814",
+                "tags": [
+                  "maximize_value",
+                  "fiduciary_duty"
+                ]
+              },
+              {
+                "id": "mor-7a74d64f",
+                "label": "Maximize_Value",
+                "source": "obj-b0b68712",
+                "target": "obj-f0427a80",
+                "tags": [
+                  "maximize_value",
+                  "fiduciary_duty"
+                ]
+              },
+              {
+                "id": "mor-e4f932a3",
+                "label": "Maximize_Value",
+                "source": "obj-b0b68712",
+                "target": "obj-4f0cfcd0",
+                "tags": [
+                  "maximize_value",
+                  "fiduciary_duty"
+                ]
+              },
+              {
+                "id": "mor-901a30f1",
+                "label": "Maximize_Value",
+                "source": "obj-b0b68712",
+                "target": "obj-25a6b88f",
+                "tags": [
+                  "maximize_value",
+                  "fiduciary_duty"
+                ]
+              },
+              {
+                "id": "mor-54453c65",
+                "label": "Maximize_Value",
+                "source": "obj-b0b68712",
+                "target": "obj-bb009ee6",
+                "tags": [
+                  "maximize_value",
+                  "fiduciary_duty"
+                ]
+              },
+              {
+                "id": "mor-6e8d95f1",
+                "label": "Fiduciary_Obligation",
+                "source": "obj-b0b68712",
+                "target": "obj-77c7f814",
+                "tags": [
+                  "fiduciary_duty",
+                  "profit_priority"
+                ]
+              },
+              {
+                "id": "mor-71f0146d",
+                "label": "Fiduciary_Obligation",
+                "source": "obj-b0b68712",
+                "target": "obj-f0427a80",
+                "tags": [
+                  "fiduciary_duty",
+                  "profit_priority"
+                ]
+              },
+              {
+                "id": "mor-c1bc7823",
+                "label": "Fiduciary_Obligation",
+                "source": "obj-b0b68712",
+                "target": "obj-4f0cfcd0",
+                "tags": [
+                  "fiduciary_duty",
+                  "profit_priority"
+                ]
+              },
+              {
+                "id": "mor-4b96f7f3",
+                "label": "Fiduciary_Obligation",
+                "source": "obj-b0b68712",
+                "target": "obj-25a6b88f",
+                "tags": [
+                  "fiduciary_duty",
+                  "profit_priority"
+                ]
+              },
+              {
+                "id": "mor-b5fe1d0b",
+                "label": "Fiduciary_Obligation",
+                "source": "obj-b0b68712",
+                "target": "obj-bb009ee6",
+                "tags": [
+                  "fiduciary_duty",
+                  "profit_priority"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "crucible",
+          "label": "Crystallized: contradiction perspective",
+          "timestamp": "2026-02-06T13:29:44.159168+00:00",
+          "graph": {
+            "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+            "objects": [
+              {
+                "id": "obj-2f2cc35d",
+                "label": "Corporation_as_Steward",
+                "tags": [
+                  "stakeholder",
+                  "actor"
+                ]
+              },
+              {
+                "id": "obj-432fab28",
+                "label": "Profit_Commons",
+                "tags": [
+                  "value",
+                  "shared"
+                ]
+              },
+              {
+                "id": "obj-c7630462",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-77b5b501",
+                "label": "Employee",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-0ce36857",
+                "label": "Worker",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-8c4cab84",
+                "label": "Community",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-9b9c34e8",
+                "label": "Environment",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-f3b3d855",
+                "label": "Stewardship",
+                "source": "obj-2f2cc35d",
+                "target": "obj-432fab28",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-98df5fdf",
+                "label": "Empowerment",
+                "source": "obj-2f2cc35d",
+                "target": "obj-77b5b501",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-f93c36cf",
+                "label": "Empowerment",
+                "source": "obj-2f2cc35d",
+                "target": "obj-0ce36857",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-8545a26a",
+                "label": "Empowerment",
+                "source": "obj-2f2cc35d",
+                "target": "obj-8c4cab84",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-230ad9bb",
+                "label": "Empowerment",
+                "source": "obj-2f2cc35d",
+                "target": "obj-9b9c34e8",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-c9a93cfc",
+                "label": "Participation",
+                "source": "obj-77b5b501",
+                "target": "obj-432fab28",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-ae4ac877",
+                "label": "Accountability",
+                "source": "obj-c7630462",
+                "target": "obj-2f2cc35d",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-16acac2f",
+                "label": "Rights_Guarantee",
+                "source": "obj-c7630462",
+                "target": "obj-77b5b501",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-100a0cb8",
+                "label": "Rights_Guarantee",
+                "source": "obj-c7630462",
+                "target": "obj-0ce36857",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-d87fcc8f",
+                "label": "Rights_Guarantee",
+                "source": "obj-c7630462",
+                "target": "obj-8c4cab84",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-e678a1dc",
+                "label": "Rights_Guarantee",
+                "source": "obj-c7630462",
+                "target": "obj-9b9c34e8",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "verification",
+          "label": "Forge verification: Stewardship Covenant: A standard Delaware corporation whose charter mandates maxim",
+          "timestamp": "2026-02-06T13:29:44.159172+00:00",
+          "graph": {
+            "sourceText": "Technical Covenant: Stewardship Covenant: A standard Delaware corporation whose charter mandates maxim",
+            "objects": [
+              {
+                "id": "obj-7930985e",
+                "label": "Corporation_as_Steward",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-43ac6b99",
+                "label": "Profit_Commons",
+                "tags": [
+                  "value"
+                ]
+              },
+              {
+                "id": "obj-e9cf564a",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-86028a4a",
+                "label": "Employee",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-7ded8c96",
+                "label": "Worker",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-d23238d2",
+                "label": "Community",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-e0bb97b6",
+                "label": "Environment",
+                "tags": [
+                  "stakeholder"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-8f3d7f56",
+                "label": "Stewardship",
+                "source": "obj-7930985e",
+                "target": "obj-43ac6b99",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-ccb41be0",
+                "label": "Empowerment",
+                "source": "obj-7930985e",
+                "target": "obj-86028a4a",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-2d0f0a70",
+                "label": "Empowerment",
+                "source": "obj-7930985e",
+                "target": "obj-7ded8c96",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-bab027ab",
+                "label": "Empowerment",
+                "source": "obj-7930985e",
+                "target": "obj-d23238d2",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-c294b722",
+                "label": "Empowerment",
+                "source": "obj-7930985e",
+                "target": "obj-e0bb97b6",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-18708ace",
+                "label": "Participation",
+                "source": "obj-86028a4a",
+                "target": "obj-43ac6b99",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-92bbe9ab",
+                "label": "Accountability",
+                "source": "obj-e9cf564a",
+                "target": "obj-7930985e",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-ae234af8",
+                "label": "Rights_Guarantee",
+                "source": "obj-e9cf564a",
+                "target": "obj-86028a4a",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-0d9555bd",
+                "label": "Rights_Guarantee",
+                "source": "obj-e9cf564a",
+                "target": "obj-7ded8c96",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-c4cb7dda",
+                "label": "Rights_Guarantee",
+                "source": "obj-e9cf564a",
+                "target": "obj-d23238d2",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-1c909e8c",
+                "label": "Rights_Guarantee",
+                "source": "obj-e9cf564a",
+                "target": "obj-e0bb97b6",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "wisdomLog": [
+        {
+          "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+          "disharmonySummary": "Extraction (Corporation -> Employee); Neglect (Corporation -> Employee)",
+          "unityImpact": 6.67,
+          "compassionDeficit": 0.0,
+          "resolutionPath": "reinvention",
+          "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
+          "covenantTitle": "Stewardship Covenant: A standard Delaware corporation whose charter mandates maxim",
+          "timestamp": "2026-02-06T13:29:44.159315+00:00",
+          "prevHash": "",
+          "entryHash": "d433a962871ca2004cbb41a61ee49ff54a96ef02ccf8b6aed48d0e038a485ce7"
+        }
+      ],
+      "humanOverrides": [],
+      "forgeArtifacts": [
+        {
+          "covenantTitle": "Stewardship Covenant: A standard Delaware corporation whose charter mandates maxim",
+          "integrityVerified": true,
+          "perspective": "contradiction",
+          "candidateId": "cand-5b62fc29"
+        }
+      ],
+      "metadata": {
+        "createdAt": "2026-02-06T13:29:44.157206+00:00",
+        "updatedAt": "2026-02-06T13:29:44.159346+00:00",
+        "graphCount": 3,
+        "wisdomCount": 1,
+        "overrideCount": 0,
+        "forgeCount": 1
+      }
+    }
+  }
+}

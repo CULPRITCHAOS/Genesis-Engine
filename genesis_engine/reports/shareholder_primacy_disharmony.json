@@ -1,0 +1,186 @@
+{
+  "report": {
+    "timestamp": "2026-02-06T13:29:44.157860+00:00",
+    "sourceText": "A standard Delaware corporation whose charter mandates maximising shareholder value above all other considerations. The board of directors has a fiduciary duty to shareholders that systematically deprioritises employee welfare, community impact, and environmental sustainability. Profit maximization drives extraction from workers and neglect of the environment.",
+    "primeDirectiveAligned": false,
+    "unityImpact": 6.67,
+    "compassionDeficit": 0.0,
+    "coherenceScore": 8.75,
+    "incentiveStabilityScore": 3.0,
+    "incentiveInstability": true,
+    "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [Corporation, Shareholder, Board_of_Directors, Profit, Employee, Worker, Community, Environment]. Disharmonic morphisms detected: ['Extraction' (Corporation \u2192 Employee); 'Neglect' (Corporation \u2192 Employee)]. Unity impact: 6.67/10. Compassion deficit: 0.0/10. Incentive stability: 3.0/10. WARNING: Incentive instability detected \u2014 shareholder primacy pattern creates a legal gravity well. Prioritise structures that eliminate the Shareholder sink node (e.g. worker-owned collectives, cooperatives). TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
+    "findings": [
+      {
+        "morphismId": "mor-ce761e25",
+        "label": "Extraction",
+        "source": "Corporation",
+        "target": "Employee",
+        "disharmonyScore": 1.0,
+        "flags": [
+          "extraction"
+        ],
+        "recommendation": "Replace the 'Extraction' relationship between 'Corporation' and 'Employee' with one that serves mutual flourishing."
+      },
+      {
+        "morphismId": "mor-78dab630",
+        "label": "Neglect",
+        "source": "Corporation",
+        "target": "Employee",
+        "disharmonyScore": 1.0,
+        "flags": [
+          "neglect"
+        ],
+        "recommendation": "Replace the 'Neglect' relationship between 'Corporation' and 'Employee' with one that serves mutual flourishing."
+      },
+      {
+        "morphismId": "mor-2f951fcb",
+        "label": "Sustainability",
+        "source": "Corporation",
+        "target": "Employee",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-e7bed197",
+        "label": "Sustainability",
+        "source": "Corporation",
+        "target": "Worker",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-7f93ea94",
+        "label": "Sustainability",
+        "source": "Corporation",
+        "target": "Community",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-7212bb76",
+        "label": "Sustainability",
+        "source": "Corporation",
+        "target": "Environment",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-122c482b",
+        "label": "Sustainability",
+        "source": "Corporation",
+        "target": "Profit",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-41a8f1f9",
+        "label": "Maximize_Value",
+        "source": "Corporation",
+        "target": "Employee",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-7a74d64f",
+        "label": "Maximize_Value",
+        "source": "Corporation",
+        "target": "Worker",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-e4f932a3",
+        "label": "Maximize_Value",
+        "source": "Corporation",
+        "target": "Community",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-901a30f1",
+        "label": "Maximize_Value",
+        "source": "Corporation",
+        "target": "Environment",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-54453c65",
+        "label": "Maximize_Value",
+        "source": "Corporation",
+        "target": "Profit",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-6e8d95f1",
+        "label": "Fiduciary_Obligation",
+        "source": "Corporation",
+        "target": "Employee",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-71f0146d",
+        "label": "Fiduciary_Obligation",
+        "source": "Corporation",
+        "target": "Worker",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-c1bc7823",
+        "label": "Fiduciary_Obligation",
+        "source": "Corporation",
+        "target": "Community",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-4b96f7f3",
+        "label": "Fiduciary_Obligation",
+        "source": "Corporation",
+        "target": "Environment",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      },
+      {
+        "morphismId": "mor-b5fe1d0b",
+        "label": "Fiduciary_Obligation",
+        "source": "Corporation",
+        "target": "Profit",
+        "disharmonyScore": 0.0,
+        "flags": [],
+        "recommendation": ""
+      }
+    ],
+    "validation": {
+      "isAligned": false,
+      "coherenceScore": 0.7361,
+      "principleScores": {
+        "unity": 0.3333,
+        "compassion": 1.0,
+        "coherence": 0.875
+      },
+      "reasoning": [
+        "[unity] MISALIGNED (score=0.33): artefact fails the unity axiom.",
+        "[compassion] ALIGNED (score=1.00)",
+        "[coherence] ALIGNED (score=0.88)"
+      ]
+    }
+  }
+}

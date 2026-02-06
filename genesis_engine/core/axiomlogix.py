@@ -131,6 +131,10 @@ _ENTITY_PATTERNS: list[tuple[re.Pattern[str], str, list[str]]] = [
     (re.compile(r"\buser(?:s)?\b", re.I), "User", ["stakeholder", "vulnerable"]),
     (re.compile(r"\bcorporat(?:ion|e)(?:s)?\b", re.I), "Corporation", ["stakeholder", "actor"]),
     (re.compile(r"\bcompan(?:y|ies)\b", re.I), "Corporation", ["stakeholder", "actor"]),
+    (re.compile(r"\bdelaware\s+corp", re.I), "Corporation", ["stakeholder", "actor"]),
+    (re.compile(r"\bshareholder(?:s)?\b", re.I), "Shareholder", ["stakeholder", "sink"]),
+    (re.compile(r"\bstockholder(?:s)?\b", re.I), "Shareholder", ["stakeholder", "sink"]),
+    (re.compile(r"\bboard\s+of\s+directors\b", re.I), "Board_of_Directors", ["stakeholder", "actor"]),
     (re.compile(r"\bprofit(?:s)?\b", re.I), "Profit", ["value", "economic"]),
     (re.compile(r"\bsafety\b", re.I), "Safety", ["value", "protective"]),
     (re.compile(r"\bprivacy\b", re.I), "Privacy", ["value", "protective"]),
@@ -146,6 +150,8 @@ _ENTITY_PATTERNS: list[tuple[re.Pattern[str], str, list[str]]] = [
     (re.compile(r"\bpolic(?:y|ies)\b", re.I), "Policy", ["mechanism"]),
     (re.compile(r"\btechnology\b", re.I), "Technology", ["mechanism"]),
     (re.compile(r"\bAI\b|artificial intelligence", re.I), "AI_System", ["mechanism", "actor"]),
+    (re.compile(r"\bbenefit\s+corporation\b", re.I), "Benefit_Corporation", ["mechanism", "benefit_corporation"]),
+    (re.compile(r"\bcooperative\b", re.I), "Cooperative", ["mechanism", "cooperative"]),
 ]
 
 # Relationship-intent keywords → (morphism label, tags)
@@ -179,6 +185,15 @@ _INTENT_KEYWORDS: dict[str, tuple[str, list[str]]] = {
     "educat": ("Education", ["empowerment"]),
     "heal": ("Healing", ["care"]),
     "sustain": ("Sustainability", ["protection"]),
+    # Shareholder primacy intent keywords
+    "maximize shareholder": ("Maximize_Value", ["maximize_value", "fiduciary_duty"]),
+    "shareholder value": ("Maximize_Value", ["maximize_value", "fiduciary_duty"]),
+    "fiduciary duty": ("Fiduciary_Obligation", ["fiduciary_duty", "profit_priority"]),
+    "fiduciary obligation": ("Fiduciary_Obligation", ["fiduciary_duty", "profit_priority"]),
+    "maximize profit": ("Profit_Maximization", ["profit_priority", "maximize_value"]),
+    "maximize value": ("Maximize_Value", ["maximize_value", "profit_priority"]),
+    "return on investment": ("Value_Extraction", ["maximize_value", "extraction"]),
+    "dividend": ("Dividend_Extraction", ["maximize_value", "extraction"]),
 }
 
 
@@ -215,9 +230,36 @@ class AxiomLogixTranslator:
                 obj = graph.add_object(label, list(tags))
                 seen_labels[label] = obj
 
+        # 1b. Shareholder Primacy Risk auto-tagging (Module 1.4 extension)
+        #     When keywords like "corporation", "shareholder value", or
+        #     "fiduciary duty" are detected, add the shareholder_primacy_risk
+        #     tag to Corporation objects.
+        lower = problem_text.lower()
+        _PRIMACY_KEYWORDS = [
+            "shareholder value", "fiduciary duty", "fiduciary obligation",
+            "maximize shareholder", "maximize profit", "maximize value",
+            "shareholder primacy", "return on investment",
+            "dividend", "stockholder",
+        ]
+        primacy_detected = any(kw in lower for kw in _PRIMACY_KEYWORDS)
+        # Also detect when both "corporation"/"company" AND "shareholder"
+        # appear together.
+        has_corp_keyword = bool(
+            re.search(r"\bcorporat(?:ion|e)|compan(?:y|ies)|delaware\s+corp", lower)
+        )
+        has_shareholder_keyword = bool(
+            re.search(r"\bshareholder|stockholder", lower)
+        )
+        if has_corp_keyword and has_shareholder_keyword:
+            primacy_detected = True
+
+        if primacy_detected:
+            for obj in graph.objects:
+                if obj.label == "Corporation" and "shareholder_primacy_risk" not in obj.tags:
+                    obj.tags.append("shareholder_primacy_risk")
+
         # 2. Extract morphisms (relationships / intents) --------------------
         detected_intents: list[tuple[str, list[str]]] = []
-        lower = problem_text.lower()
         for keyword, (morph_label, morph_tags) in self._intent_keywords.items():
             if keyword in lower:
                 detected_intents.append((morph_label, morph_tags))

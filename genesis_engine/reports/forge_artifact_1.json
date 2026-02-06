@@ -1,6 +1,6 @@
 {
   "forgeArtifact": {
-    "timestamp": "2026-02-06T01:42:49.021222+00:00",
+    "timestamp": "2026-02-06T13:29:52.147661+00:00",
     "sourceText": "A corporate policy that prioritizes profit over user safety.",
     "integrityVerified": true,
     "covenant": {
@@ -8,7 +8,7 @@
       "sourcePathType": "reinvention",
       "description": "Replaces the entire relational structure with a stewardship model: actors become stewards, values become a shared commons, and a governance covenant ensures accountability.",
       "primeDirective": "Does this serve Love?",
-      "timestamp": "2026-02-06T01:42:49.021026+00:00",
+      "timestamp": "2026-02-06T13:29:52.147530+00:00",
       "dataModels": [
         {
           "name": "Corporation_as_Steward",
@@ -401,7 +401,7 @@
       ],
       "governanceRules": [
         {
-          "ruleId": "gov-f4c22a8c",
+          "ruleId": "gov-0c6d1ae8",
           "name": "Data Protection Mandate",
           "description": "All endpoints handling protected entities must enforce consent verification and data minimisation.",
           "appliesTo": [
@@ -412,7 +412,7 @@
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-aeb4af4f",
+          "ruleId": "gov-f8608c54",
           "name": "Duty of Care Audit",
           "description": "All care-tagged interactions must be audit-logged with full traceability to the Prime Directive.",
           "appliesTo": [
@@ -421,7 +421,7 @@
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-a9cfbe02",
+          "ruleId": "gov-a0c8e89f",
           "name": "Empowerment Guarantee",
           "description": "Empowerment endpoints must provide user-configurable controls and transparent decision explanations.",
           "appliesTo": [
@@ -431,7 +431,7 @@
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-a11f0424",
+          "ruleId": "gov-9e71559b",
           "name": "Shared Ownership Protocol",
           "description": "Collaborative resources must implement shared-ownership access controls with equitable benefit distribution.",
           "appliesTo": [
@@ -440,7 +440,7 @@
           "enforcement": "required"
         },
         {
-          "ruleId": "gov-913c91f7",
+          "ruleId": "gov-11beb5d7",
           "name": "Service Level Covenant",
           "description": "Service endpoints must be rate-limited, monitored, and bound by explicit service-level agreements.",
           "appliesTo": [
@@ -455,21 +455,21 @@
         "sourceText": "Technical Covenant: Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
         "objects": [
           {
-            "id": "obj-1a712495",
+            "id": "obj-f7a3d276",
             "label": "Corporation_as_Steward",
             "tags": [
               "stakeholder"
             ]
           },
           {
-            "id": "obj-0cf13c8a",
+            "id": "obj-a3d4f82b",
             "label": "Profit_Commons",
             "tags": [
               "value"
             ]
           },
           {
-            "id": "obj-4f8a1e65",
+            "id": "obj-f2ac0a68",
             "label": "Governance_Covenant",
             "tags": [
               "mechanism",
@@ -477,7 +477,7 @@
             ]
           },
           {
-            "id": "obj-a5a35dad",
+            "id": "obj-2bf12da5",
             "label": "User",
             "tags": [
               "stakeholder"
@@ -486,48 +486,48 @@
         ],
         "morphisms": [
           {
-            "id": "mor-ba96a1b1",
+            "id": "mor-d8dcf456",
             "label": "Stewardship",
-            "source": "obj-1a712495",
-            "target": "obj-0cf13c8a",
+            "source": "obj-f7a3d276",
+            "target": "obj-a3d4f82b",
             "tags": [
               "protection",
               "care"
             ]
           },
           {
-            "id": "mor-15adab59",
+            "id": "mor-57b18064",
             "label": "Empowerment",
-            "source": "obj-1a712495",
-            "target": "obj-a5a35dad",
+            "source": "obj-f7a3d276",
+            "target": "obj-2bf12da5",
             "tags": [
               "empowerment",
               "service"
             ]
           },
           {
-            "id": "mor-ba9bc090",
+            "id": "mor-09f0ae86",
             "label": "Participation",
-            "source": "obj-a5a35dad",
-            "target": "obj-0cf13c8a",
+            "source": "obj-2bf12da5",
+            "target": "obj-a3d4f82b",
             "tags": [
               "collaboration"
             ]
           },
           {
-            "id": "mor-5cbd1eb7",
+            "id": "mor-adf0e73a",
             "label": "Accountability",
-            "source": "obj-4f8a1e65",
-            "target": "obj-1a712495",
+            "source": "obj-f2ac0a68",
+            "target": "obj-f7a3d276",
             "tags": [
               "protection"
             ]
           },
           {
-            "id": "mor-402038ba",
+            "id": "mor-595c82c1",
             "label": "Rights_Guarantee",
-            "source": "obj-4f8a1e65",
-            "target": "obj-a5a35dad",
+            "source": "obj-f2ac0a68",
+            "target": "obj-2bf12da5",
             "tags": [
               "protection",
               "empowerment"

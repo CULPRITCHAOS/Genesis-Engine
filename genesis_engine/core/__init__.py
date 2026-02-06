@@ -1,6 +1,6 @@
 """Core modules for the Genesis Engine."""
 
-from genesis_engine.core.axiom_anchor import AxiomAnchor, AxiomAnchorFrozenError, PrimeDirective
+from genesis_engine.core.axiom_anchor import AxiomAnchor, AxiomAnchorFrozenError, IncentiveStabilityPredicate, PrimeDirective
 from genesis_engine.core.axiomlogix import AxiomLogixTranslator, CategoricalGraph, Object, Morphism
 from genesis_engine.core.deconstruction_engine import DeconstructionEngine, DisharmonyReport
 from genesis_engine.core.dream_engine import DreamEngine, DreamPath, PossibilityReport, PathType
@@ -17,6 +17,7 @@ __all__ = [
     # Axiom Anchor (Module 2.1)
     "AxiomAnchor",
     "AxiomAnchorFrozenError",
+    "IncentiveStabilityPredicate",
     "PrimeDirective",
     # AxiomLogix (Module 1.4)
     "AxiomLogixTranslator",

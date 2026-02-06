@@ -192,6 +192,106 @@ def _coherence_predicate(artefact: dict[str, Any]) -> float:
 # Axiom Anchor
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Incentive Stability Predicate (Module 2.1 Extension)
+# ---------------------------------------------------------------------------
+
+class IncentiveStabilityPredicate:
+    """Detects Legal Gravity Wells — specifically Shareholder Primacy patterns.
+
+    Identifies directed morphisms from a Corporation object to a Shareholder
+    sink node tagged with ``maximize_value``, ``fiduciary_duty``, or
+    ``profit_priority``.
+
+    Scoring (raw 0–10 scale, normalised to 0.0–1.0 for predicate protocol):
+
+    * **Base score**: 10
+    * **-7** if a *Primacy Pattern* is detected (Corporation → Shareholder
+      morphism carrying a primacy tag, or a Corporation object tagged with
+      ``shareholder_primacy_risk``).
+    * **+5** if counter-tags ``benefit_corporation`` or ``cooperative`` are
+      present anywhere in the graph.
+    * Clamped to [0, 10].
+    * Any raw score **< 5** triggers the ``incentive_instability`` flag in
+      the Disharmony Report.
+    """
+
+    PRIMACY_TAGS: set[str] = {"maximize_value", "fiduciary_duty", "profit_priority"}
+    COUNTER_TAGS: set[str] = {"benefit_corporation", "cooperative"}
+
+    # -- predicate protocol (returns 0.0 – 1.0) ----------------------------
+
+    def __call__(self, artefact: dict[str, Any]) -> float:
+        raw_score, _ = self.evaluate(artefact)
+        return min(1.0, max(0.0, raw_score / 10.0))
+
+    # -- detailed evaluation ------------------------------------------------
+
+    def evaluate(self, artefact: dict[str, Any]) -> tuple[float, bool]:
+        """Return ``(raw_score, has_incentive_instability)``.
+
+        ``raw_score`` is on a 0–10 scale.
+        ``has_incentive_instability`` is True when ``raw_score < 5``.
+        """
+        score = 10.0
+
+        objects = artefact.get("objects", [])
+        morphisms = artefact.get("morphisms", [])
+
+        # Collect Corporation and Shareholder node IDs.
+        corp_ids: set[str] = set()
+        shareholder_ids: set[str] = set()
+        all_tags: set[str] = set()
+
+        for obj in objects:
+            obj_tags = {t.lower() for t in obj.get("tags", [])}
+            label = obj.get("label", "").lower()
+            all_tags.update(obj_tags)
+
+            if "corporation" in label or "corp" in label:
+                corp_ids.add(obj["id"])
+            if "shareholder" in label:
+                shareholder_ids.add(obj["id"])
+
+        # Collect morphism-level tags.
+        for m in morphisms:
+            all_tags.update(t.lower() for t in m.get("tags", []))
+
+        # --- Primacy Pattern detection ------------------------------------
+        primacy_detected = False
+
+        # Path 1: Directed Corporation → Shareholder morphism with a
+        #          primacy tag.
+        for m in morphisms:
+            m_tags = {t.lower() for t in m.get("tags", [])}
+            if (m.get("source") in corp_ids
+                    and m.get("target") in shareholder_ids
+                    and m_tags & self.PRIMACY_TAGS):
+                primacy_detected = True
+                break
+
+        # Path 2: Corporation object explicitly tagged with
+        #          ``shareholder_primacy_risk`` (set by AxiomLogix).
+        if not primacy_detected:
+            for obj in objects:
+                obj_tags = {t.lower() for t in obj.get("tags", [])}
+                if "shareholder_primacy_risk" in obj_tags:
+                    primacy_detected = True
+                    break
+
+        if primacy_detected:
+            score -= 7.0
+
+        # --- Counter-tag bonus --------------------------------------------
+        if all_tags & self.COUNTER_TAGS:
+            score += 5.0
+
+        score = max(0.0, min(10.0, score))
+        has_instability = score < 5.0
+
+        return score, has_instability
+
+
 class AxiomAnchorFrozenError(Exception):
     """Raised when attempting to modify a sealed AxiomAnchor."""
 

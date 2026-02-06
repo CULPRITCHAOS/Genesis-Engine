@@ -206,6 +206,66 @@ class AriaRenderer:
 
         return "\n".join(lines) + "\n"
 
+    # -- Disharmony Report rendering ----------------------------------------
+
+    def render_disharmony_report(self, report: Any) -> str:
+        """Render the Disharmony Report scores panel.
+
+        Displays Unity Impact, Compassion Deficit, Coherence, and
+        Incentive Stability alongside each other.
+        """
+        c = self._c
+        lines = [self.render_subheader(
+            f"{c(Colors.HEADER)}DISHARMONY REPORT{c(Colors.RESET)}"
+        )]
+
+        # Unity Impact (higher = worse)
+        unity_color = c(Colors.ERROR) if report.unity_impact > 5 else c(Colors.WARNING)
+        lines.append(
+            f"  Unity Impact:          {unity_color}"
+            f"{report.unity_impact:.1f}/10{c(Colors.RESET)}"
+        )
+
+        # Compassion Deficit (higher = worse)
+        comp_color = c(Colors.ERROR) if report.compassion_deficit > 5 else c(Colors.WARNING)
+        lines.append(
+            f"  Compassion Deficit:    {comp_color}"
+            f"{report.compassion_deficit:.1f}/10{c(Colors.RESET)}"
+        )
+
+        # Coherence Score (higher = better)
+        coh_color = c(Colors.SCORE) if report.coherence_score >= 5 else c(Colors.WARNING)
+        lines.append(
+            f"  Coherence Score:       {coh_color}"
+            f"{report.coherence_score:.1f}/10{c(Colors.RESET)}"
+        )
+
+        # Incentive Stability Score (higher = better, < 5 = instability)
+        inc_score = report.incentive_stability_score
+        inc_color = c(Colors.ERROR) if report.incentive_instability else c(Colors.SCORE)
+        lines.append(
+            f"  Incentive Stability:   {inc_color}"
+            f"{inc_score:.1f}/10{c(Colors.RESET)}"
+        )
+
+        if report.incentive_instability:
+            lines.append(
+                f"  {c(Colors.ERROR)}⚠ INCENTIVE INSTABILITY — "
+                f"Shareholder Primacy pattern detected.{c(Colors.RESET)}"
+            )
+            lines.append(
+                f"  {c(Colors.DIM)}Legal gravity well: Corporation→Shareholder "
+                f"sink with fiduciary/profit-priority tags.{c(Colors.RESET)}"
+            )
+
+        lines.append(
+            f"\n  Prime Directive aligned: "
+            f"{c(Colors.SCORE) if report.is_aligned else c(Colors.ERROR)}"
+            f"{'Yes' if report.is_aligned else 'No'}{c(Colors.RESET)}"
+        )
+
+        return "\n".join(lines) + "\n"
+
     # -- Full result rendering ----------------------------------------------
 
     def render_result(self, result: CrucibleResult) -> str:
@@ -222,6 +282,10 @@ class AriaRenderer:
                 f"no intervention needed.{c(Colors.RESET)}\n"
             )
         else:
+            # Show the Disharmony Report scores panel
+            if result.disharmony_report:
+                output.append(self.render_disharmony_report(result.disharmony_report))
+
             output.append(self.render_phases(result.phases))
             output.append(self.render_logic_box(result.logic_box))
             output.append(self.render_crystallization(result.crystallized_candidate))
@@ -272,10 +336,16 @@ class AriaRenderer:
                 lines.append(
                     f"\n  [{i+1}] {entry.source_text[:50]}..."
                 )
-                lines.append(
+                score_line = (
                     f"      Unity: {entry.unity_impact}/10  "
                     f"Compassion: {entry.compassion_deficit}/10"
                 )
+                # Show incentive stability if the entry carries it.
+                if hasattr(entry, "incentive_stability_score"):
+                    inc = entry.incentive_stability_score
+                    inc_color = c(Colors.ERROR) if inc < 5 else c(Colors.SCORE)
+                    score_line += f"  Incentive: {inc_color}{inc}/10{c(Colors.RESET)}"
+                lines.append(score_line)
                 lines.append(
                     f"      Path: {path_color}{entry.resolution_path}{c(Colors.RESET)}"
                 )

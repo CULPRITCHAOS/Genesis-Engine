@@ -25,7 +25,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
-from genesis_engine.core.axiom_anchor import AxiomAnchor, ValidationResult
+from genesis_engine.core.axiom_anchor import AxiomAnchor, IncentiveStabilityPredicate, ValidationResult
 from genesis_engine.core.axiomlogix import CategoricalGraph, Morphism
 
 
@@ -88,6 +88,8 @@ class DisharmonyReport:
     seed_prompt: str
     findings: list[MorphismFinding] = field(default_factory=list)
     validation: ValidationResult | None = None
+    incentive_stability_score: float = 10.0  # 0 – 10
+    incentive_instability: bool = False  # True when score < 5
     timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
     def as_dict(self) -> dict[str, Any]:
@@ -99,6 +101,8 @@ class DisharmonyReport:
                 "unityImpact": round(self.unity_impact, 2),
                 "compassionDeficit": round(self.compassion_deficit, 2),
                 "coherenceScore": round(self.coherence_score, 2),
+                "incentiveStabilityScore": round(self.incentive_stability_score, 2),
+                "incentiveInstability": self.incentive_instability,
                 "seedPrompt": self.seed_prompt,
                 "findings": [f.as_dict() for f in self.findings],
                 "validation": self.validation.as_dict() if self.validation else None,
@@ -124,6 +128,7 @@ class DeconstructionEngine:
 
     def __init__(self, anchor: AxiomAnchor | None = None) -> None:
         self.anchor = anchor or AxiomAnchor()
+        self._incentive_predicate = IncentiveStabilityPredicate()
 
     # -- public API ---------------------------------------------------------
 
@@ -148,9 +153,13 @@ class DeconstructionEngine:
         compassion_deficit = round((1.0 - compassion_raw) * 10, 2)
         coherence_score = round(coherence_raw * 10, 2)
 
-        # Step 4: Generate a seed prompt for the Dream Engine
+        # Step 4: Incentive Stability analysis (Module 2.1 extension)
+        incentive_score, incentive_instability = self._incentive_predicate.evaluate(artefact)
+
+        # Step 5: Generate a seed prompt for the Dream Engine
         seed_prompt = self._generate_seed_prompt(
             graph, findings, unity_impact, compassion_deficit,
+            incentive_score, incentive_instability,
         )
 
         return DisharmonyReport(
@@ -162,6 +171,8 @@ class DeconstructionEngine:
             seed_prompt=seed_prompt,
             findings=findings,
             validation=validation,
+            incentive_stability_score=incentive_score,
+            incentive_instability=incentive_instability,
         )
 
     # -- internal -----------------------------------------------------------
@@ -216,6 +227,8 @@ class DeconstructionEngine:
         findings: list[MorphismFinding],
         unity_impact: float,
         compassion_deficit: float,
+        incentive_stability_score: float = 10.0,
+        incentive_instability: bool = False,
     ) -> str:
         """Create a generative prompt the Dream Engine can use to heal
         the disharmony."""
@@ -232,15 +245,29 @@ class DeconstructionEngine:
             f"'{f.label}' ({f.source} → {f.target})" for f in flagged
         )
 
-        return (
+        prompt = (
             f"[DREAM ENGINE INPUT] "
             f"Context entities: [{entities}]. "
             f"Disharmonic morphisms detected: [{problems}]. "
             f"Unity impact: {unity_impact}/10. "
             f"Compassion deficit: {compassion_deficit}/10. "
-            f"TASK: Re-imagine these relationships so that every morphism "
-            f"serves Love — the recognition of Unity and drive for "
-            f"benevolent, coherent outcomes. Output a healed categorical "
-            f"graph where extraction is replaced by reciprocity and "
-            f"neglect is replaced by care."
+            f"Incentive stability: {incentive_stability_score}/10. "
         )
+
+        if incentive_instability:
+            prompt += (
+                "WARNING: Incentive instability detected — shareholder "
+                "primacy pattern creates a legal gravity well. "
+                "Prioritise structures that eliminate the Shareholder "
+                "sink node (e.g. worker-owned collectives, cooperatives). "
+            )
+
+        prompt += (
+            "TASK: Re-imagine these relationships so that every morphism "
+            "serves Love — the recognition of Unity and drive for "
+            "benevolent, coherent outcomes. Output a healed categorical "
+            "graph where extraction is replaced by reciprocity and "
+            "neglect is replaced by care."
+        )
+
+        return prompt
