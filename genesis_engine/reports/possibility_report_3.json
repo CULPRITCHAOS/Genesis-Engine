@@ -1,6 +1,6 @@
 {
   "possibilityReport": {
-    "timestamp": "2026-02-05T16:22:00.463455+00:00",
+    "timestamp": "2026-02-06T01:42:49.026395+00:00",
     "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
     "originalDisharmony": {
       "unityImpact": 10.0,
@@ -16,7 +16,7 @@
           "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
           "objects": [
             {
-              "id": "obj-9da61803",
+              "id": "obj-3296049d",
               "label": "User",
               "tags": [
                 "stakeholder",
@@ -24,7 +24,7 @@
               ]
             },
             {
-              "id": "obj-d8724714",
+              "id": "obj-aa94ab6a",
               "label": "Privacy",
               "tags": [
                 "value",
@@ -32,14 +32,14 @@
               ]
             },
             {
-              "id": "obj-caf93d7e",
+              "id": "obj-839de870",
               "label": "Data",
               "tags": [
                 "asset"
               ]
             },
             {
-              "id": "obj-afe01a11",
+              "id": "obj-5c7a0e9d",
               "label": "AI_System",
               "tags": [
                 "mechanism",
@@ -49,30 +49,30 @@
           ],
           "morphisms": [
             {
-              "id": "mor-5dba4279",
+              "id": "mor-8828db3e",
               "label": "Mutual_Benefit",
-              "source": "obj-afe01a11",
-              "target": "obj-9da61803",
+              "source": "obj-5c7a0e9d",
+              "target": "obj-3296049d",
               "tags": [
                 "service",
                 "empowerment"
               ]
             },
             {
-              "id": "mor-2b7650cd",
+              "id": "mor-33813cfe",
               "label": "Transparent_Oversight",
-              "source": "obj-afe01a11",
-              "target": "obj-9da61803",
+              "source": "obj-5c7a0e9d",
+              "target": "obj-3296049d",
               "tags": [
                 "protection",
                 "care"
               ]
             },
             {
-              "id": "mor-d807e02d",
+              "id": "mor-dd10efe5",
               "label": "Active_Care",
-              "source": "obj-afe01a11",
-              "target": "obj-9da61803",
+              "source": "obj-5c7a0e9d",
+              "target": "obj-3296049d",
               "tags": [
                 "care",
                 "protection"
@@ -105,7 +105,7 @@
           "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
           "objects": [
             {
-              "id": "obj-bdb6d9f4",
+              "id": "obj-83727f40",
               "label": "AI_System_as_Steward",
               "tags": [
                 "stakeholder",
@@ -113,7 +113,7 @@
               ]
             },
             {
-              "id": "obj-55a7bf19",
+              "id": "obj-e35b5cc7",
               "label": "Privacy_Commons",
               "tags": [
                 "value",
@@ -121,7 +121,7 @@
               ]
             },
             {
-              "id": "obj-2fce14ed",
+              "id": "obj-6fdaa6b9",
               "label": "Governance_Covenant",
               "tags": [
                 "mechanism",
@@ -129,7 +129,7 @@
               ]
             },
             {
-              "id": "obj-625c2908",
+              "id": "obj-fc66f93d",
               "label": "User",
               "tags": [
                 "stakeholder",
@@ -139,48 +139,48 @@
           ],
           "morphisms": [
             {
-              "id": "mor-51051d44",
+              "id": "mor-751e5775",
               "label": "Stewardship",
-              "source": "obj-bdb6d9f4",
-              "target": "obj-55a7bf19",
+              "source": "obj-83727f40",
+              "target": "obj-e35b5cc7",
               "tags": [
                 "protection",
                 "care"
               ]
             },
             {
-              "id": "mor-8d413073",
+              "id": "mor-286076c2",
               "label": "Empowerment",
-              "source": "obj-bdb6d9f4",
-              "target": "obj-625c2908",
+              "source": "obj-83727f40",
+              "target": "obj-fc66f93d",
               "tags": [
                 "empowerment",
                 "service"
               ]
             },
             {
-              "id": "mor-4159a20c",
+              "id": "mor-eea8fe50",
               "label": "Participation",
-              "source": "obj-625c2908",
-              "target": "obj-55a7bf19",
+              "source": "obj-fc66f93d",
+              "target": "obj-e35b5cc7",
               "tags": [
                 "collaboration"
               ]
             },
             {
-              "id": "mor-aa69a10d",
+              "id": "mor-dcfa5927",
               "label": "Accountability",
-              "source": "obj-2fce14ed",
-              "target": "obj-bdb6d9f4",
+              "source": "obj-6fdaa6b9",
+              "target": "obj-83727f40",
               "tags": [
                 "protection"
               ]
             },
             {
-              "id": "mor-a4ca8bad",
+              "id": "mor-6d004548",
               "label": "Rights_Guarantee",
-              "source": "obj-2fce14ed",
-              "target": "obj-625c2908",
+              "source": "obj-6fdaa6b9",
+              "target": "obj-fc66f93d",
               "tags": [
                 "protection",
                 "empowerment"
@@ -213,7 +213,7 @@
           "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
           "objects": [
             {
-              "id": "obj-8aeac173",
+              "id": "obj-d9e5557a",
               "label": "Community_Collective",
               "tags": [
                 "stakeholder",
@@ -221,7 +221,7 @@
               ]
             },
             {
-              "id": "obj-1a7b8817",
+              "id": "obj-f6ed4035",
               "label": "Shared_Resource",
               "tags": [
                 "value",
@@ -229,7 +229,7 @@
               ]
             },
             {
-              "id": "obj-14d08375",
+              "id": "obj-3e69f33f",
               "label": "Cooperative_Protocol",
               "tags": [
                 "mechanism",
@@ -237,7 +237,7 @@
               ]
             },
             {
-              "id": "obj-615cc745",
+              "id": "obj-57c33164",
               "label": "User",
               "tags": [
                 "stakeholder",
@@ -247,50 +247,50 @@
           ],
           "morphisms": [
             {
-              "id": "mor-312b8233",
+              "id": "mor-271b4495",
               "label": "Democratic_Governance",
-              "source": "obj-8aeac173",
-              "target": "obj-1a7b8817",
+              "source": "obj-d9e5557a",
+              "target": "obj-f6ed4035",
               "tags": [
                 "collaboration",
                 "protection"
               ]
             },
             {
-              "id": "mor-e73b27da",
+              "id": "mor-550646dd",
               "label": "Direct_Benefit",
-              "source": "obj-1a7b8817",
-              "target": "obj-615cc745",
+              "source": "obj-f6ed4035",
+              "target": "obj-57c33164",
               "tags": [
                 "service",
                 "empowerment"
               ]
             },
             {
-              "id": "mor-1b051eec",
+              "id": "mor-12e5bbdf",
               "label": "Voice",
-              "source": "obj-615cc745",
-              "target": "obj-8aeac173",
+              "source": "obj-57c33164",
+              "target": "obj-d9e5557a",
               "tags": [
                 "empowerment",
                 "collaboration"
               ]
             },
             {
-              "id": "mor-9c401fb0",
+              "id": "mor-205b8af1",
               "label": "Safeguard",
-              "source": "obj-14d08375",
-              "target": "obj-615cc745",
+              "source": "obj-3e69f33f",
+              "target": "obj-57c33164",
               "tags": [
                 "protection",
                 "care"
               ]
             },
             {
-              "id": "mor-42d98260",
+              "id": "mor-5a95dbe6",
               "label": "Transparency",
-              "source": "obj-14d08375",
-              "target": "obj-8aeac173",
+              "source": "obj-3e69f33f",
+              "target": "obj-d9e5557a",
               "tags": [
                 "service",
                 "protection"

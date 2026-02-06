@@ -15,6 +15,13 @@ A ``.genesis_soul`` file contains:
    resolutions, forming an evolving record of ethical growth.
 4. **Forge Artifacts** — references to Technical Covenants produced by the
    Architectural Forge.
+5. **Hash Chain** — SHA-256 hash-chaining for tamper-proof integrity.
+
+Security Features:
+- **Hash Chaining**: Each wisdom entry's hash incorporates the previous
+  entry's hash, creating an immutable audit trail.
+- **Redaction Discipline**: Sensitive patterns (API keys, credentials,
+  prompts with PII) are automatically scrubbed before storage.
 
 The file is serialised as a signed JSON envelope with a SHA-256 integrity
 hash, ready for future encryption and portability.
@@ -29,10 +36,42 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
+import re
+
 from genesis_engine.core.axiom_anchor import AxiomAnchor, PrimeDirective, ValidationResult
 from genesis_engine.core.axiomlogix import CategoricalGraph
 from genesis_engine.core.deconstruction_engine import DisharmonyReport
 from genesis_engine.core.dream_engine import DreamPath, PossibilityReport
+
+
+# ---------------------------------------------------------------------------
+# Redaction patterns — sensitive data to scrub before storage
+# ---------------------------------------------------------------------------
+
+_REDACTION_PATTERNS: list[tuple[re.Pattern[str], str]] = [
+    # API keys and tokens
+    (re.compile(r"\b(sk-[a-zA-Z0-9]{20,})\b"), "[REDACTED_API_KEY]"),
+    (re.compile(r"\b(api[_-]?key\s*[:=]\s*['\"]?)[a-zA-Z0-9_-]+", re.I), r"\1[REDACTED]"),
+    (re.compile(r"\b(token\s*[:=]\s*['\"]?)[a-zA-Z0-9_-]+", re.I), r"\1[REDACTED]"),
+    (re.compile(r"\b(secret\s*[:=]\s*['\"]?)[a-zA-Z0-9_-]+", re.I), r"\1[REDACTED]"),
+    (re.compile(r"\b(password\s*[:=]\s*['\"]?)[^\s'\"]+", re.I), r"\1[REDACTED]"),
+    # Email addresses
+    (re.compile(r"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b"), "[REDACTED_EMAIL]"),
+    # Phone numbers (basic patterns)
+    (re.compile(r"\b\d{3}[-.\s]?\d{3}[-.\s]?\d{4}\b"), "[REDACTED_PHONE]"),
+    # Credit card numbers (basic patterns)
+    (re.compile(r"\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b"), "[REDACTED_CC]"),
+    # Social Security Numbers
+    (re.compile(r"\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b"), "[REDACTED_SSN]"),
+]
+
+
+def redact_sensitive(text: str) -> str:
+    """Apply redaction patterns to remove sensitive data from *text*."""
+    result = text
+    for pattern, replacement in _REDACTION_PATTERNS:
+        result = pattern.sub(replacement, result)
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -63,7 +102,10 @@ class GraphHistoryEntry:
 
 @dataclass
 class WisdomEntry:
-    """A record of a disharmony identified and (optionally) resolved."""
+    """A record of a disharmony identified and (optionally) resolved.
+
+    Includes a hash for chain integrity verification.
+    """
 
     source_text: str
     disharmony_summary: str
@@ -73,6 +115,17 @@ class WisdomEntry:
     resolution_summary: str = ""
     covenant_title: str = ""
     timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    prev_hash: str = ""  # Hash of previous entry (for chain integrity)
+    entry_hash: str = ""  # This entry's hash
+
+    def compute_hash(self, prev_hash: str = "") -> str:
+        """Compute SHA-256 hash incorporating the previous entry's hash."""
+        content = (
+            f"{prev_hash}|{self.source_text}|{self.disharmony_summary}|"
+            f"{self.unity_impact}|{self.compassion_deficit}|{self.resolution_path}|"
+            f"{self.resolution_summary}|{self.covenant_title}|{self.timestamp}"
+        )
+        return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -84,6 +137,8 @@ class WisdomEntry:
             "resolutionSummary": self.resolution_summary,
             "covenantTitle": self.covenant_title,
             "timestamp": self.timestamp,
+            "prevHash": self.prev_hash,
+            "entryHash": self.entry_hash,
         }
 
 
@@ -135,21 +190,33 @@ class GenesisSoul:
         resolution_summary: str = "",
         covenant_title: str = "",
     ) -> None:
-        """Record a disharmony and its resolution."""
+        """Record a disharmony and its resolution with redaction and hash-chaining."""
         flagged = [f for f in report.findings if f.disharmony_score > 0]
         summary = "; ".join(
             f"{f.label} ({f.source} -> {f.target})" for f in flagged
         ) if flagged else "No disharmony detected"
 
-        self.wisdom_log.append(WisdomEntry(
-            source_text=report.source_text,
+        # Apply redaction discipline to sensitive fields
+        redacted_source = redact_sensitive(report.source_text)
+        redacted_summary = redact_sensitive(resolution_summary)
+
+        # Get the previous hash for chaining
+        prev_hash = self.wisdom_log[-1].entry_hash if self.wisdom_log else ""
+
+        entry = WisdomEntry(
+            source_text=redacted_source,
             disharmony_summary=summary,
             unity_impact=report.unity_impact,
             compassion_deficit=report.compassion_deficit,
             resolution_path=resolution_path,
-            resolution_summary=resolution_summary,
+            resolution_summary=redacted_summary,
             covenant_title=covenant_title,
-        ))
+            prev_hash=prev_hash,
+        )
+        # Compute and set the entry's hash
+        entry.entry_hash = entry.compute_hash(prev_hash)
+
+        self.wisdom_log.append(entry)
         self.updated_at = datetime.now(timezone.utc).isoformat()
 
     def record_forge_artifact(self, artifact_dict: dict[str, Any]) -> None:
@@ -270,7 +337,7 @@ class ContinuityBridge:
         # Restore forge artifacts (simple dicts).
         soul.forge_artifacts = payload.get("forgeArtifacts", [])
 
-        # Restore wisdom log.
+        # Restore wisdom log with hash chain.
         for w in payload.get("wisdomLog", []):
             soul.wisdom_log.append(WisdomEntry(
                 source_text=w.get("sourceText", ""),
@@ -281,6 +348,37 @@ class ContinuityBridge:
                 resolution_summary=w.get("resolutionSummary", ""),
                 covenant_title=w.get("covenantTitle", ""),
                 timestamp=w.get("timestamp", ""),
+                prev_hash=w.get("prevHash", ""),
+                entry_hash=w.get("entryHash", ""),
             ))
 
         return soul
+
+    @staticmethod
+    def verify_wisdom_chain(soul: GenesisSoul) -> tuple[bool, list[str]]:
+        """Verify the integrity of the wisdom log hash chain.
+
+        Returns (is_valid, list_of_errors).
+        """
+        errors: list[str] = []
+        prev_hash = ""
+
+        for i, entry in enumerate(soul.wisdom_log):
+            # Verify the prev_hash links correctly
+            if entry.prev_hash != prev_hash:
+                errors.append(
+                    f"Entry {i}: prev_hash mismatch. "
+                    f"Expected '{prev_hash[:16]}...', got '{entry.prev_hash[:16]}...'"
+                )
+
+            # Verify the entry's own hash
+            computed = entry.compute_hash(entry.prev_hash)
+            if entry.entry_hash and entry.entry_hash != computed:
+                errors.append(
+                    f"Entry {i}: hash mismatch. "
+                    f"Expected '{computed[:16]}...', got '{entry.entry_hash[:16]}...'"
+                )
+
+            prev_hash = entry.entry_hash
+
+        return (len(errors) == 0, errors)
