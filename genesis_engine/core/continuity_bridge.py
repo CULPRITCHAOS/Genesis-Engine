@@ -106,6 +106,38 @@ class GraphHistoryEntry:
 # ---------------------------------------------------------------------------
 
 @dataclass
+class ForesightProjection:
+    """A single foresight projection from the Game Theory war-game.
+
+    Stores the results of a 100-year (or N-round) Iterated Prisoner's
+    Dilemma between Aligned and Extractive agents.
+    """
+
+    war_game_rounds: int
+    aligned_score: float
+    extractive_score: float
+    sustainability_score: float
+    outcome_flag: str  # SYSTEMIC_COLLAPSE | PYRRHIC_VICTORY | SUSTAINABLE_VICTORY | etc.
+    aligned_cooperation_rate: float
+    extractive_cooperation_rate: float
+    foresight_summary: str
+    timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "warGameRounds": self.war_game_rounds,
+            "alignedScore": round(self.aligned_score, 2),
+            "extractiveScore": round(self.extractive_score, 2),
+            "sustainabilityScore": round(self.sustainability_score, 4),
+            "outcomeFlag": self.outcome_flag,
+            "alignedCooperationRate": round(self.aligned_cooperation_rate, 4),
+            "extractiveCooperationRate": round(self.extractive_cooperation_rate, 4),
+            "foresightSummary": self.foresight_summary,
+            "timestamp": self.timestamp,
+        }
+
+
+@dataclass
 class WisdomEntry:
     """A record of a disharmony identified and (optionally) resolved.
 
@@ -119,16 +151,23 @@ class WisdomEntry:
     resolution_path: str  # "reform" | "reinvention" | "dissolution" | "unresolved"
     resolution_summary: str = ""
     covenant_title: str = ""
+    foresight_projections: list[ForesightProjection] = field(default_factory=list)
     timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     prev_hash: str = ""  # Hash of previous entry (for chain integrity)
     entry_hash: str = ""  # This entry's hash
 
     def compute_hash(self, prev_hash: str = "") -> str:
         """Compute SHA-256 hash incorporating the previous entry's hash."""
+        # Include foresight projections in hash computation for integrity
+        foresight_str = "|".join(
+            f"{fp.outcome_flag}:{fp.sustainability_score}"
+            for fp in self.foresight_projections
+        )
         content = (
             f"{prev_hash}|{self.source_text}|{self.disharmony_summary}|"
             f"{self.unity_impact}|{self.compassion_deficit}|{self.resolution_path}|"
-            f"{self.resolution_summary}|{self.covenant_title}|{self.timestamp}"
+            f"{self.resolution_summary}|{self.covenant_title}|"
+            f"{foresight_str}|{self.timestamp}"
         )
         return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
@@ -141,6 +180,7 @@ class WisdomEntry:
             "resolutionPath": self.resolution_path,
             "resolutionSummary": self.resolution_summary,
             "covenantTitle": self.covenant_title,
+            "foresightProjections": [fp.as_dict() for fp in self.foresight_projections],
             "timestamp": self.timestamp,
             "prevHash": self.prev_hash,
             "entryHash": self.entry_hash,
@@ -286,6 +326,7 @@ class GenesisSoul:
         resolution_path: str = "unresolved",
         resolution_summary: str = "",
         covenant_title: str = "",
+        foresight_projections: list[ForesightProjection] | None = None,
     ) -> None:
         """Record a disharmony and its resolution with redaction and hash-chaining."""
         flagged = [f for f in report.findings if f.disharmony_score > 0]
@@ -308,12 +349,29 @@ class GenesisSoul:
             resolution_path=resolution_path,
             resolution_summary=redacted_summary,
             covenant_title=covenant_title,
+            foresight_projections=foresight_projections or [],
             prev_hash=prev_hash,
         )
         # Compute and set the entry's hash
         entry.entry_hash = entry.compute_hash(prev_hash)
 
         self.wisdom_log.append(entry)
+        self.updated_at = datetime.now(timezone.utc).isoformat()
+
+    def record_foresight(
+        self,
+        projection: ForesightProjection,
+    ) -> None:
+        """Append a foresight projection to the most recent wisdom entry.
+
+        If no wisdom entries exist, creates a standalone entry.
+        Re-computes the hash chain for the affected entry.
+        """
+        if self.wisdom_log:
+            entry = self.wisdom_log[-1]
+            entry.foresight_projections.append(projection)
+            # Recompute hash since content changed
+            entry.entry_hash = entry.compute_hash(entry.prev_hash)
         self.updated_at = datetime.now(timezone.utc).isoformat()
 
     def record_forge_artifact(self, artifact_dict: dict[str, Any]) -> None:
@@ -498,6 +556,20 @@ class ContinuityBridge:
 
         # Restore wisdom log with hash chain.
         for w in payload.get("wisdomLog", []):
+            # Restore foresight projections
+            foresight_list: list[ForesightProjection] = []
+            for fp in w.get("foresightProjections", []):
+                foresight_list.append(ForesightProjection(
+                    war_game_rounds=fp.get("warGameRounds", 0),
+                    aligned_score=fp.get("alignedScore", 0.0),
+                    extractive_score=fp.get("extractiveScore", 0.0),
+                    sustainability_score=fp.get("sustainabilityScore", 0.0),
+                    outcome_flag=fp.get("outcomeFlag", ""),
+                    aligned_cooperation_rate=fp.get("alignedCooperationRate", 0.0),
+                    extractive_cooperation_rate=fp.get("extractiveCooperationRate", 0.0),
+                    foresight_summary=fp.get("foresightSummary", ""),
+                    timestamp=fp.get("timestamp", ""),
+                ))
             soul.wisdom_log.append(WisdomEntry(
                 source_text=w.get("sourceText", ""),
                 disharmony_summary=w.get("disharmonySummary", ""),
@@ -506,6 +578,7 @@ class ContinuityBridge:
                 resolution_path=w.get("resolutionPath", "unresolved"),
                 resolution_summary=w.get("resolutionSummary", ""),
                 covenant_title=w.get("covenantTitle", ""),
+                foresight_projections=foresight_list,
                 timestamp=w.get("timestamp", ""),
                 prev_hash=w.get("prevHash", ""),
                 entry_hash=w.get("entryHash", ""),

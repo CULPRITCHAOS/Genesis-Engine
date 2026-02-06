@@ -1,0 +1,454 @@
+{
+  "genesis_soul": {
+    "format": "genesis_soul_v1",
+    "integrityHash": "a73949a2e45468233a6e267144d92a3c2bc96ea4783a43454caf44753386e4ea",
+    "payload": {
+      "soulId": "soul-345ed2bed166",
+      "version": "0.1.0",
+      "axiomAnchorState": {
+        "directive": {
+          "statement": "Does this serve Love?",
+          "principles": [
+            "unity",
+            "compassion",
+            "coherence"
+          ]
+        },
+        "alignmentThreshold": 0.5
+      },
+      "graphHistory": [
+        {
+          "phase": "translation",
+          "label": "A corporation that prioritizes shareholder value over employee welfare and environmental sustainability.",
+          "timestamp": "2026-02-06T14:33:25.754715+00:00",
+          "graph": {
+            "sourceText": "A corporation that prioritizes shareholder value over employee welfare and environmental sustainability.",
+            "objects": [
+              {
+                "id": "obj-b1ba6a32",
+                "label": "Corporation",
+                "tags": [
+                  "stakeholder",
+                  "actor",
+                  "shareholder_primacy_risk"
+                ]
+              },
+              {
+                "id": "obj-aee2a7f5",
+                "label": "Shareholder",
+                "tags": [
+                  "stakeholder",
+                  "sink"
+                ]
+              },
+              {
+                "id": "obj-4d2860ff",
+                "label": "Employee",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-4b80fba1",
+                "label": "Future_Generations",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable",
+                  "shadow_entity",
+                  "temporal"
+                ]
+              },
+              {
+                "id": "obj-77a3421a",
+                "label": "Ecosystem",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable",
+                  "shadow_entity",
+                  "ecological"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-af8829bd",
+                "label": "Prioritization",
+                "source": "obj-b1ba6a32",
+                "target": "obj-4d2860ff",
+                "tags": [
+                  "decision"
+                ]
+              },
+              {
+                "id": "mor-c0cf034b",
+                "label": "Sustainability",
+                "source": "obj-b1ba6a32",
+                "target": "obj-4d2860ff",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-3015b7aa",
+                "label": "Maximize_Value",
+                "source": "obj-b1ba6a32",
+                "target": "obj-4d2860ff",
+                "tags": [
+                  "maximize_value",
+                  "fiduciary_duty"
+                ]
+              },
+              {
+                "id": "mor-fd08fe13",
+                "label": "Temporal_Impact",
+                "source": "obj-b1ba6a32",
+                "target": "obj-4b80fba1",
+                "tags": [
+                  "neglect",
+                  "temporal_harm",
+                  "shadow_impact"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "crucible",
+          "label": "Crystallized: contradiction perspective",
+          "timestamp": "2026-02-06T14:33:25.754720+00:00",
+          "graph": {
+            "sourceText": "A corporation that prioritizes shareholder value over employee welfare and environmental sustainability.",
+            "objects": [
+              {
+                "id": "obj-8dcbae90",
+                "label": "Corporation_as_Steward",
+                "tags": [
+                  "stakeholder",
+                  "actor"
+                ]
+              },
+              {
+                "id": "obj-9beeb4be",
+                "label": "Shared_Commons",
+                "tags": [
+                  "value",
+                  "shared"
+                ]
+              },
+              {
+                "id": "obj-53135204",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-ccabc179",
+                "label": "Employee",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-2c72db64",
+                "label": "Future_Generations",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-1dddce0a",
+                "label": "Ecosystem",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-bf53615d",
+                "label": "Stewardship",
+                "source": "obj-8dcbae90",
+                "target": "obj-9beeb4be",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-48894a25",
+                "label": "Empowerment",
+                "source": "obj-8dcbae90",
+                "target": "obj-ccabc179",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-406c3cff",
+                "label": "Empowerment",
+                "source": "obj-8dcbae90",
+                "target": "obj-2c72db64",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-6d1e23c7",
+                "label": "Empowerment",
+                "source": "obj-8dcbae90",
+                "target": "obj-1dddce0a",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-2fbfdbbf",
+                "label": "Participation",
+                "source": "obj-ccabc179",
+                "target": "obj-9beeb4be",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-72cefe8a",
+                "label": "Accountability",
+                "source": "obj-53135204",
+                "target": "obj-8dcbae90",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-5b038860",
+                "label": "Rights_Guarantee",
+                "source": "obj-53135204",
+                "target": "obj-ccabc179",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-7c597c58",
+                "label": "Rights_Guarantee",
+                "source": "obj-53135204",
+                "target": "obj-2c72db64",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-ddb260d7",
+                "label": "Rights_Guarantee",
+                "source": "obj-53135204",
+                "target": "obj-1dddce0a",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "verification",
+          "label": "Forge verification: Stewardship Covenant: A corporation that prioritizes shareholder value over employ",
+          "timestamp": "2026-02-06T14:33:25.754723+00:00",
+          "graph": {
+            "sourceText": "Technical Covenant: Stewardship Covenant: A corporation that prioritizes shareholder value over employ",
+            "objects": [
+              {
+                "id": "obj-57921814",
+                "label": "Corporation_as_Steward",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-9c4f6dcc",
+                "label": "Shared_Commons",
+                "tags": [
+                  "value"
+                ]
+              },
+              {
+                "id": "obj-f7af0b64",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-896fd98e",
+                "label": "Employee",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-c9af84e6",
+                "label": "Future_Generations",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-cb3a44bb",
+                "label": "Ecosystem",
+                "tags": [
+                  "stakeholder"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-a0e06686",
+                "label": "Stewardship",
+                "source": "obj-57921814",
+                "target": "obj-9c4f6dcc",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-b22494e2",
+                "label": "Empowerment",
+                "source": "obj-57921814",
+                "target": "obj-896fd98e",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-e36cd6dc",
+                "label": "Empowerment",
+                "source": "obj-57921814",
+                "target": "obj-c9af84e6",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-1280f5d7",
+                "label": "Empowerment",
+                "source": "obj-57921814",
+                "target": "obj-cb3a44bb",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-eced7a75",
+                "label": "Participation",
+                "source": "obj-896fd98e",
+                "target": "obj-9c4f6dcc",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-6206e618",
+                "label": "Accountability",
+                "source": "obj-f7af0b64",
+                "target": "obj-57921814",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-1d52533a",
+                "label": "Rights_Guarantee",
+                "source": "obj-f7af0b64",
+                "target": "obj-896fd98e",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-0b8f34ea",
+                "label": "Rights_Guarantee",
+                "source": "obj-f7af0b64",
+                "target": "obj-c9af84e6",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-d1e2596d",
+                "label": "Rights_Guarantee",
+                "source": "obj-f7af0b64",
+                "target": "obj-cb3a44bb",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "wisdomLog": [
+        {
+          "sourceText": "A corporation that prioritizes shareholder value over employee welfare and environmental sustainability.",
+          "disharmonySummary": "Temporal_Impact (Corporation -> Future_Generations)",
+          "unityImpact": 5.0,
+          "compassionDeficit": 6.67,
+          "resolutionPath": "reinvention",
+          "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
+          "covenantTitle": "Stewardship Covenant: A corporation that prioritizes shareholder value over employ",
+          "foresightProjections": [
+            {
+              "warGameRounds": 100,
+              "alignedScore": 146.0,
+              "extractiveScore": 281.0,
+              "sustainabilityScore": 5.2602,
+              "outcomeFlag": "PYRRHIC_VICTORY",
+              "alignedCooperationRate": 0.57,
+              "extractiveCooperationRate": 0.3,
+              "foresightSummary": "WAR-GAME FORESIGHT (100-round Iterated Prisoner's Dilemma)\n  Aligned Agent (Stewardship_Coalition): 146.0 pts (cooperation rate: 57.0%)\n  Extractive Agent (Extractive_Consortium): 281.0 pts (cooperation rate: 30.0%)\n  Sustainability Score: 5.26/10.0\n  Outcome: PYRRHIC_VICTORY\n  CAUTION: The extractive agent leads on points, but sustainability is marginal. Continued extraction will tip into collapse.",
+              "timestamp": "2026-02-06T14:33:25.755258+00:00"
+            }
+          ],
+          "timestamp": "2026-02-06T14:33:25.754819+00:00",
+          "prevHash": "",
+          "entryHash": "b9bd7c869a7a82c7d7949f868e4eac6420ec2ee98f314d05b65392a4730a1ddb"
+        }
+      ],
+      "humanOverrides": [],
+      "forgeArtifacts": [
+        {
+          "covenantTitle": "Stewardship Covenant: A corporation that prioritizes shareholder value over employ",
+          "integrityVerified": true,
+          "perspective": "contradiction",
+          "candidateId": "cand-54e72a21"
+        }
+      ],
+      "metadata": {
+        "createdAt": "2026-02-06T14:33:25.752709+00:00",
+        "updatedAt": "2026-02-06T14:33:25.755270+00:00",
+        "graphCount": 3,
+        "wisdomCount": 1,
+        "overrideCount": 0,
+        "forgeCount": 1
+      }
+    }
+  }
+}

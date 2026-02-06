@@ -23,6 +23,8 @@ Design notes
 from __future__ import annotations
 
 import enum
+import math
+import random
 from dataclasses import dataclass, field
 from typing import Any, Callable, Protocol
 
@@ -290,6 +292,356 @@ class IncentiveStabilityPredicate:
         has_instability = score < 5.0
 
         return score, has_instability
+
+
+# ---------------------------------------------------------------------------
+# Sustainability Predicate (Module 2.1 Extension — Sprint 6.1)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class MonteCarloProjection:
+    """Result of a single Monte Carlo temporal simulation run."""
+
+    timesteps: int
+    survival_probability: float  # 0.0–1.0
+    mean_health: float           # average graph health across the run
+    collapse_step: int | None    # step at which collapse occurred, or None
+
+
+@dataclass
+class SustainabilityResult:
+    """Full sustainability evaluation output."""
+
+    sustainability_score: float       # (TemporalViability * EcologicalHarmony) / (FragilityFactor + 1)
+    temporal_viability: float         # 0.0–1.0
+    ecological_harmony: float         # 0.0–1.0
+    fragility_factor: float           # 0.0+
+    regenerative_loops: list[dict[str, Any]]
+    depletion_morphisms: list[dict[str, Any]]
+    projections: list[MonteCarloProjection]
+    is_sustainable: bool              # True when score >= 5.0 on 0–10 scale
+
+
+class SustainabilityPredicate:
+    """Evaluates long-arc survival and ecological harmony of a categorical graph.
+
+    Implements:
+    - **TemporalViability**: Monte Carlo stub simulating graph evolution over
+      t=10, 50, 100 steps with Bayesian priors for uncertainty handling.
+    - **EcologicalHarmony**: Detects "Regenerative Loops" where morphisms
+      ensure replenishment rather than pure depletion.
+    - **FragilityFactor**: Measures graph vulnerability to single-point failures.
+
+    Scoring formula:
+        SustainabilityScore = (TemporalViability * EcologicalHarmony) / (FragilityFactor + 1)
+        Normalised to a 0–10 scale.
+    """
+
+    # Tags indicating regenerative/replenishment morphisms
+    REGENERATIVE_TAGS: set[str] = {
+        "care", "protection", "service", "empowerment",
+        "collaboration", "sustainability", "cooperative",
+        "benefit_corporation", "stewardship", "replenishment",
+    }
+
+    # Tags indicating extractive/depleting morphisms
+    DEPLETION_TAGS: set[str] = {
+        "extraction", "exploitation", "coercion", "neglect",
+        "division", "maximize_value", "profit_priority",
+        "fiduciary_duty",
+    }
+
+    # Bayesian prior: base belief that any graph is moderately viable
+    PRIOR_VIABILITY: float = 0.5
+    PRIOR_STRENGTH: float = 2.0  # equivalent "pseudo-observations"
+
+    SIMULATION_HORIZONS: tuple[int, ...] = (10, 50, 100)
+    MONTE_CARLO_RUNS: int = 50  # runs per horizon
+
+    def __init__(self, seed: int | None = None) -> None:
+        self._rng = random.Random(seed)
+
+    # -- predicate protocol (returns 0.0–1.0) -------------------------------
+
+    def __call__(self, artefact: dict[str, Any]) -> float:
+        result = self.evaluate(artefact)
+        return min(1.0, max(0.0, result.sustainability_score / 10.0))
+
+    # -- detailed evaluation ------------------------------------------------
+
+    def evaluate(self, artefact: dict[str, Any]) -> SustainabilityResult:
+        """Full sustainability evaluation returning all sub-scores."""
+        objects = artefact.get("objects", [])
+        morphisms = artefact.get("morphisms", [])
+
+        # 1. Ecological Harmony — detect regenerative loops vs depletion
+        regen_loops, depletion_morphs = self._detect_loops(objects, morphisms)
+        ecological_harmony = self._compute_ecological_harmony(
+            regen_loops, depletion_morphs, morphisms,
+        )
+
+        # 2. Fragility Factor — single-point-of-failure vulnerability
+        fragility = self._compute_fragility(objects, morphisms)
+
+        # 3. Temporal Viability — Monte Carlo simulation with Bayesian priors
+        projections = self._monte_carlo_simulate(
+            objects, morphisms, ecological_harmony, fragility,
+        )
+        temporal_viability = self._compute_temporal_viability(projections)
+
+        # 4. Composite score
+        raw = (temporal_viability * ecological_harmony) / (fragility + 1.0)
+        sustainability_score = min(10.0, max(0.0, raw * 10.0))
+
+        return SustainabilityResult(
+            sustainability_score=sustainability_score,
+            temporal_viability=temporal_viability,
+            ecological_harmony=ecological_harmony,
+            fragility_factor=fragility,
+            regenerative_loops=regen_loops,
+            depletion_morphisms=depletion_morphs,
+            projections=projections,
+            is_sustainable=sustainability_score >= 5.0,
+        )
+
+    # -- Ecological Harmony -------------------------------------------------
+
+    def _detect_loops(
+        self,
+        objects: list[dict[str, Any]],
+        morphisms: list[dict[str, Any]],
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        """Detect regenerative loops and depletion morphisms.
+
+        A regenerative loop exists when there is a cycle of morphisms
+        where at least one leg carries regenerative tags — ensuring
+        replenishment flows back to source nodes.
+        """
+        regenerative_loops: list[dict[str, Any]] = []
+        depletion_morphisms: list[dict[str, Any]] = []
+
+        # Build adjacency for cycle detection
+        obj_ids = {o["id"] for o in objects}
+        adjacency: dict[str, list[tuple[str, dict[str, Any]]]] = {oid: [] for oid in obj_ids}
+
+        for m in morphisms:
+            src, tgt = m.get("source", ""), m.get("target", "")
+            if src in obj_ids and tgt in obj_ids:
+                adjacency[src].append((tgt, m))
+
+        # Classify individual morphisms
+        for m in morphisms:
+            m_tags = {t.lower() for t in m.get("tags", [])}
+            m_label = m.get("label", "").lower()
+
+            if m_tags & self.DEPLETION_TAGS:
+                depletion_morphisms.append({
+                    "morphism_id": m.get("id", ""),
+                    "label": m.get("label", ""),
+                    "source": m.get("source", ""),
+                    "target": m.get("target", ""),
+                    "depletion_tags": sorted(m_tags & self.DEPLETION_TAGS),
+                })
+
+        # Detect regenerative loops: find cycles where at least one morphism
+        # has regenerative tags (simplified: check for reciprocal edges)
+        visited_pairs: set[tuple[str, str]] = set()
+        for src in adjacency:
+            for tgt, m_forward in adjacency[src]:
+                if (src, tgt) in visited_pairs:
+                    continue
+                # Check for return path tgt -> src
+                for back_tgt, m_back in adjacency.get(tgt, []):
+                    if back_tgt == src:
+                        fwd_tags = {t.lower() for t in m_forward.get("tags", [])}
+                        bck_tags = {t.lower() for t in m_back.get("tags", [])}
+                        combined = fwd_tags | bck_tags
+                        if combined & self.REGENERATIVE_TAGS:
+                            regenerative_loops.append({
+                                "cycle": [src, tgt, src],
+                                "forward_morphism": m_forward.get("id", ""),
+                                "return_morphism": m_back.get("id", ""),
+                                "regenerative_tags": sorted(combined & self.REGENERATIVE_TAGS),
+                            })
+                            visited_pairs.add((src, tgt))
+                            visited_pairs.add((tgt, src))
+
+        return regenerative_loops, depletion_morphisms
+
+    def _compute_ecological_harmony(
+        self,
+        regen_loops: list[dict[str, Any]],
+        depletion_morphs: list[dict[str, Any]],
+        morphisms: list[dict[str, Any]],
+    ) -> float:
+        """Compute ecological harmony score (0.0–1.0).
+
+        Higher when regenerative loops dominate over depletion morphisms.
+        """
+        if not morphisms:
+            return 0.5  # neutral / unknown
+
+        # Count morphisms with regenerative tags
+        regen_count = 0
+        deplete_count = len(depletion_morphs)
+        for m in morphisms:
+            m_tags = {t.lower() for t in m.get("tags", [])}
+            if m_tags & self.REGENERATIVE_TAGS:
+                regen_count += 1
+
+        # Bonus for actual loop structures (cycles = strong replenishment)
+        loop_bonus = min(0.3, len(regen_loops) * 0.1)
+
+        total = regen_count + deplete_count
+        if total == 0:
+            return 0.5 + loop_bonus
+
+        base_harmony = regen_count / total
+        return min(1.0, base_harmony + loop_bonus)
+
+    # -- Fragility Factor ---------------------------------------------------
+
+    def _compute_fragility(
+        self,
+        objects: list[dict[str, Any]],
+        morphisms: list[dict[str, Any]],
+    ) -> float:
+        """Compute fragility factor (0.0+, lower is better).
+
+        Measures vulnerability to single-point-of-failure by checking
+        node degree distribution and connectivity concentration.
+        """
+        if not objects or not morphisms:
+            return 1.0  # maximum fragility for empty graphs
+
+        obj_ids = {o["id"] for o in objects}
+        degree: dict[str, int] = {oid: 0 for oid in obj_ids}
+
+        for m in morphisms:
+            src, tgt = m.get("source", ""), m.get("target", "")
+            if src in degree:
+                degree[src] += 1
+            if tgt in degree:
+                degree[tgt] += 1
+
+        degrees = list(degree.values())
+        if not degrees:
+            return 1.0
+
+        max_degree = max(degrees)
+        mean_degree = sum(degrees) / len(degrees)
+
+        # Fragility is high when one node holds disproportionate connections
+        # (concentration risk) and low when connections are distributed
+        if mean_degree == 0:
+            return 1.0
+
+        concentration = max_degree / (mean_degree * len(degrees))
+        orphan_ratio = sum(1 for d in degrees if d == 0) / len(degrees)
+
+        return min(2.0, concentration + orphan_ratio)
+
+    # -- Monte Carlo Temporal Viability ------------------------------------
+
+    def _monte_carlo_simulate(
+        self,
+        objects: list[dict[str, Any]],
+        morphisms: list[dict[str, Any]],
+        ecological_harmony: float,
+        fragility: float,
+    ) -> list[MonteCarloProjection]:
+        """Run Monte Carlo simulations over multiple time horizons.
+
+        Uses Bayesian priors to handle uncertainty: starts with a prior
+        belief about viability and updates based on graph structure.
+        """
+        projections: list[MonteCarloProjection] = []
+
+        # Bayesian prior update: posterior viability belief
+        # prior = Beta(alpha, beta) where alpha ~ successes, beta ~ failures
+        prior_alpha = self.PRIOR_STRENGTH * self.PRIOR_VIABILITY
+        prior_beta = self.PRIOR_STRENGTH * (1.0 - self.PRIOR_VIABILITY)
+
+        # Update with observed evidence from graph structure
+        evidence_positive = ecological_harmony * 10.0
+        evidence_negative = fragility * 5.0
+        posterior_alpha = prior_alpha + evidence_positive
+        posterior_beta = prior_beta + evidence_negative
+        posterior_viability = posterior_alpha / (posterior_alpha + posterior_beta)
+
+        for horizon in self.SIMULATION_HORIZONS:
+            survivals = 0
+            total_health = 0.0
+            collapse_steps: list[int | None] = []
+
+            for _ in range(self.MONTE_CARLO_RUNS):
+                health = posterior_viability
+                collapsed = False
+                collapse_at: int | None = None
+                run_health_sum = 0.0
+
+                for step in range(1, horizon + 1):
+                    # Each step: health degrades or improves stochastically
+                    # Regenerative harmony sustains; depletion erodes
+                    shock = self._rng.gauss(0, 0.05)
+                    regen_boost = ecological_harmony * 0.02
+                    fragility_drain = fragility * 0.015
+                    health += regen_boost - fragility_drain + shock
+
+                    health = max(0.0, min(1.0, health))
+                    run_health_sum += health
+
+                    if health < 0.1:
+                        collapsed = True
+                        collapse_at = step
+                        break
+
+                if not collapsed:
+                    survivals += 1
+                    collapse_steps.append(None)
+                else:
+                    collapse_steps.append(collapse_at)
+
+                total_health += run_health_sum / horizon if not collapsed else run_health_sum / (collapse_at or 1)
+
+            survival_prob = survivals / self.MONTE_CARLO_RUNS
+            mean_health = total_health / self.MONTE_CARLO_RUNS
+
+            # Find most common collapse step (mode) for reporting
+            real_collapses = [s for s in collapse_steps if s is not None]
+            mode_collapse = min(real_collapses) if real_collapses else None
+
+            projections.append(MonteCarloProjection(
+                timesteps=horizon,
+                survival_probability=survival_prob,
+                mean_health=mean_health,
+                collapse_step=mode_collapse,
+            ))
+
+        return projections
+
+    def _compute_temporal_viability(
+        self,
+        projections: list[MonteCarloProjection],
+    ) -> float:
+        """Aggregate Monte Carlo projections into a single viability score.
+
+        Weights longer horizons more heavily (long-arc survival matters more).
+        """
+        if not projections:
+            return self.PRIOR_VIABILITY
+
+        # Weighted average: longer horizons get exponentially more weight
+        weights = [math.log2(p.timesteps + 1) for p in projections]
+        total_weight = sum(weights)
+        if total_weight == 0:
+            return self.PRIOR_VIABILITY
+
+        weighted_sum = sum(
+            w * (p.survival_probability * 0.7 + p.mean_health * 0.3)
+            for w, p in zip(weights, projections)
+        )
+        return weighted_sum / total_weight
 
 
 class AxiomAnchorFrozenError(Exception):
