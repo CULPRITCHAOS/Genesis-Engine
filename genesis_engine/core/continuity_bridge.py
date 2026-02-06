@@ -16,6 +16,11 @@ A ``.genesis_soul`` file contains:
 4. **Forge Artifacts** — references to Technical Covenants produced by the
    Architectural Forge.
 5. **Hash Chain** — SHA-256 hash-chaining for tamper-proof integrity.
+6. **Human Override Log** — records when a human selects a candidate that
+   differs from the system-recommended winner, capturing the divergence
+   reason, category, and confidence. Overrides do NOT modify the Axiom
+   Anchor predicates — the Anchor remains the objective "Ground Truth"
+   while the Override Log records the "Subjective Gap".
 
 Security Features:
 - **Hash Chaining**: Each wisdom entry's hash incorporates the previous
@@ -143,6 +148,97 @@ class WisdomEntry:
 
 
 # ---------------------------------------------------------------------------
+# Human Override Entry
+# ---------------------------------------------------------------------------
+
+# Valid reason categories for human overrides
+OVERRIDE_REASON_CATEGORIES: tuple[str, ...] = (
+    "axiomatic_blind_spot",
+    "real_world_evidence",
+    "cultural_context",
+    "temporal_relevance",
+    "stakeholder_knowledge",
+    "ethical_nuance",
+    "implementation_pragmatism",
+)
+
+
+@dataclass
+class HumanOverrideEntry:
+    """Records a human decision that diverges from the system recommendation.
+
+    When a user selects a candidate with a lower ``unityAlignmentScore``
+    than the system-recommended winner, this entry captures the full
+    context of *why*.
+
+    INVARIANT: Human overrides NEVER update the AxiomAnchor predicates.
+    The Anchor remains the objective "Ground Truth"; this log records
+    the "Subjective Gap".
+    """
+
+    # What was overridden
+    system_recommended_id: str
+    system_recommended_score: float
+    human_selected_id: str
+    human_selected_score: float
+
+    # Why (required: 100–500 chars)
+    divergence_reason: str
+
+    # Classification
+    reason_category: str  # one of OVERRIDE_REASON_CATEGORIES
+    confidence: int  # 1–10, human's confidence in their override
+
+    # Context
+    problem_text: str = ""
+    system_recommended_path: str = ""  # e.g. "reform"
+    human_selected_path: str = ""      # e.g. "dissolution"
+    timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+
+    def __post_init__(self) -> None:
+        """Validate override entry constraints."""
+        # Enforce divergence_reason length: 100–500 chars
+        reason_len = len(self.divergence_reason)
+        if reason_len < 100:
+            raise ValueError(
+                f"divergence_reason must be 100–500 characters, got {reason_len}. "
+                f"A meaningful explanation is required for audit integrity."
+            )
+        if reason_len > 500:
+            raise ValueError(
+                f"divergence_reason must be 100–500 characters, got {reason_len}."
+            )
+
+        # Enforce valid reason_category
+        if self.reason_category not in OVERRIDE_REASON_CATEGORIES:
+            raise ValueError(
+                f"reason_category must be one of {OVERRIDE_REASON_CATEGORIES}, "
+                f"got '{self.reason_category}'."
+            )
+
+        # Enforce confidence range: 1–10
+        if not (1 <= self.confidence <= 10):
+            raise ValueError(
+                f"confidence must be between 1 and 10, got {self.confidence}."
+            )
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "systemRecommendedId": self.system_recommended_id,
+            "systemRecommendedScore": round(self.system_recommended_score, 4),
+            "humanSelectedId": self.human_selected_id,
+            "humanSelectedScore": round(self.human_selected_score, 4),
+            "divergenceReason": self.divergence_reason,
+            "reasonCategory": self.reason_category,
+            "confidence": self.confidence,
+            "problemText": self.problem_text,
+            "systemRecommendedPath": self.system_recommended_path,
+            "humanSelectedPath": self.human_selected_path,
+            "timestamp": self.timestamp,
+        }
+
+
+# ---------------------------------------------------------------------------
 # Genesis Soul
 # ---------------------------------------------------------------------------
 
@@ -164,6 +260,7 @@ class GenesisSoul:
     graph_history: list[GraphHistoryEntry] = field(default_factory=list)
     wisdom_log: list[WisdomEntry] = field(default_factory=list)
     forge_artifacts: list[dict[str, Any]] = field(default_factory=list)
+    human_overrides: list[HumanOverrideEntry] = field(default_factory=list)
 
     # Metadata
     created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -224,6 +321,50 @@ class GenesisSoul:
         self.forge_artifacts.append(artifact_dict)
         self.updated_at = datetime.now(timezone.utc).isoformat()
 
+    def record_human_override(
+        self,
+        system_recommended_id: str,
+        system_recommended_score: float,
+        human_selected_id: str,
+        human_selected_score: float,
+        divergence_reason: str,
+        reason_category: str,
+        confidence: int,
+        problem_text: str = "",
+        system_recommended_path: str = "",
+        human_selected_path: str = "",
+    ) -> HumanOverrideEntry:
+        """Record a human override decision.
+
+        This is called when the user selects a candidate with a lower
+        unityAlignmentScore than the system-recommended winner.
+
+        INVARIANT: This method NEVER modifies the AxiomAnchor or its
+        predicates. The Anchor remains immutable Ground Truth.
+
+        Raises
+        ------
+        ValueError
+            If ``divergence_reason`` is not 100–500 chars, or
+            ``reason_category`` is not a recognized category, or
+            ``confidence`` is outside 1–10.
+        """
+        entry = HumanOverrideEntry(
+            system_recommended_id=system_recommended_id,
+            system_recommended_score=system_recommended_score,
+            human_selected_id=human_selected_id,
+            human_selected_score=human_selected_score,
+            divergence_reason=redact_sensitive(divergence_reason),
+            reason_category=reason_category,
+            confidence=confidence,
+            problem_text=redact_sensitive(problem_text),
+            system_recommended_path=system_recommended_path,
+            human_selected_path=human_selected_path,
+        )
+        self.human_overrides.append(entry)
+        self.updated_at = datetime.now(timezone.utc).isoformat()
+        return entry
+
     # -- serialisation ------------------------------------------------------
 
     def as_dict(self) -> dict[str, Any]:
@@ -236,12 +377,14 @@ class GenesisSoul:
             },
             "graphHistory": [e.as_dict() for e in self.graph_history],
             "wisdomLog": [w.as_dict() for w in self.wisdom_log],
+            "humanOverrides": [o.as_dict() for o in self.human_overrides],
             "forgeArtifacts": self.forge_artifacts,
             "metadata": {
                 "createdAt": self.created_at,
                 "updatedAt": self.updated_at,
                 "graphCount": len(self.graph_history),
                 "wisdomCount": len(self.wisdom_log),
+                "overrideCount": len(self.human_overrides),
                 "forgeCount": len(self.forge_artifacts),
             },
         }
@@ -336,6 +479,22 @@ class ContinuityBridge:
 
         # Restore forge artifacts (simple dicts).
         soul.forge_artifacts = payload.get("forgeArtifacts", [])
+
+        # Restore human overrides.
+        for o in payload.get("humanOverrides", []):
+            soul.human_overrides.append(HumanOverrideEntry(
+                system_recommended_id=o.get("systemRecommendedId", ""),
+                system_recommended_score=o.get("systemRecommendedScore", 0.0),
+                human_selected_id=o.get("humanSelectedId", ""),
+                human_selected_score=o.get("humanSelectedScore", 0.0),
+                divergence_reason=o.get("divergenceReason", "x" * 100),
+                reason_category=o.get("reasonCategory", "real_world_evidence"),
+                confidence=o.get("confidence", 5),
+                problem_text=o.get("problemText", ""),
+                system_recommended_path=o.get("systemRecommendedPath", ""),
+                human_selected_path=o.get("humanSelectedPath", ""),
+                timestamp=o.get("timestamp", ""),
+            ))
 
         # Restore wisdom log with hash chain.
         for w in payload.get("wisdomLog", []):

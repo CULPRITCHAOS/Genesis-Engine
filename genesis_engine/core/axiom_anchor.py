@@ -192,11 +192,21 @@ def _coherence_predicate(artefact: dict[str, Any]) -> float:
 # Axiom Anchor
 # ---------------------------------------------------------------------------
 
+class AxiomAnchorFrozenError(Exception):
+    """Raised when attempting to modify a sealed AxiomAnchor."""
+
+
 class AxiomAnchor:
     """Central validation gate for the Genesis Engine.
 
     Every downstream component must submit its artefacts through
     ``validate`` before the system acts on them.
+
+    The Anchor is the objective "Ground Truth". Once sealed via
+    ``seal()``, its predicates and directive become immutable.
+    Human overrides are recorded in the Override Log but NEVER
+    alter the Anchor's predicates — preserving the integrity of
+    the axiom system.
     """
 
     def __init__(
@@ -206,6 +216,7 @@ class AxiomAnchor:
     ) -> None:
         self.directive = directive or PrimeDirective()
         self.alignment_threshold = alignment_threshold
+        self._sealed = False
 
         # Map principle → predicate.  Extensible by callers via
         # ``register_predicate``.
@@ -215,6 +226,22 @@ class AxiomAnchor:
             DirectivePrinciple.COHERENCE.value: _coherence_predicate,
         }
 
+    # -- immutability -------------------------------------------------------
+
+    @property
+    def is_sealed(self) -> bool:
+        """True if the Anchor has been sealed against modification."""
+        return self._sealed
+
+    def seal(self) -> None:
+        """Seal the Anchor, preventing further predicate registration.
+
+        Once sealed, ``register_predicate`` will raise
+        ``AxiomAnchorFrozenError``. This enforces the invariant that
+        human overrides never alter the Ground Truth.
+        """
+        self._sealed = True
+
     # -- public API ---------------------------------------------------------
 
     def register_predicate(
@@ -222,7 +249,17 @@ class AxiomAnchor:
         principle: str,
         predicate: Callable[[dict[str, Any]], float],
     ) -> None:
-        """Register (or override) a predicate for *principle*."""
+        """Register (or override) a predicate for *principle*.
+
+        Raises ``AxiomAnchorFrozenError`` if the Anchor has been sealed.
+        """
+        if self._sealed:
+            raise AxiomAnchorFrozenError(
+                "Cannot modify a sealed AxiomAnchor. "
+                "Human overrides are recorded in the Override Log, "
+                "not in the Axiom Anchor predicates. "
+                "The Anchor remains the immutable Ground Truth."
+            )
         self._predicates[principle] = predicate
 
     def validate(self, artefact: dict[str, Any]) -> ValidationResult:
