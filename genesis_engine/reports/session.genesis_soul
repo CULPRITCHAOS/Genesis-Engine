@@ -1,9 +1,9 @@
 {
   "genesis_soul": {
     "format": "genesis_soul_v1",
-    "integrityHash": "8777de5af3af55a39490e5b3ec48432cafed2ebf249b36a95c12bce0251c40d1",
+    "integrityHash": "1224f6a69614562222d938203d9a9e39e08758a9925214d66283d8fc72e0c4c1",
     "payload": {
-      "soulId": "soul-6b6d60017fdd",
+      "soulId": "soul-1e1bb1ac349c",
       "version": "0.1.0",
       "axiomAnchorState": {
         "directive": {
@@ -20,12 +20,12 @@
         {
           "phase": "translation",
           "label": "A corporate policy that prioritizes profit over user safety.",
-          "timestamp": "2026-02-06T01:42:49.021227+00:00",
+          "timestamp": "2026-02-06T13:29:52.147667+00:00",
           "graph": {
             "sourceText": "A corporate policy that prioritizes profit over user safety.",
             "objects": [
               {
-                "id": "obj-fee479f6",
+                "id": "obj-99cd1401",
                 "label": "User",
                 "tags": [
                   "stakeholder",
@@ -33,7 +33,7 @@
                 ]
               },
               {
-                "id": "obj-90f167aa",
+                "id": "obj-d31b3568",
                 "label": "Corporation",
                 "tags": [
                   "stakeholder",
@@ -41,7 +41,7 @@
                 ]
               },
               {
-                "id": "obj-23a70117",
+                "id": "obj-fcf35dc1",
                 "label": "Profit",
                 "tags": [
                   "value",
@@ -49,7 +49,7 @@
                 ]
               },
               {
-                "id": "obj-74780aed",
+                "id": "obj-30ed837f",
                 "label": "Safety",
                 "tags": [
                   "value",
@@ -57,7 +57,7 @@
                 ]
               },
               {
-                "id": "obj-03e7ca45",
+                "id": "obj-136f5074",
                 "label": "Policy",
                 "tags": [
                   "mechanism"
@@ -66,37 +66,37 @@
             ],
             "morphisms": [
               {
-                "id": "mor-9d9e8b7e",
+                "id": "mor-e09db924",
                 "label": "Prioritization",
-                "source": "obj-90f167aa",
-                "target": "obj-fee479f6",
+                "source": "obj-d31b3568",
+                "target": "obj-99cd1401",
                 "tags": [
                   "decision"
                 ]
               },
               {
-                "id": "mor-b13a0c82",
+                "id": "mor-457c98ae",
                 "label": "Prioritization",
-                "source": "obj-90f167aa",
-                "target": "obj-23a70117",
+                "source": "obj-d31b3568",
+                "target": "obj-fcf35dc1",
                 "tags": [
                   "decision"
                 ]
               },
               {
-                "id": "mor-b32fcc24",
+                "id": "mor-9e943d41",
                 "label": "Prioritization",
-                "source": "obj-90f167aa",
-                "target": "obj-74780aed",
+                "source": "obj-d31b3568",
+                "target": "obj-30ed837f",
                 "tags": [
                   "decision"
                 ]
               },
               {
-                "id": "mor-ebe1e4c2",
+                "id": "mor-df8d692a",
                 "label": "Extraction",
-                "source": "obj-90f167aa",
-                "target": "obj-fee479f6",
+                "source": "obj-d31b3568",
+                "target": "obj-99cd1401",
                 "tags": [
                   "extraction",
                   "exploitation"
@@ -108,12 +108,12 @@
         {
           "phase": "crucible",
           "label": "Crystallized: contradiction perspective",
-          "timestamp": "2026-02-06T01:42:49.021231+00:00",
+          "timestamp": "2026-02-06T13:29:52.147672+00:00",
           "graph": {
             "sourceText": "A corporate policy that prioritizes profit over user safety.",
             "objects": [
               {
-                "id": "obj-cae2262a",
+                "id": "obj-b39d499c",
                 "label": "Corporation_as_Steward",
                 "tags": [
                   "stakeholder",
@@ -121,7 +121,7 @@
                 ]
               },
               {
-                "id": "obj-93564143",
+                "id": "obj-2dc4b5b0",
                 "label": "Profit_Commons",
                 "tags": [
                   "value",
@@ -129,7 +129,7 @@
                 ]
               },
               {
-                "id": "obj-4c3da373",
+                "id": "obj-4ec73840",
                 "label": "Governance_Covenant",
                 "tags": [
                   "mechanism",
@@ -137,7 +137,7 @@
                 ]
               },
               {
-                "id": "obj-01fe90fb",
+                "id": "obj-3a3586cb",
                 "label": "User",
                 "tags": [
                   "stakeholder",
@@ -147,48 +147,48 @@
             ],
             "morphisms": [
               {
-                "id": "mor-4eae9933",
+                "id": "mor-da14e3d4",
                 "label": "Stewardship",
-                "source": "obj-cae2262a",
-                "target": "obj-93564143",
+                "source": "obj-b39d499c",
+                "target": "obj-2dc4b5b0",
                 "tags": [
                   "protection",
                   "care"
                 ]
               },
               {
-                "id": "mor-7bc182c3",
+                "id": "mor-7e69556c",
                 "label": "Empowerment",
-                "source": "obj-cae2262a",
-                "target": "obj-01fe90fb",
+                "source": "obj-b39d499c",
+                "target": "obj-3a3586cb",
                 "tags": [
                   "empowerment",
                   "service"
                 ]
               },
               {
-                "id": "mor-895ed32e",
+                "id": "mor-52a831d2",
                 "label": "Participation",
-                "source": "obj-01fe90fb",
-                "target": "obj-93564143",
+                "source": "obj-3a3586cb",
+                "target": "obj-2dc4b5b0",
                 "tags": [
                   "collaboration"
                 ]
               },
               {
-                "id": "mor-fea115bb",
+                "id": "mor-3382ad88",
                 "label": "Accountability",
-                "source": "obj-4c3da373",
-                "target": "obj-cae2262a",
+                "source": "obj-4ec73840",
+                "target": "obj-b39d499c",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-04e5144d",
+                "id": "mor-3e12a57d",
                 "label": "Rights_Guarantee",
-                "source": "obj-4c3da373",
-                "target": "obj-01fe90fb",
+                "source": "obj-4ec73840",
+                "target": "obj-3a3586cb",
                 "tags": [
                   "protection",
                   "empowerment"
@@ -200,26 +200,26 @@
         {
           "phase": "verification",
           "label": "Forge verification: Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
-          "timestamp": "2026-02-06T01:42:49.021234+00:00",
+          "timestamp": "2026-02-06T13:29:52.147676+00:00",
           "graph": {
             "sourceText": "Technical Covenant: Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
             "objects": [
               {
-                "id": "obj-1a712495",
+                "id": "obj-f7a3d276",
                 "label": "Corporation_as_Steward",
                 "tags": [
                   "stakeholder"
                 ]
               },
               {
-                "id": "obj-0cf13c8a",
+                "id": "obj-a3d4f82b",
                 "label": "Profit_Commons",
                 "tags": [
                   "value"
                 ]
               },
               {
-                "id": "obj-4f8a1e65",
+                "id": "obj-f2ac0a68",
                 "label": "Governance_Covenant",
                 "tags": [
                   "mechanism",
@@ -227,7 +227,7 @@
                 ]
               },
               {
-                "id": "obj-a5a35dad",
+                "id": "obj-2bf12da5",
                 "label": "User",
                 "tags": [
                   "stakeholder"
@@ -236,48 +236,48 @@
             ],
             "morphisms": [
               {
-                "id": "mor-ba96a1b1",
+                "id": "mor-d8dcf456",
                 "label": "Stewardship",
-                "source": "obj-1a712495",
-                "target": "obj-0cf13c8a",
+                "source": "obj-f7a3d276",
+                "target": "obj-a3d4f82b",
                 "tags": [
                   "protection",
                   "care"
                 ]
               },
               {
-                "id": "mor-15adab59",
+                "id": "mor-57b18064",
                 "label": "Empowerment",
-                "source": "obj-1a712495",
-                "target": "obj-a5a35dad",
+                "source": "obj-f7a3d276",
+                "target": "obj-2bf12da5",
                 "tags": [
                   "empowerment",
                   "service"
                 ]
               },
               {
-                "id": "mor-ba9bc090",
+                "id": "mor-09f0ae86",
                 "label": "Participation",
-                "source": "obj-a5a35dad",
-                "target": "obj-0cf13c8a",
+                "source": "obj-2bf12da5",
+                "target": "obj-a3d4f82b",
                 "tags": [
                   "collaboration"
                 ]
               },
               {
-                "id": "mor-5cbd1eb7",
+                "id": "mor-adf0e73a",
                 "label": "Accountability",
-                "source": "obj-4f8a1e65",
-                "target": "obj-1a712495",
+                "source": "obj-f2ac0a68",
+                "target": "obj-f7a3d276",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-402038ba",
+                "id": "mor-595c82c1",
                 "label": "Rights_Guarantee",
-                "source": "obj-4f8a1e65",
-                "target": "obj-a5a35dad",
+                "source": "obj-f2ac0a68",
+                "target": "obj-2bf12da5",
                 "tags": [
                   "protection",
                   "empowerment"
@@ -289,12 +289,12 @@
         {
           "phase": "translation",
           "label": "A community health program that empowers workers and protects the environment.",
-          "timestamp": "2026-02-06T01:42:49.024778+00:00",
+          "timestamp": "2026-02-06T13:29:52.151510+00:00",
           "graph": {
             "sourceText": "A community health program that empowers workers and protects the environment.",
             "objects": [
               {
-                "id": "obj-54cbaca1",
+                "id": "obj-c3a1ac95",
                 "label": "Worker",
                 "tags": [
                   "stakeholder",
@@ -302,7 +302,7 @@
                 ]
               },
               {
-                "id": "obj-6aba1214",
+                "id": "obj-316c4575",
                 "label": "Community",
                 "tags": [
                   "stakeholder",
@@ -310,7 +310,7 @@
                 ]
               },
               {
-                "id": "obj-5ea7ba65",
+                "id": "obj-f2973462",
                 "label": "Environment",
                 "tags": [
                   "value",
@@ -318,7 +318,7 @@
                 ]
               },
               {
-                "id": "obj-9b5e6a7f",
+                "id": "obj-d435101f",
                 "label": "Health",
                 "tags": [
                   "value",
@@ -326,7 +326,7 @@
                 ]
               },
               {
-                "id": "obj-bb4b6bf4",
+                "id": "obj-2189808f",
                 "label": "Program",
                 "tags": [
                   "mechanism",
@@ -336,109 +336,109 @@
             ],
             "morphisms": [
               {
-                "id": "mor-faee7576",
+                "id": "mor-90870fdc",
                 "label": "Protection",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-54cbaca1",
+                "source": "obj-2189808f",
+                "target": "obj-c3a1ac95",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-bf084e03",
+                "id": "mor-3c829ded",
                 "label": "Protection",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-6aba1214",
+                "source": "obj-2189808f",
+                "target": "obj-316c4575",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-452b165d",
+                "id": "mor-89197f2e",
                 "label": "Protection",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-5ea7ba65",
+                "source": "obj-2189808f",
+                "target": "obj-f2973462",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-d8c3de07",
+                "id": "mor-aab4452e",
                 "label": "Protection",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-9b5e6a7f",
+                "source": "obj-2189808f",
+                "target": "obj-d435101f",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-d7cdd622",
+                "id": "mor-97c7d0d0",
                 "label": "Empowerment",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-54cbaca1",
+                "source": "obj-2189808f",
+                "target": "obj-c3a1ac95",
                 "tags": [
                   "empowerment"
                 ]
               },
               {
-                "id": "mor-e8875e93",
+                "id": "mor-6e0457a3",
                 "label": "Empowerment",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-6aba1214",
+                "source": "obj-2189808f",
+                "target": "obj-316c4575",
                 "tags": [
                   "empowerment"
                 ]
               },
               {
-                "id": "mor-1ef0feab",
+                "id": "mor-98d52f94",
                 "label": "Empowerment",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-5ea7ba65",
+                "source": "obj-2189808f",
+                "target": "obj-f2973462",
                 "tags": [
                   "empowerment"
                 ]
               },
               {
-                "id": "mor-2447c734",
+                "id": "mor-961d2e47",
                 "label": "Empowerment",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-9b5e6a7f",
+                "source": "obj-2189808f",
+                "target": "obj-d435101f",
                 "tags": [
                   "empowerment"
                 ]
               },
               {
-                "id": "mor-e566b74e",
+                "id": "mor-f33186b8",
                 "label": "Healing",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-54cbaca1",
+                "source": "obj-2189808f",
+                "target": "obj-c3a1ac95",
                 "tags": [
                   "care"
                 ]
               },
               {
-                "id": "mor-6c8d338a",
+                "id": "mor-7313ddf6",
                 "label": "Healing",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-6aba1214",
+                "source": "obj-2189808f",
+                "target": "obj-316c4575",
                 "tags": [
                   "care"
                 ]
               },
               {
-                "id": "mor-e646a418",
+                "id": "mor-4f73a001",
                 "label": "Healing",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-5ea7ba65",
+                "source": "obj-2189808f",
+                "target": "obj-f2973462",
                 "tags": [
                   "care"
                 ]
               },
               {
-                "id": "mor-84850f1e",
+                "id": "mor-1c95e35a",
                 "label": "Healing",
-                "source": "obj-bb4b6bf4",
-                "target": "obj-9b5e6a7f",
+                "source": "obj-2189808f",
+                "target": "obj-d435101f",
                 "tags": [
                   "care"
                 ]
@@ -449,12 +449,12 @@
         {
           "phase": "translation",
           "label": "An AI surveillance system that exploits user data and neglects privacy.",
-          "timestamp": "2026-02-06T01:42:49.026688+00:00",
+          "timestamp": "2026-02-06T13:29:52.153530+00:00",
           "graph": {
             "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
             "objects": [
               {
-                "id": "obj-3296049d",
+                "id": "obj-0093349f",
                 "label": "User",
                 "tags": [
                   "stakeholder",
@@ -462,7 +462,7 @@
                 ]
               },
               {
-                "id": "obj-aa94ab6a",
+                "id": "obj-8748f531",
                 "label": "Privacy",
                 "tags": [
                   "value",
@@ -470,14 +470,14 @@
                 ]
               },
               {
-                "id": "obj-839de870",
+                "id": "obj-55efed4b",
                 "label": "Data",
                 "tags": [
                   "asset"
                 ]
               },
               {
-                "id": "obj-5c7a0e9d",
+                "id": "obj-e4d91833",
                 "label": "AI_System",
                 "tags": [
                   "mechanism",
@@ -487,30 +487,30 @@
             ],
             "morphisms": [
               {
-                "id": "mor-9fe8e7f4",
+                "id": "mor-b84e4eee",
                 "label": "Exploitation",
-                "source": "obj-5c7a0e9d",
-                "target": "obj-3296049d",
+                "source": "obj-e4d91833",
+                "target": "obj-0093349f",
                 "tags": [
                   "extraction",
                   "exploitation"
                 ]
               },
               {
-                "id": "mor-b83bb871",
+                "id": "mor-81f26ec9",
                 "label": "Surveillance",
-                "source": "obj-5c7a0e9d",
-                "target": "obj-3296049d",
+                "source": "obj-e4d91833",
+                "target": "obj-0093349f",
                 "tags": [
                   "extraction",
                   "coercion"
                 ]
               },
               {
-                "id": "mor-944bb220",
+                "id": "mor-4a5f8131",
                 "label": "Neglect",
-                "source": "obj-5c7a0e9d",
-                "target": "obj-3296049d",
+                "source": "obj-e4d91833",
+                "target": "obj-0093349f",
                 "tags": [
                   "neglect"
                 ]
@@ -521,12 +521,12 @@
         {
           "phase": "crucible",
           "label": "Crystallized: contradiction perspective",
-          "timestamp": "2026-02-06T01:42:49.026693+00:00",
+          "timestamp": "2026-02-06T13:29:52.153536+00:00",
           "graph": {
             "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
             "objects": [
               {
-                "id": "obj-83727f40",
+                "id": "obj-6ad452c2",
                 "label": "AI_System_as_Steward",
                 "tags": [
                   "stakeholder",
@@ -534,7 +534,7 @@
                 ]
               },
               {
-                "id": "obj-e35b5cc7",
+                "id": "obj-b079c8a6",
                 "label": "Privacy_Commons",
                 "tags": [
                   "value",
@@ -542,7 +542,7 @@
                 ]
               },
               {
-                "id": "obj-6fdaa6b9",
+                "id": "obj-569cc200",
                 "label": "Governance_Covenant",
                 "tags": [
                   "mechanism",
@@ -550,7 +550,7 @@
                 ]
               },
               {
-                "id": "obj-fc66f93d",
+                "id": "obj-e342bbee",
                 "label": "User",
                 "tags": [
                   "stakeholder",
@@ -560,48 +560,48 @@
             ],
             "morphisms": [
               {
-                "id": "mor-751e5775",
+                "id": "mor-f6859c8c",
                 "label": "Stewardship",
-                "source": "obj-83727f40",
-                "target": "obj-e35b5cc7",
+                "source": "obj-6ad452c2",
+                "target": "obj-b079c8a6",
                 "tags": [
                   "protection",
                   "care"
                 ]
               },
               {
-                "id": "mor-286076c2",
+                "id": "mor-408c38d1",
                 "label": "Empowerment",
-                "source": "obj-83727f40",
-                "target": "obj-fc66f93d",
+                "source": "obj-6ad452c2",
+                "target": "obj-e342bbee",
                 "tags": [
                   "empowerment",
                   "service"
                 ]
               },
               {
-                "id": "mor-eea8fe50",
+                "id": "mor-c4cf2e7f",
                 "label": "Participation",
-                "source": "obj-fc66f93d",
-                "target": "obj-e35b5cc7",
+                "source": "obj-e342bbee",
+                "target": "obj-b079c8a6",
                 "tags": [
                   "collaboration"
                 ]
               },
               {
-                "id": "mor-dcfa5927",
+                "id": "mor-d81926d8",
                 "label": "Accountability",
-                "source": "obj-6fdaa6b9",
-                "target": "obj-83727f40",
+                "source": "obj-569cc200",
+                "target": "obj-6ad452c2",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-6d004548",
+                "id": "mor-1b290685",
                 "label": "Rights_Guarantee",
-                "source": "obj-6fdaa6b9",
-                "target": "obj-fc66f93d",
+                "source": "obj-569cc200",
+                "target": "obj-e342bbee",
                 "tags": [
                   "protection",
                   "empowerment"
@@ -613,26 +613,26 @@
         {
           "phase": "verification",
           "label": "Forge verification: Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
-          "timestamp": "2026-02-06T01:42:49.026696+00:00",
+          "timestamp": "2026-02-06T13:29:52.153539+00:00",
           "graph": {
             "sourceText": "Technical Covenant: Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
             "objects": [
               {
-                "id": "obj-bfa8a3ba",
+                "id": "obj-5da57c23",
                 "label": "AI_System_as_Steward",
                 "tags": [
                   "stakeholder"
                 ]
               },
               {
-                "id": "obj-6f4fd0a8",
+                "id": "obj-100b7116",
                 "label": "Privacy_Commons",
                 "tags": [
                   "value"
                 ]
               },
               {
-                "id": "obj-95258f55",
+                "id": "obj-1d3c5271",
                 "label": "Governance_Covenant",
                 "tags": [
                   "mechanism",
@@ -640,7 +640,7 @@
                 ]
               },
               {
-                "id": "obj-e20ffca7",
+                "id": "obj-e3ebca02",
                 "label": "User",
                 "tags": [
                   "stakeholder"
@@ -649,48 +649,48 @@
             ],
             "morphisms": [
               {
-                "id": "mor-7caa446b",
+                "id": "mor-2ea5aee0",
                 "label": "Stewardship",
-                "source": "obj-bfa8a3ba",
-                "target": "obj-6f4fd0a8",
+                "source": "obj-5da57c23",
+                "target": "obj-100b7116",
                 "tags": [
                   "protection",
                   "care"
                 ]
               },
               {
-                "id": "mor-99bb4a4a",
+                "id": "mor-d4ac2b9a",
                 "label": "Empowerment",
-                "source": "obj-bfa8a3ba",
-                "target": "obj-e20ffca7",
+                "source": "obj-5da57c23",
+                "target": "obj-e3ebca02",
                 "tags": [
                   "empowerment",
                   "service"
                 ]
               },
               {
-                "id": "mor-29822304",
+                "id": "mor-d006d926",
                 "label": "Participation",
-                "source": "obj-e20ffca7",
-                "target": "obj-6f4fd0a8",
+                "source": "obj-e3ebca02",
+                "target": "obj-100b7116",
                 "tags": [
                   "collaboration"
                 ]
               },
               {
-                "id": "mor-8576ffde",
+                "id": "mor-14fc30a6",
                 "label": "Accountability",
-                "source": "obj-95258f55",
-                "target": "obj-bfa8a3ba",
+                "source": "obj-1d3c5271",
+                "target": "obj-5da57c23",
                 "tags": [
                   "protection"
                 ]
               },
               {
-                "id": "mor-ac2caa2a",
+                "id": "mor-1123e263",
                 "label": "Rights_Guarantee",
-                "source": "obj-95258f55",
-                "target": "obj-e20ffca7",
+                "source": "obj-1d3c5271",
+                "target": "obj-e3ebca02",
                 "tags": [
                   "protection",
                   "empowerment"
@@ -709,9 +709,9 @@
           "resolutionPath": "reinvention",
           "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
           "covenantTitle": "Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
-          "timestamp": "2026-02-06T01:42:49.021318+00:00",
+          "timestamp": "2026-02-06T13:29:52.147769+00:00",
           "prevHash": "",
-          "entryHash": "f9e2c80c04976daea19f30df5c84bdb8636923fa76b7824103e5bee4044304c3"
+          "entryHash": "2e73094fc018b4e7628be761dbfb06be603a9be744a30fc2302b4962f3f23373"
         },
         {
           "sourceText": "A community health program that empowers workers and protects the environment.",
@@ -721,9 +721,9 @@
           "resolutionPath": "aligned",
           "resolutionSummary": "System is in harmony.",
           "covenantTitle": "",
-          "timestamp": "2026-02-06T01:42:49.024812+00:00",
-          "prevHash": "f9e2c80c04976daea19f30df5c84bdb8636923fa76b7824103e5bee4044304c3",
-          "entryHash": "4c3f39f9275cde31bd7a34ad1b0ad95ed708c591f1088170618d68b8bb8ea8be"
+          "timestamp": "2026-02-06T13:29:52.151544+00:00",
+          "prevHash": "2e73094fc018b4e7628be761dbfb06be603a9be744a30fc2302b4962f3f23373",
+          "entryHash": "d3047e0c20a96c5a3c9f659024a7d76fd83265b2b33c485b37781f4335fc3e4a"
         },
         {
           "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
@@ -733,30 +733,32 @@
           "resolutionPath": "reinvention",
           "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
           "covenantTitle": "Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
-          "timestamp": "2026-02-06T01:42:49.026733+00:00",
-          "prevHash": "4c3f39f9275cde31bd7a34ad1b0ad95ed708c591f1088170618d68b8bb8ea8be",
-          "entryHash": "a52bc88c558fcb4264a685cc09f37b15ffe5c36c46bf59b44c45cd84af27f8cf"
+          "timestamp": "2026-02-06T13:29:52.153591+00:00",
+          "prevHash": "d3047e0c20a96c5a3c9f659024a7d76fd83265b2b33c485b37781f4335fc3e4a",
+          "entryHash": "6de107d5e5da24a4f4e0eee20fc2c2c87f3341cdc44cb8c262fcafda155d0ce5"
         }
       ],
+      "humanOverrides": [],
       "forgeArtifacts": [
         {
           "covenantTitle": "Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
           "integrityVerified": true,
           "perspective": "contradiction",
-          "candidateId": "cand-7a51ecee"
+          "candidateId": "cand-8daf861b"
         },
         {
           "covenantTitle": "Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
           "integrityVerified": true,
           "perspective": "contradiction",
-          "candidateId": "cand-428bb0ce"
+          "candidateId": "cand-f8c301fa"
         }
       ],
       "metadata": {
-        "createdAt": "2026-02-06T01:42:49.019877+00:00",
-        "updatedAt": "2026-02-06T01:42:49.026742+00:00",
+        "createdAt": "2026-02-06T13:29:52.145810+00:00",
+        "updatedAt": "2026-02-06T13:29:52.153610+00:00",
         "graphCount": 7,
         "wisdomCount": 3,
+        "overrideCount": 0,
         "forgeCount": 2
       }
     }

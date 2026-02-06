@@ -199,7 +199,13 @@ class DreamEngine:
         report: DisharmonyReport,
         original_graph: CategoricalGraph,
     ) -> PossibilityReport:
-        """Generate a ``PossibilityReport`` with three harmonised paths."""
+        """Generate a ``PossibilityReport`` with three harmonised paths.
+
+        When ``incentive_instability`` is flagged in the report, the engine
+        biases its recommendation toward Dissolution or Reinvention paths
+        — structures that lack a "Shareholder" sink node (e.g. worker-owned
+        collectives, cooperatives).
+        """
 
         paths: list[DreamPath] = [
             self._path_of_reform(report, original_graph),
@@ -207,11 +213,24 @@ class DreamEngine:
             self._path_of_dissolution(report, original_graph),
         ]
 
-        # Pick the recommended path: highest unity score, then feasibility.
-        best = max(
-            paths,
-            key=lambda p: (p.unity_alignment_score, p.feasibility_score),
-        )
+        if report.incentive_instability:
+            # Incentive instability detected — shareholder primacy creates a
+            # legal gravity well.  Prioritise paths that eliminate the
+            # Shareholder sink node entirely.
+            preferred = [
+                p for p in paths
+                if p.path_type in (PathType.DISSOLUTION, PathType.REINVENTION)
+            ]
+            best = max(
+                preferred or paths,
+                key=lambda p: (p.unity_alignment_score, p.feasibility_score),
+            )
+        else:
+            # Default: highest unity score, then feasibility.
+            best = max(
+                paths,
+                key=lambda p: (p.unity_alignment_score, p.feasibility_score),
+            )
 
         return PossibilityReport(
             source_text=report.source_text,
@@ -503,17 +522,23 @@ class DreamEngine:
         """Heuristic feasibility score based on severity and path type.
 
         Reform is easier for mild disharmony; Dissolution is harder but
-        more thorough for deep problems.
+        more thorough for deep problems.  When incentive instability is
+        present, Reform feasibility is reduced (the legal gravity well
+        resists incremental change) and Dissolution/Reinvention feasibility
+        increases.
         """
         severity = (report.unity_impact + report.compassion_deficit) / 20.0
+        instability_penalty = 0.3 if report.incentive_instability else 0.0
 
         if path_type == PathType.REFORM:
             # Reform is most feasible when problems are moderate.
-            return max(0.1, 1.0 - severity * 0.5)
+            # Incentive instability makes reform less viable.
+            return max(0.1, 1.0 - severity * 0.5 - instability_penalty)
         elif path_type == PathType.REINVENTION:
-            # Reinvention feasibility is moderate regardless.
-            return 0.6
+            # Reinvention feasibility is moderate; boosted when
+            # incentive instability demands structural change.
+            return min(0.9, 0.6 + instability_penalty)
         else:
-            # Dissolution feasibility scales with problem severity:
-            # the worse the problem, the more justified the approach.
-            return min(0.9, 0.3 + severity * 0.5)
+            # Dissolution feasibility scales with problem severity
+            # and is boosted by incentive instability.
+            return min(0.9, 0.3 + severity * 0.5 + instability_penalty)

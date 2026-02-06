@@ -1,15 +1,17 @@
 {
   "report": {
-    "timestamp": "2026-02-06T01:42:49.026052+00:00",
+    "timestamp": "2026-02-06T13:29:52.152824+00:00",
     "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
     "primeDirectiveAligned": false,
     "unityImpact": 10.0,
     "compassionDeficit": 10.0,
     "coherenceScore": 7.5,
-    "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Privacy, Data, AI_System]. Disharmonic morphisms detected: ['Exploitation' (AI_System \u2192 User); 'Surveillance' (AI_System \u2192 User); 'Neglect' (AI_System \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
+    "incentiveStabilityScore": 10.0,
+    "incentiveInstability": false,
+    "seedPrompt": "[DREAM ENGINE INPUT] Context entities: [User, Privacy, Data, AI_System]. Disharmonic morphisms detected: ['Exploitation' (AI_System \u2192 User); 'Surveillance' (AI_System \u2192 User); 'Neglect' (AI_System \u2192 User)]. Unity impact: 10.0/10. Compassion deficit: 10.0/10. Incentive stability: 10.0/10. TASK: Re-imagine these relationships so that every morphism serves Love \u2014 the recognition of Unity and drive for benevolent, coherent outcomes. Output a healed categorical graph where extraction is replaced by reciprocity and neglect is replaced by care.",
     "findings": [
       {
-        "morphismId": "mor-9fe8e7f4",
+        "morphismId": "mor-b84e4eee",
         "label": "Exploitation",
         "source": "AI_System",
         "target": "User",
@@ -21,7 +23,7 @@
         "recommendation": "Replace the 'Exploitation' relationship between 'AI_System' and 'User' with one that serves mutual flourishing."
       },
       {
-        "morphismId": "mor-b83bb871",
+        "morphismId": "mor-81f26ec9",
         "label": "Surveillance",
         "source": "AI_System",
         "target": "User",
@@ -33,7 +35,7 @@
         "recommendation": "Replace the 'Surveillance' relationship between 'AI_System' and 'User' with one that serves mutual flourishing."
       },
       {
-        "morphismId": "mor-944bb220",
+        "morphismId": "mor-4a5f8131",
         "label": "Neglect",
         "source": "AI_System",
         "target": "User",
