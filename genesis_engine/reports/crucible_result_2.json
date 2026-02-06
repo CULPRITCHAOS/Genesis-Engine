@@ -1,0 +1,65 @@
+{
+  "sourceText": "A community health program that empowers workers and protects the environment.",
+  "isAligned": true,
+  "phases": [
+    {
+      "phase": "1-ingest",
+      "summary": "Translated 'A community health program that empowers workers and protect...' into 5 objects, 12 morphisms.",
+      "details": {
+        "objectCount": 5,
+        "morphismCount": 12
+      },
+      "timestamp": "2026-02-06T01:42:49.024669+00:00"
+    },
+    {
+      "phase": "2-retrieval",
+      "summary": "Retrieved 1 relevant wisdom entries from EternalBox.",
+      "details": {
+        "priorWisdom": [
+          {
+            "sourceText": "A corporate policy that prioritizes profit over user safety.",
+            "disharmonySummary": "Extraction (Corporation -> User)",
+            "unityImpact": 10.0,
+            "compassionDeficit": 10.0,
+            "resolutionPath": "reinvention",
+            "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
+            "covenantTitle": "Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
+            "timestamp": "2026-02-06T01:42:49.021318+00:00",
+            "prevHash": "",
+            "entryHash": "f9e2c80c04976daea19f30df5c84bdb8636923fa76b7824103e5bee4044304c3"
+          }
+        ]
+      },
+      "timestamp": "2026-02-06T01:42:49.024688+00:00"
+    },
+    {
+      "phase": "3-divergence",
+      "summary": "System is aligned \u2014 no divergence needed.",
+      "details": {},
+      "timestamp": "2026-02-06T01:42:49.024769+00:00"
+    },
+    {
+      "phase": "4-verification",
+      "summary": "Skipped (aligned).",
+      "details": {},
+      "timestamp": "2026-02-06T01:42:49.024772+00:00"
+    },
+    {
+      "phase": "5-convergence",
+      "summary": "Skipped (aligned).",
+      "details": {},
+      "timestamp": "2026-02-06T01:42:49.024773+00:00"
+    },
+    {
+      "phase": "6-crystallization",
+      "summary": "Skipped (aligned).",
+      "details": {},
+      "timestamp": "2026-02-06T01:42:49.024775+00:00"
+    }
+  ],
+  "logicBox": {
+    "candidateCount": 0,
+    "candidates": []
+  },
+  "crystallizedCandidate": null
+}

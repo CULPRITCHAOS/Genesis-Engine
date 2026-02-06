@@ -1,0 +1,554 @@
+{
+  "forgeArtifact": {
+    "timestamp": "2026-02-06T01:42:49.026685+00:00",
+    "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+    "integrityVerified": true,
+    "covenant": {
+      "title": "Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
+      "sourcePathType": "reinvention",
+      "description": "Replaces the entire relational structure with a stewardship model: actors become stewards, values become a shared commons, and a governance covenant ensures accountability.",
+      "primeDirective": "Does this serve Love?",
+      "timestamp": "2026-02-06T01:42:49.026595+00:00",
+      "dataModels": [
+        {
+          "name": "AI_System_as_Steward",
+          "resourceType": "entity",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for AI_System_as_Steward"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of AI_System_as_Steward"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "accountability_log",
+              "type": "json[]",
+              "description": "Audit trail of actions"
+            },
+            {
+              "name": "stewardship_scope",
+              "type": "string[]",
+              "description": "Domains of responsibility"
+            }
+          ],
+          "governance": []
+        },
+        {
+          "name": "Privacy_Commons",
+          "resourceType": "resource",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for Privacy_Commons"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of Privacy_Commons"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "access_policy",
+              "type": "json",
+              "description": "Who can access and how"
+            },
+            {
+              "name": "benefit_distribution",
+              "type": "json",
+              "description": "How value is shared"
+            }
+          ],
+          "governance": []
+        },
+        {
+          "name": "Governance_Covenant",
+          "resourceType": "governance_module",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for Governance_Covenant"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of Governance_Covenant"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "policy_rules",
+              "type": "json[]",
+              "description": "Active governance policies"
+            },
+            {
+              "name": "enforcement_mode",
+              "type": "enum",
+              "description": "strict | advisory | transparent"
+            }
+          ],
+          "governance": []
+        },
+        {
+          "name": "User",
+          "resourceType": "entity",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for User"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of User"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "consent_status",
+              "type": "enum",
+              "description": "Active consent state"
+            },
+            {
+              "name": "rights_manifest",
+              "type": "json",
+              "description": "Enumerated rights"
+            }
+          ],
+          "governance": []
+        }
+      ],
+      "endpoints": [
+        {
+          "path": "/api/v1/ai-system-as-steward/stewardship/privacy-commons",
+          "method": "GET",
+          "name": "Stewardship",
+          "description": "Stewardship relationship: AI_System_as_Steward serves Privacy_Commons with intent [protection, care].",
+          "sourceModel": "AI_System_as_Steward",
+          "targetModel": "Privacy_Commons",
+          "governance": [
+            "access_controlled",
+            "audit_logged"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "ai-system-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "privacy-commons_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "ai-system-as-steward_id",
+              "privacy-commons_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/ai-system-as-steward/empowerment/user",
+          "method": "PUT",
+          "name": "Empowerment",
+          "description": "Empowerment relationship: AI_System_as_Steward serves User with intent [empowerment, service].",
+          "sourceModel": "AI_System_as_Steward",
+          "targetModel": "User",
+          "governance": [
+            "user_configurable",
+            "rate_limited"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "ai-system-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "ai-system-as-steward_id",
+              "user_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/user/participation/privacy-commons",
+          "method": "POST",
+          "name": "Participation",
+          "description": "Participation relationship: User serves Privacy_Commons with intent [collaboration].",
+          "sourceModel": "User",
+          "targetModel": "Privacy_Commons",
+          "governance": [
+            "shared_ownership"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "privacy-commons_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "user_id",
+              "privacy-commons_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/governance-covenant/accountability/ai-system-as-steward",
+          "method": "GET",
+          "name": "Accountability",
+          "description": "Accountability relationship: Governance_Covenant serves AI_System_as_Steward with intent [protection].",
+          "sourceModel": "Governance_Covenant",
+          "targetModel": "AI_System_as_Steward",
+          "governance": [
+            "access_controlled"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "governance-covenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "ai-system-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "governance-covenant_id",
+              "ai-system-as-steward_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/governance-covenant/rights-guarantee/user",
+          "method": "GET",
+          "name": "Rights_Guarantee",
+          "description": "Rights_Guarantee relationship: Governance_Covenant serves User with intent [protection, empowerment].",
+          "sourceModel": "Governance_Covenant",
+          "targetModel": "User",
+          "governance": [
+            "access_controlled",
+            "user_configurable"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "governance-covenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "governance-covenant_id",
+              "user_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      ],
+      "governanceRules": [
+        {
+          "ruleId": "gov-cf6f8281",
+          "name": "Data Protection Mandate",
+          "description": "All endpoints handling protected entities must enforce consent verification and data minimisation.",
+          "appliesTo": [
+            "Stewardship",
+            "Accountability",
+            "Rights_Guarantee"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-bc35dde4",
+          "name": "Duty of Care Audit",
+          "description": "All care-tagged interactions must be audit-logged with full traceability to the Prime Directive.",
+          "appliesTo": [
+            "Stewardship"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-c621e0bf",
+          "name": "Empowerment Guarantee",
+          "description": "Empowerment endpoints must provide user-configurable controls and transparent decision explanations.",
+          "appliesTo": [
+            "Empowerment",
+            "Rights_Guarantee"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-d4be2249",
+          "name": "Shared Ownership Protocol",
+          "description": "Collaborative resources must implement shared-ownership access controls with equitable benefit distribution.",
+          "appliesTo": [
+            "Participation"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-9a496783",
+          "name": "Service Level Covenant",
+          "description": "Service endpoints must be rate-limited, monitored, and bound by explicit service-level agreements.",
+          "appliesTo": [
+            "Empowerment"
+          ],
+          "enforcement": "required"
+        }
+      ]
+    },
+    "verification": {
+      "graph": {
+        "sourceText": "Technical Covenant: Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
+        "objects": [
+          {
+            "id": "obj-bfa8a3ba",
+            "label": "AI_System_as_Steward",
+            "tags": [
+              "stakeholder"
+            ]
+          },
+          {
+            "id": "obj-6f4fd0a8",
+            "label": "Privacy_Commons",
+            "tags": [
+              "value"
+            ]
+          },
+          {
+            "id": "obj-95258f55",
+            "label": "Governance_Covenant",
+            "tags": [
+              "mechanism",
+              "protective"
+            ]
+          },
+          {
+            "id": "obj-e20ffca7",
+            "label": "User",
+            "tags": [
+              "stakeholder"
+            ]
+          }
+        ],
+        "morphisms": [
+          {
+            "id": "mor-7caa446b",
+            "label": "Stewardship",
+            "source": "obj-bfa8a3ba",
+            "target": "obj-6f4fd0a8",
+            "tags": [
+              "protection",
+              "care"
+            ]
+          },
+          {
+            "id": "mor-99bb4a4a",
+            "label": "Empowerment",
+            "source": "obj-bfa8a3ba",
+            "target": "obj-e20ffca7",
+            "tags": [
+              "empowerment",
+              "service"
+            ]
+          },
+          {
+            "id": "mor-29822304",
+            "label": "Participation",
+            "source": "obj-e20ffca7",
+            "target": "obj-6f4fd0a8",
+            "tags": [
+              "collaboration"
+            ]
+          },
+          {
+            "id": "mor-8576ffde",
+            "label": "Accountability",
+            "source": "obj-95258f55",
+            "target": "obj-bfa8a3ba",
+            "tags": [
+              "protection"
+            ]
+          },
+          {
+            "id": "mor-ac2caa2a",
+            "label": "Rights_Guarantee",
+            "source": "obj-95258f55",
+            "target": "obj-e20ffca7",
+            "tags": [
+              "protection",
+              "empowerment"
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "isAligned": true,
+        "coherenceScore": 1.0,
+        "principleScores": {
+          "unity": 1.0,
+          "compassion": 1.0,
+          "coherence": 1.0
+        },
+        "reasoning": [
+          "[unity] ALIGNED (score=1.00)",
+          "[compassion] ALIGNED (score=1.00)",
+          "[coherence] ALIGNED (score=1.00)"
+        ]
+      }
+    }
+  }
+}

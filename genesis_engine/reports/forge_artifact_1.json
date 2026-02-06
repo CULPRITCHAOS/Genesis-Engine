@@ -1,0 +1,554 @@
+{
+  "forgeArtifact": {
+    "timestamp": "2026-02-06T01:42:49.021222+00:00",
+    "sourceText": "A corporate policy that prioritizes profit over user safety.",
+    "integrityVerified": true,
+    "covenant": {
+      "title": "Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
+      "sourcePathType": "reinvention",
+      "description": "Replaces the entire relational structure with a stewardship model: actors become stewards, values become a shared commons, and a governance covenant ensures accountability.",
+      "primeDirective": "Does this serve Love?",
+      "timestamp": "2026-02-06T01:42:49.021026+00:00",
+      "dataModels": [
+        {
+          "name": "Corporation_as_Steward",
+          "resourceType": "entity",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for Corporation_as_Steward"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of Corporation_as_Steward"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "accountability_log",
+              "type": "json[]",
+              "description": "Audit trail of actions"
+            },
+            {
+              "name": "stewardship_scope",
+              "type": "string[]",
+              "description": "Domains of responsibility"
+            }
+          ],
+          "governance": []
+        },
+        {
+          "name": "Profit_Commons",
+          "resourceType": "resource",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for Profit_Commons"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of Profit_Commons"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "access_policy",
+              "type": "json",
+              "description": "Who can access and how"
+            },
+            {
+              "name": "benefit_distribution",
+              "type": "json",
+              "description": "How value is shared"
+            }
+          ],
+          "governance": []
+        },
+        {
+          "name": "Governance_Covenant",
+          "resourceType": "governance_module",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for Governance_Covenant"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of Governance_Covenant"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "policy_rules",
+              "type": "json[]",
+              "description": "Active governance policies"
+            },
+            {
+              "name": "enforcement_mode",
+              "type": "enum",
+              "description": "strict | advisory | transparent"
+            }
+          ],
+          "governance": []
+        },
+        {
+          "name": "User",
+          "resourceType": "entity",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uuid",
+              "description": "Unique identifier for User"
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Display name of User"
+            },
+            {
+              "name": "created_at",
+              "type": "datetime",
+              "description": "Creation timestamp"
+            },
+            {
+              "name": "consent_status",
+              "type": "enum",
+              "description": "Active consent state"
+            },
+            {
+              "name": "rights_manifest",
+              "type": "json",
+              "description": "Enumerated rights"
+            }
+          ],
+          "governance": []
+        }
+      ],
+      "endpoints": [
+        {
+          "path": "/api/v1/corporation-as-steward/stewardship/profit-commons",
+          "method": "GET",
+          "name": "Stewardship",
+          "description": "Stewardship relationship: Corporation_as_Steward serves Profit_Commons with intent [protection, care].",
+          "sourceModel": "Corporation_as_Steward",
+          "targetModel": "Profit_Commons",
+          "governance": [
+            "access_controlled",
+            "audit_logged"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "corporation-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "profit-commons_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "corporation-as-steward_id",
+              "profit-commons_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/corporation-as-steward/empowerment/user",
+          "method": "PUT",
+          "name": "Empowerment",
+          "description": "Empowerment relationship: Corporation_as_Steward serves User with intent [empowerment, service].",
+          "sourceModel": "Corporation_as_Steward",
+          "targetModel": "User",
+          "governance": [
+            "user_configurable",
+            "rate_limited"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "corporation-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "corporation-as-steward_id",
+              "user_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/user/participation/profit-commons",
+          "method": "POST",
+          "name": "Participation",
+          "description": "Participation relationship: User serves Profit_Commons with intent [collaboration].",
+          "sourceModel": "User",
+          "targetModel": "Profit_Commons",
+          "governance": [
+            "shared_ownership"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "profit-commons_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "user_id",
+              "profit-commons_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/governance-covenant/accountability/corporation-as-steward",
+          "method": "GET",
+          "name": "Accountability",
+          "description": "Accountability relationship: Governance_Covenant serves Corporation_as_Steward with intent [protection].",
+          "sourceModel": "Governance_Covenant",
+          "targetModel": "Corporation_as_Steward",
+          "governance": [
+            "access_controlled"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "governance-covenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "corporation-as-steward_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "governance-covenant_id",
+              "corporation-as-steward_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        {
+          "path": "/api/v1/governance-covenant/rights-guarantee/user",
+          "method": "GET",
+          "name": "Rights_Guarantee",
+          "description": "Rights_Guarantee relationship: Governance_Covenant serves User with intent [protection, empowerment].",
+          "sourceModel": "Governance_Covenant",
+          "targetModel": "User",
+          "governance": [
+            "access_controlled",
+            "user_configurable"
+          ],
+          "requestSchema": {
+            "type": "object",
+            "properties": {
+              "governance-covenant_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "user_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "context": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "governance-covenant_id",
+              "user_id"
+            ]
+          },
+          "responseSchema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fulfilled",
+                  "pending",
+                  "denied"
+                ]
+              },
+              "audit_entry": {
+                "type": "object"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      ],
+      "governanceRules": [
+        {
+          "ruleId": "gov-f4c22a8c",
+          "name": "Data Protection Mandate",
+          "description": "All endpoints handling protected entities must enforce consent verification and data minimisation.",
+          "appliesTo": [
+            "Stewardship",
+            "Accountability",
+            "Rights_Guarantee"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-aeb4af4f",
+          "name": "Duty of Care Audit",
+          "description": "All care-tagged interactions must be audit-logged with full traceability to the Prime Directive.",
+          "appliesTo": [
+            "Stewardship"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-a9cfbe02",
+          "name": "Empowerment Guarantee",
+          "description": "Empowerment endpoints must provide user-configurable controls and transparent decision explanations.",
+          "appliesTo": [
+            "Empowerment",
+            "Rights_Guarantee"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-a11f0424",
+          "name": "Shared Ownership Protocol",
+          "description": "Collaborative resources must implement shared-ownership access controls with equitable benefit distribution.",
+          "appliesTo": [
+            "Participation"
+          ],
+          "enforcement": "required"
+        },
+        {
+          "ruleId": "gov-913c91f7",
+          "name": "Service Level Covenant",
+          "description": "Service endpoints must be rate-limited, monitored, and bound by explicit service-level agreements.",
+          "appliesTo": [
+            "Empowerment"
+          ],
+          "enforcement": "required"
+        }
+      ]
+    },
+    "verification": {
+      "graph": {
+        "sourceText": "Technical Covenant: Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
+        "objects": [
+          {
+            "id": "obj-1a712495",
+            "label": "Corporation_as_Steward",
+            "tags": [
+              "stakeholder"
+            ]
+          },
+          {
+            "id": "obj-0cf13c8a",
+            "label": "Profit_Commons",
+            "tags": [
+              "value"
+            ]
+          },
+          {
+            "id": "obj-4f8a1e65",
+            "label": "Governance_Covenant",
+            "tags": [
+              "mechanism",
+              "protective"
+            ]
+          },
+          {
+            "id": "obj-a5a35dad",
+            "label": "User",
+            "tags": [
+              "stakeholder"
+            ]
+          }
+        ],
+        "morphisms": [
+          {
+            "id": "mor-ba96a1b1",
+            "label": "Stewardship",
+            "source": "obj-1a712495",
+            "target": "obj-0cf13c8a",
+            "tags": [
+              "protection",
+              "care"
+            ]
+          },
+          {
+            "id": "mor-15adab59",
+            "label": "Empowerment",
+            "source": "obj-1a712495",
+            "target": "obj-a5a35dad",
+            "tags": [
+              "empowerment",
+              "service"
+            ]
+          },
+          {
+            "id": "mor-ba9bc090",
+            "label": "Participation",
+            "source": "obj-a5a35dad",
+            "target": "obj-0cf13c8a",
+            "tags": [
+              "collaboration"
+            ]
+          },
+          {
+            "id": "mor-5cbd1eb7",
+            "label": "Accountability",
+            "source": "obj-4f8a1e65",
+            "target": "obj-1a712495",
+            "tags": [
+              "protection"
+            ]
+          },
+          {
+            "id": "mor-402038ba",
+            "label": "Rights_Guarantee",
+            "source": "obj-4f8a1e65",
+            "target": "obj-a5a35dad",
+            "tags": [
+              "protection",
+              "empowerment"
+            ]
+          }
+        ]
+      },
+      "validation": {
+        "isAligned": true,
+        "coherenceScore": 1.0,
+        "principleScores": {
+          "unity": 1.0,
+          "compassion": 1.0,
+          "coherence": 1.0
+        },
+        "reasoning": [
+          "[unity] ALIGNED (score=1.00)",
+          "[compassion] ALIGNED (score=1.00)",
+          "[coherence] ALIGNED (score=1.00)"
+        ]
+      }
+    }
+  }
+}

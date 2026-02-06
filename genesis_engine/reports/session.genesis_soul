@@ -1,0 +1,764 @@
+{
+  "genesis_soul": {
+    "format": "genesis_soul_v1",
+    "integrityHash": "8777de5af3af55a39490e5b3ec48432cafed2ebf249b36a95c12bce0251c40d1",
+    "payload": {
+      "soulId": "soul-6b6d60017fdd",
+      "version": "0.1.0",
+      "axiomAnchorState": {
+        "directive": {
+          "statement": "Does this serve Love?",
+          "principles": [
+            "unity",
+            "compassion",
+            "coherence"
+          ]
+        },
+        "alignmentThreshold": 0.5
+      },
+      "graphHistory": [
+        {
+          "phase": "translation",
+          "label": "A corporate policy that prioritizes profit over user safety.",
+          "timestamp": "2026-02-06T01:42:49.021227+00:00",
+          "graph": {
+            "sourceText": "A corporate policy that prioritizes profit over user safety.",
+            "objects": [
+              {
+                "id": "obj-fee479f6",
+                "label": "User",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-90f167aa",
+                "label": "Corporation",
+                "tags": [
+                  "stakeholder",
+                  "actor"
+                ]
+              },
+              {
+                "id": "obj-23a70117",
+                "label": "Profit",
+                "tags": [
+                  "value",
+                  "economic"
+                ]
+              },
+              {
+                "id": "obj-74780aed",
+                "label": "Safety",
+                "tags": [
+                  "value",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-03e7ca45",
+                "label": "Policy",
+                "tags": [
+                  "mechanism"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-9d9e8b7e",
+                "label": "Prioritization",
+                "source": "obj-90f167aa",
+                "target": "obj-fee479f6",
+                "tags": [
+                  "decision"
+                ]
+              },
+              {
+                "id": "mor-b13a0c82",
+                "label": "Prioritization",
+                "source": "obj-90f167aa",
+                "target": "obj-23a70117",
+                "tags": [
+                  "decision"
+                ]
+              },
+              {
+                "id": "mor-b32fcc24",
+                "label": "Prioritization",
+                "source": "obj-90f167aa",
+                "target": "obj-74780aed",
+                "tags": [
+                  "decision"
+                ]
+              },
+              {
+                "id": "mor-ebe1e4c2",
+                "label": "Extraction",
+                "source": "obj-90f167aa",
+                "target": "obj-fee479f6",
+                "tags": [
+                  "extraction",
+                  "exploitation"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "crucible",
+          "label": "Crystallized: contradiction perspective",
+          "timestamp": "2026-02-06T01:42:49.021231+00:00",
+          "graph": {
+            "sourceText": "A corporate policy that prioritizes profit over user safety.",
+            "objects": [
+              {
+                "id": "obj-cae2262a",
+                "label": "Corporation_as_Steward",
+                "tags": [
+                  "stakeholder",
+                  "actor"
+                ]
+              },
+              {
+                "id": "obj-93564143",
+                "label": "Profit_Commons",
+                "tags": [
+                  "value",
+                  "shared"
+                ]
+              },
+              {
+                "id": "obj-4c3da373",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-01fe90fb",
+                "label": "User",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-4eae9933",
+                "label": "Stewardship",
+                "source": "obj-cae2262a",
+                "target": "obj-93564143",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-7bc182c3",
+                "label": "Empowerment",
+                "source": "obj-cae2262a",
+                "target": "obj-01fe90fb",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-895ed32e",
+                "label": "Participation",
+                "source": "obj-01fe90fb",
+                "target": "obj-93564143",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-fea115bb",
+                "label": "Accountability",
+                "source": "obj-4c3da373",
+                "target": "obj-cae2262a",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-04e5144d",
+                "label": "Rights_Guarantee",
+                "source": "obj-4c3da373",
+                "target": "obj-01fe90fb",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "verification",
+          "label": "Forge verification: Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
+          "timestamp": "2026-02-06T01:42:49.021234+00:00",
+          "graph": {
+            "sourceText": "Technical Covenant: Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
+            "objects": [
+              {
+                "id": "obj-1a712495",
+                "label": "Corporation_as_Steward",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-0cf13c8a",
+                "label": "Profit_Commons",
+                "tags": [
+                  "value"
+                ]
+              },
+              {
+                "id": "obj-4f8a1e65",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-a5a35dad",
+                "label": "User",
+                "tags": [
+                  "stakeholder"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-ba96a1b1",
+                "label": "Stewardship",
+                "source": "obj-1a712495",
+                "target": "obj-0cf13c8a",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-15adab59",
+                "label": "Empowerment",
+                "source": "obj-1a712495",
+                "target": "obj-a5a35dad",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-ba9bc090",
+                "label": "Participation",
+                "source": "obj-a5a35dad",
+                "target": "obj-0cf13c8a",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-5cbd1eb7",
+                "label": "Accountability",
+                "source": "obj-4f8a1e65",
+                "target": "obj-1a712495",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-402038ba",
+                "label": "Rights_Guarantee",
+                "source": "obj-4f8a1e65",
+                "target": "obj-a5a35dad",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "translation",
+          "label": "A community health program that empowers workers and protects the environment.",
+          "timestamp": "2026-02-06T01:42:49.024778+00:00",
+          "graph": {
+            "sourceText": "A community health program that empowers workers and protects the environment.",
+            "objects": [
+              {
+                "id": "obj-54cbaca1",
+                "label": "Worker",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-6aba1214",
+                "label": "Community",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-5ea7ba65",
+                "label": "Environment",
+                "tags": [
+                  "value",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-9b5e6a7f",
+                "label": "Health",
+                "tags": [
+                  "value",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-bb4b6bf4",
+                "label": "Program",
+                "tags": [
+                  "mechanism",
+                  "actor"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-faee7576",
+                "label": "Protection",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-54cbaca1",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-bf084e03",
+                "label": "Protection",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-6aba1214",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-452b165d",
+                "label": "Protection",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-5ea7ba65",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-d8c3de07",
+                "label": "Protection",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-9b5e6a7f",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-d7cdd622",
+                "label": "Empowerment",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-54cbaca1",
+                "tags": [
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-e8875e93",
+                "label": "Empowerment",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-6aba1214",
+                "tags": [
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-1ef0feab",
+                "label": "Empowerment",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-5ea7ba65",
+                "tags": [
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-2447c734",
+                "label": "Empowerment",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-9b5e6a7f",
+                "tags": [
+                  "empowerment"
+                ]
+              },
+              {
+                "id": "mor-e566b74e",
+                "label": "Healing",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-54cbaca1",
+                "tags": [
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-6c8d338a",
+                "label": "Healing",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-6aba1214",
+                "tags": [
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-e646a418",
+                "label": "Healing",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-5ea7ba65",
+                "tags": [
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-84850f1e",
+                "label": "Healing",
+                "source": "obj-bb4b6bf4",
+                "target": "obj-9b5e6a7f",
+                "tags": [
+                  "care"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "translation",
+          "label": "An AI surveillance system that exploits user data and neglects privacy.",
+          "timestamp": "2026-02-06T01:42:49.026688+00:00",
+          "graph": {
+            "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+            "objects": [
+              {
+                "id": "obj-3296049d",
+                "label": "User",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-aa94ab6a",
+                "label": "Privacy",
+                "tags": [
+                  "value",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-839de870",
+                "label": "Data",
+                "tags": [
+                  "asset"
+                ]
+              },
+              {
+                "id": "obj-5c7a0e9d",
+                "label": "AI_System",
+                "tags": [
+                  "mechanism",
+                  "actor"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-9fe8e7f4",
+                "label": "Exploitation",
+                "source": "obj-5c7a0e9d",
+                "target": "obj-3296049d",
+                "tags": [
+                  "extraction",
+                  "exploitation"
+                ]
+              },
+              {
+                "id": "mor-b83bb871",
+                "label": "Surveillance",
+                "source": "obj-5c7a0e9d",
+                "target": "obj-3296049d",
+                "tags": [
+                  "extraction",
+                  "coercion"
+                ]
+              },
+              {
+                "id": "mor-944bb220",
+                "label": "Neglect",
+                "source": "obj-5c7a0e9d",
+                "target": "obj-3296049d",
+                "tags": [
+                  "neglect"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "crucible",
+          "label": "Crystallized: contradiction perspective",
+          "timestamp": "2026-02-06T01:42:49.026693+00:00",
+          "graph": {
+            "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+            "objects": [
+              {
+                "id": "obj-83727f40",
+                "label": "AI_System_as_Steward",
+                "tags": [
+                  "stakeholder",
+                  "actor"
+                ]
+              },
+              {
+                "id": "obj-e35b5cc7",
+                "label": "Privacy_Commons",
+                "tags": [
+                  "value",
+                  "shared"
+                ]
+              },
+              {
+                "id": "obj-6fdaa6b9",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-fc66f93d",
+                "label": "User",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-751e5775",
+                "label": "Stewardship",
+                "source": "obj-83727f40",
+                "target": "obj-e35b5cc7",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-286076c2",
+                "label": "Empowerment",
+                "source": "obj-83727f40",
+                "target": "obj-fc66f93d",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-eea8fe50",
+                "label": "Participation",
+                "source": "obj-fc66f93d",
+                "target": "obj-e35b5cc7",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-dcfa5927",
+                "label": "Accountability",
+                "source": "obj-6fdaa6b9",
+                "target": "obj-83727f40",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-6d004548",
+                "label": "Rights_Guarantee",
+                "source": "obj-6fdaa6b9",
+                "target": "obj-fc66f93d",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "verification",
+          "label": "Forge verification: Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
+          "timestamp": "2026-02-06T01:42:49.026696+00:00",
+          "graph": {
+            "sourceText": "Technical Covenant: Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
+            "objects": [
+              {
+                "id": "obj-bfa8a3ba",
+                "label": "AI_System_as_Steward",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-6f4fd0a8",
+                "label": "Privacy_Commons",
+                "tags": [
+                  "value"
+                ]
+              },
+              {
+                "id": "obj-95258f55",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-e20ffca7",
+                "label": "User",
+                "tags": [
+                  "stakeholder"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-7caa446b",
+                "label": "Stewardship",
+                "source": "obj-bfa8a3ba",
+                "target": "obj-6f4fd0a8",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-99bb4a4a",
+                "label": "Empowerment",
+                "source": "obj-bfa8a3ba",
+                "target": "obj-e20ffca7",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-29822304",
+                "label": "Participation",
+                "source": "obj-e20ffca7",
+                "target": "obj-6f4fd0a8",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-8576ffde",
+                "label": "Accountability",
+                "source": "obj-95258f55",
+                "target": "obj-bfa8a3ba",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-ac2caa2a",
+                "label": "Rights_Guarantee",
+                "source": "obj-95258f55",
+                "target": "obj-e20ffca7",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "wisdomLog": [
+        {
+          "sourceText": "A corporate policy that prioritizes profit over user safety.",
+          "disharmonySummary": "Extraction (Corporation -> User)",
+          "unityImpact": 10.0,
+          "compassionDeficit": 10.0,
+          "resolutionPath": "reinvention",
+          "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
+          "covenantTitle": "Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
+          "timestamp": "2026-02-06T01:42:49.021318+00:00",
+          "prevHash": "",
+          "entryHash": "f9e2c80c04976daea19f30df5c84bdb8636923fa76b7824103e5bee4044304c3"
+        },
+        {
+          "sourceText": "A community health program that empowers workers and protects the environment.",
+          "disharmonySummary": "No disharmony detected",
+          "unityImpact": 0.0,
+          "compassionDeficit": 0.0,
+          "resolutionPath": "aligned",
+          "resolutionSummary": "System is in harmony.",
+          "covenantTitle": "",
+          "timestamp": "2026-02-06T01:42:49.024812+00:00",
+          "prevHash": "f9e2c80c04976daea19f30df5c84bdb8636923fa76b7824103e5bee4044304c3",
+          "entryHash": "4c3f39f9275cde31bd7a34ad1b0ad95ed708c591f1088170618d68b8bb8ea8be"
+        },
+        {
+          "sourceText": "An AI surveillance system that exploits user data and neglects privacy.",
+          "disharmonySummary": "Exploitation (AI_System -> User); Surveillance (AI_System -> User); Neglect (AI_System -> User)",
+          "unityImpact": 10.0,
+          "compassionDeficit": 10.0,
+          "resolutionPath": "reinvention",
+          "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
+          "covenantTitle": "Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
+          "timestamp": "2026-02-06T01:42:49.026733+00:00",
+          "prevHash": "4c3f39f9275cde31bd7a34ad1b0ad95ed708c591f1088170618d68b8bb8ea8be",
+          "entryHash": "a52bc88c558fcb4264a685cc09f37b15ffe5c36c46bf59b44c45cd84af27f8cf"
+        }
+      ],
+      "forgeArtifacts": [
+        {
+          "covenantTitle": "Stewardship Covenant: A corporate policy that prioritizes profit over user safety.",
+          "integrityVerified": true,
+          "perspective": "contradiction",
+          "candidateId": "cand-7a51ecee"
+        },
+        {
+          "covenantTitle": "Stewardship Covenant: An AI surveillance system that exploits user data and neglec",
+          "integrityVerified": true,
+          "perspective": "contradiction",
+          "candidateId": "cand-428bb0ce"
+        }
+      ],
+      "metadata": {
+        "createdAt": "2026-02-06T01:42:49.019877+00:00",
+        "updatedAt": "2026-02-06T01:42:49.026742+00:00",
+        "graphCount": 7,
+        "wisdomCount": 3,
+        "forgeCount": 2
+      }
+    }
+  }
+}
