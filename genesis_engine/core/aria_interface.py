@@ -21,7 +21,12 @@ from dataclasses import dataclass
 from typing import Any
 
 from genesis_engine.core.ai_provider import Perspective
-from genesis_engine.core.continuity_bridge import ContinuityBridge, GenesisSoul
+from genesis_engine.core.continuity_bridge import (
+    ContinuityBridge,
+    GenesisSoul,
+    HumanOverrideEntry,
+    OVERRIDE_REASON_CATEGORIES,
+)
 from genesis_engine.core.crucible import (
     CandidateStatus,
     CrucibleCandidate,
@@ -236,6 +241,7 @@ class AriaRenderer:
             f"  Alignment:        {soul.alignment_threshold}",
             f"  Graphs recorded:  {len(soul.graph_history)}",
             f"  Wisdom entries:   {len(soul.wisdom_log)}",
+            f"  Human overrides:  {len(soul.human_overrides)}",
             f"  Forge artifacts:  {len(soul.forge_artifacts)}",
             f"  Created:          {soul.created_at}",
             f"  Updated:          {soul.updated_at}",
@@ -280,6 +286,67 @@ class AriaRenderer:
 
         return "\n".join(lines) + "\n"
 
+    def render_human_overrides(self, soul: GenesisSoul, limit: int = 5) -> str:
+        """Render the human override log for Soul Inspection."""
+        c = self._c
+        lines = [self.render_subheader(
+            f"{c(Colors.WARNING)}HUMAN OVERRIDE LOG{c(Colors.RESET)} "
+            f"(Subjective Gap Record)"
+        )]
+
+        entries = soul.human_overrides[-limit:] if soul.human_overrides else []
+        if not entries:
+            lines.append(f"  {c(Colors.DIM)}(no human overrides recorded){c(Colors.RESET)}")
+        else:
+            for i, entry in enumerate(entries):
+                score_delta = entry.system_recommended_score - entry.human_selected_score
+                lines.append(
+                    f"\n  {c(Colors.WARNING)}[Override {i+1}]{c(Colors.RESET)} "
+                    f"{entry.timestamp}"
+                )
+                lines.append(
+                    f"    Problem: {entry.problem_text[:60]}..."
+                    if len(entry.problem_text) > 60
+                    else f"    Problem: {entry.problem_text}"
+                )
+                lines.append(
+                    f"    System recommended: {c(Colors.SCORE)}"
+                    f"{entry.system_recommended_path}{c(Colors.RESET)} "
+                    f"(score={entry.system_recommended_score:.4f})"
+                )
+                lines.append(
+                    f"    Human selected:     {c(Colors.WARNING)}"
+                    f"{entry.human_selected_path}{c(Colors.RESET)} "
+                    f"(score={entry.human_selected_score:.4f})"
+                )
+                lines.append(
+                    f"    Score delta: {c(Colors.ERROR)}-{score_delta:.4f}{c(Colors.RESET)}"
+                )
+                lines.append(
+                    f"    Category:   {entry.reason_category}"
+                )
+                lines.append(
+                    f"    Confidence: {entry.confidence}/10"
+                )
+                # Wrap the reason at ~60 chars per line
+                reason = entry.divergence_reason
+                reason_lines = [reason[j:j+60] for j in range(0, len(reason), 60)]
+                lines.append(f"    Reason:")
+                for rl in reason_lines:
+                    lines.append(f"      {c(Colors.DIM)}{rl}{c(Colors.RESET)}")
+
+            # Axiom Anchor invariant reminder
+            lines.append(
+                f"\n  {c(Colors.PHASE)}NOTE: Overrides do NOT modify the "
+                f"Axiom Anchor.{c(Colors.RESET)}"
+            )
+            lines.append(
+                f"  {c(Colors.DIM)}The Anchor remains the objective Ground Truth; "
+                f"overrides record the Subjective Gap.{c(Colors.RESET)}"
+            )
+
+        return "\n".join(lines) + "\n"
+
 
 # ---------------------------------------------------------------------------
 # Aria Interface — main CLI class
@@ -319,10 +386,11 @@ class AriaInterface:
         return result
 
     def inspect_soul(self, verbose: bool = True) -> dict[str, Any]:
-        """Inspect the current soul state."""
+        """Inspect the current soul state, including the human override log."""
         if verbose:
             print(self.renderer.render_soul_summary(self.soul))
             print(self.renderer.render_wisdom_log(self.soul))
+            print(self.renderer.render_human_overrides(self.soul))
 
         return self.soul.as_dict()
 
@@ -350,6 +418,78 @@ class AriaInterface:
                 print(f"  {Colors.ERROR}{err}{Colors.RESET}")
 
         return is_valid, errors
+
+    # -- Human Override command ----------------------------------------------
+
+    def human_override(
+        self,
+        result: CrucibleResult,
+        selected_candidate: CrucibleCandidate,
+        divergence_reason: str,
+        reason_category: str,
+        confidence: int,
+        verbose: bool = True,
+    ) -> HumanOverrideEntry:
+        """Record a human override when the user selects a non-optimal candidate.
+
+        This method is called when the user selects a candidate with a lower
+        ``unityAlignmentScore`` than the system-recommended winner during the
+        Aria "Soul Inspection" phase.
+
+        The AxiomAnchor is NOT modified — the override is recorded in the
+        human_overrides log only.
+
+        Parameters
+        ----------
+        result : CrucibleResult
+            The Crucible result containing the system recommendation.
+        selected_candidate : CrucibleCandidate
+            The candidate the human chose instead.
+        divergence_reason : str
+            100–500 character explanation of why the human disagrees.
+        reason_category : str
+            One of ``OVERRIDE_REASON_CATEGORIES``.
+        confidence : int
+            1–10, the human's confidence in their override.
+
+        Returns
+        -------
+        HumanOverrideEntry
+            The recorded override entry.
+
+        Raises
+        ------
+        ValueError
+            If the override data fails validation constraints.
+        """
+        system_best = result.logic_box.best
+        if not system_best:
+            raise ValueError("No system-recommended candidate to override.")
+
+        entry = self.soul.record_human_override(
+            system_recommended_id=system_best.id,
+            system_recommended_score=system_best.unity_alignment_score,
+            human_selected_id=selected_candidate.id,
+            human_selected_score=selected_candidate.unity_alignment_score,
+            divergence_reason=divergence_reason,
+            reason_category=reason_category,
+            confidence=confidence,
+            problem_text=result.source_text,
+            system_recommended_path=(
+                system_best.dream_path.path_type.value
+                if system_best.dream_path else ""
+            ),
+            human_selected_path=(
+                selected_candidate.dream_path.path_type.value
+                if selected_candidate.dream_path else ""
+            ),
+        )
+
+        if verbose:
+            print(self.renderer.render_header("HUMAN OVERRIDE RECORDED"))
+            print(self.renderer.render_human_overrides(self.soul, limit=1))
+
+        return entry
 
     # -- Crystallization command --------------------------------------------
 
