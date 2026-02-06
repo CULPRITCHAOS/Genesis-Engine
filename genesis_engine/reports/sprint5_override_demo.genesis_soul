@@ -1,0 +1,321 @@
+{
+  "genesis_soul": {
+    "format": "genesis_soul_v1",
+    "integrityHash": "a2c9e089ea524f7c1fce6b51e1a51e0ecb49300a6f6179e1b70195e322325da0",
+    "payload": {
+      "soulId": "soul-fd49a747e42f",
+      "version": "0.1.0",
+      "axiomAnchorState": {
+        "directive": {
+          "statement": "Does this serve Love?",
+          "principles": [
+            "unity",
+            "compassion",
+            "coherence"
+          ]
+        },
+        "alignmentThreshold": 0.5
+      },
+      "graphHistory": [
+        {
+          "phase": "translation",
+          "label": "A social media platform that exploits user attention through addictive design patterns, extracts personal data without meaningful consent, and neglects the mental health impact on vulnerable young users.",
+          "timestamp": "2026-02-06T02:32:51.213875+00:00",
+          "graph": {
+            "sourceText": "A social media platform that exploits user attention through addictive design patterns, extracts personal data without meaningful consent, and neglects the mental health impact on vulnerable young users.",
+            "objects": [
+              {
+                "id": "obj-3e91ff04",
+                "label": "User",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-79812e60",
+                "label": "Health",
+                "tags": [
+                  "value",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-f7807544",
+                "label": "Data",
+                "tags": [
+                  "asset"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-e4e27d46",
+                "label": "Exploitation",
+                "source": "obj-3e91ff04",
+                "target": "obj-79812e60",
+                "tags": [
+                  "extraction",
+                  "exploitation"
+                ]
+              },
+              {
+                "id": "mor-ee1d0cf9",
+                "label": "Extraction",
+                "source": "obj-3e91ff04",
+                "target": "obj-79812e60",
+                "tags": [
+                  "extraction"
+                ]
+              },
+              {
+                "id": "mor-94ace0ca",
+                "label": "Neglect",
+                "source": "obj-3e91ff04",
+                "target": "obj-79812e60",
+                "tags": [
+                  "neglect"
+                ]
+              },
+              {
+                "id": "mor-8640011d",
+                "label": "Healing",
+                "source": "obj-3e91ff04",
+                "target": "obj-79812e60",
+                "tags": [
+                  "care"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "crucible",
+          "label": "Crystallized: contradiction perspective",
+          "timestamp": "2026-02-06T02:32:51.213881+00:00",
+          "graph": {
+            "sourceText": "A social media platform that exploits user attention through addictive design patterns, extracts personal data without meaningful consent, and neglects the mental health impact on vulnerable young users.",
+            "objects": [
+              {
+                "id": "obj-fd26bf19",
+                "label": "Steward",
+                "tags": [
+                  "stakeholder",
+                  "actor"
+                ]
+              },
+              {
+                "id": "obj-115f7d67",
+                "label": "Health_Commons",
+                "tags": [
+                  "value",
+                  "shared"
+                ]
+              },
+              {
+                "id": "obj-f1d42879",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-12ef58d8",
+                "label": "User",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-985085a5",
+                "label": "Stewardship",
+                "source": "obj-fd26bf19",
+                "target": "obj-115f7d67",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-f2bb7d54",
+                "label": "Empowerment",
+                "source": "obj-fd26bf19",
+                "target": "obj-12ef58d8",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-968681b4",
+                "label": "Participation",
+                "source": "obj-12ef58d8",
+                "target": "obj-115f7d67",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-3652fdde",
+                "label": "Accountability",
+                "source": "obj-f1d42879",
+                "target": "obj-fd26bf19",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-700cb55b",
+                "label": "Rights_Guarantee",
+                "source": "obj-f1d42879",
+                "target": "obj-12ef58d8",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "phase": "verification",
+          "label": "Forge verification: Stewardship Covenant: A social media platform that exploits user attention through",
+          "timestamp": "2026-02-06T02:32:51.213891+00:00",
+          "graph": {
+            "sourceText": "Technical Covenant: Stewardship Covenant: A social media platform that exploits user attention through",
+            "objects": [
+              {
+                "id": "obj-f95d0187",
+                "label": "Steward",
+                "tags": [
+                  "stakeholder"
+                ]
+              },
+              {
+                "id": "obj-9f811a23",
+                "label": "Health_Commons",
+                "tags": [
+                  "value"
+                ]
+              },
+              {
+                "id": "obj-e5c65d87",
+                "label": "Governance_Covenant",
+                "tags": [
+                  "mechanism",
+                  "protective"
+                ]
+              },
+              {
+                "id": "obj-830fb068",
+                "label": "User",
+                "tags": [
+                  "stakeholder"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-21a3ef80",
+                "label": "Stewardship",
+                "source": "obj-f95d0187",
+                "target": "obj-9f811a23",
+                "tags": [
+                  "protection",
+                  "care"
+                ]
+              },
+              {
+                "id": "mor-3d690dc0",
+                "label": "Empowerment",
+                "source": "obj-f95d0187",
+                "target": "obj-830fb068",
+                "tags": [
+                  "empowerment",
+                  "service"
+                ]
+              },
+              {
+                "id": "mor-b8b6bd28",
+                "label": "Participation",
+                "source": "obj-830fb068",
+                "target": "obj-9f811a23",
+                "tags": [
+                  "collaboration"
+                ]
+              },
+              {
+                "id": "mor-97234745",
+                "label": "Accountability",
+                "source": "obj-e5c65d87",
+                "target": "obj-f95d0187",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-c3add6a1",
+                "label": "Rights_Guarantee",
+                "source": "obj-e5c65d87",
+                "target": "obj-830fb068",
+                "tags": [
+                  "protection",
+                  "empowerment"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "wisdomLog": [
+        {
+          "sourceText": "A social media platform that exploits user attention through addictive design patterns, extracts personal data without meaningful consent, and neglects the mental health impact on vulnerable young users.",
+          "disharmonySummary": "Exploitation (User -> Health); Extraction (User -> Health); Neglect (User -> Health)",
+          "unityImpact": 7.5,
+          "compassionDeficit": 10.0,
+          "resolutionPath": "reinvention",
+          "resolutionSummary": "Crystallized via contradiction perspective. Unity alignment: 1.0000.",
+          "covenantTitle": "Stewardship Covenant: A social media platform that exploits user attention through",
+          "timestamp": "2026-02-06T02:32:51.214006+00:00",
+          "prevHash": "",
+          "entryHash": "262706c9ed43161e104e8defadb2dd03e0781b30a496ec4b702974bd44f0e8cb"
+        }
+      ],
+      "humanOverrides": [
+        {
+          "systemRecommendedId": "cand-e1b20ad4",
+          "systemRecommendedScore": 1.0,
+          "humanSelectedId": "cand-ae5487df",
+          "humanSelectedScore": 1.0,
+          "divergenceReason": "The Reform path preserves the existing platform structure which has a fundamentally extractive business model. Real-world evidence from regulatory hearings shows that incremental reform of attention-economy platforms consistently fails because the profit motive overrides safety commitments. Dissolution and replacement with a cooperative model is the only path that addresses root causes.",
+          "reasonCategory": "real_world_evidence",
+          "confidence": 8,
+          "problemText": "A social media platform that exploits user attention through addictive design patterns, extracts personal data without meaningful consent, and neglects the mental health impact on vulnerable young users.",
+          "systemRecommendedPath": "reinvention",
+          "humanSelectedPath": "dissolution",
+          "timestamp": "2026-02-06T02:32:51.214641+00:00"
+        }
+      ],
+      "forgeArtifacts": [
+        {
+          "covenantTitle": "Stewardship Covenant: A social media platform that exploits user attention through",
+          "integrityVerified": true,
+          "perspective": "contradiction",
+          "candidateId": "cand-e1b20ad4"
+        }
+      ],
+      "metadata": {
+        "createdAt": "2026-02-06T02:32:51.212084+00:00",
+        "updatedAt": "2026-02-06T02:32:51.214657+00:00",
+        "graphCount": 3,
+        "wisdomCount": 1,
+        "overrideCount": 1,
+        "forgeCount": 1
+      }
+    }
+  }
+}

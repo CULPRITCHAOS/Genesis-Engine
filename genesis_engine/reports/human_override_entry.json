@@ -1,0 +1,13 @@
+{
+  "systemRecommendedId": "cand-e1b20ad4",
+  "systemRecommendedScore": 1.0,
+  "humanSelectedId": "cand-ae5487df",
+  "humanSelectedScore": 1.0,
+  "divergenceReason": "The Reform path preserves the existing platform structure which has a fundamentally extractive business model. Real-world evidence from regulatory hearings shows that incremental reform of attention-economy platforms consistently fails because the profit motive overrides safety commitments. Dissolution and replacement with a cooperative model is the only path that addresses root causes.",
+  "reasonCategory": "real_world_evidence",
+  "confidence": 8,
+  "problemText": "A social media platform that exploits user attention through addictive design patterns, extracts personal data without meaningful consent, and neglects the mental health impact on vulnerable young users.",
+  "systemRecommendedPath": "reinvention",
+  "humanSelectedPath": "dissolution",
+  "timestamp": "2026-02-06T02:32:51.214641+00:00"
+}
