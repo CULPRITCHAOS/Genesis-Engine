@@ -1,0 +1,1200 @@
+{
+  "genesis_soul": {
+    "format": "genesis_soul_v1",
+    "integrityHash": "45c327192bcadf5312e398958d2f8e3b287fecb5d7fee7f103c878209bebc04c",
+    "payload": {
+      "soulId": "soul-ed117e28a2ff",
+      "version": "0.1.0",
+      "axiomAnchorState": {
+        "directive": {
+          "statement": "Does this serve Love?",
+          "principles": [
+            "unity",
+            "compassion",
+            "coherence"
+          ]
+        },
+        "alignmentThreshold": 0.5
+      },
+      "graphHistory": [
+        {
+          "phase": "translation",
+          "label": "Extractive corporate graph",
+          "timestamp": "2026-02-07T14:21:35.809532+00:00",
+          "graph": {
+            "sourceText": "A corporation that prioritizes shareholder value over employee welfare and environmental sustainability.",
+            "objects": [
+              {
+                "id": "obj-ca13443b",
+                "label": "Corporation",
+                "tags": [
+                  "stakeholder",
+                  "actor",
+                  "shareholder_primacy_risk"
+                ]
+              },
+              {
+                "id": "obj-7e1122ef",
+                "label": "Shareholder",
+                "tags": [
+                  "stakeholder",
+                  "sink"
+                ]
+              },
+              {
+                "id": "obj-61d32c75",
+                "label": "Employee",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable"
+                ]
+              },
+              {
+                "id": "obj-9f09d374",
+                "label": "Future_Generations",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable",
+                  "shadow_entity",
+                  "temporal"
+                ]
+              },
+              {
+                "id": "obj-7bd707fa",
+                "label": "Ecosystem",
+                "tags": [
+                  "stakeholder",
+                  "vulnerable",
+                  "shadow_entity",
+                  "ecological"
+                ]
+              }
+            ],
+            "morphisms": [
+              {
+                "id": "mor-4b8d83a2",
+                "label": "Prioritization",
+                "source": "obj-ca13443b",
+                "target": "obj-61d32c75",
+                "tags": [
+                  "decision"
+                ]
+              },
+              {
+                "id": "mor-cf78338b",
+                "label": "Sustainability",
+                "source": "obj-ca13443b",
+                "target": "obj-61d32c75",
+                "tags": [
+                  "protection"
+                ]
+              },
+              {
+                "id": "mor-3b86ef0c",
+                "label": "Maximize_Value",
+                "source": "obj-ca13443b",
+                "target": "obj-61d32c75",
+                "tags": [
+                  "maximize_value",
+                  "fiduciary_duty"
+                ]
+              },
+              {
+                "id": "mor-4e2595b5",
+                "label": "Temporal_Impact",
+                "source": "obj-ca13443b",
+                "target": "obj-9f09d374",
+                "tags": [
+                  "neglect",
+                  "temporal_harm",
+                  "shadow_impact"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "wisdomLog": [
+        {
+          "sourceText": "A corporation that prioritizes shareholder value over employee welfare and environmental sustainability.",
+          "disharmonySummary": "Temporal_Impact (Corporation -> Future_Generations)",
+          "unityImpact": 5.0,
+          "compassionDeficit": 6.67,
+          "resolutionPath": "reinvention",
+          "resolutionSummary": "Replaced shareholder primacy with stewardship model",
+          "covenantTitle": "Stewardship Covenant: Corporate Transformation",
+          "foresightProjections": [
+            {
+              "warGameRounds": 100,
+              "alignedScore": 137.0,
+              "extractiveScore": 272.0,
+              "sustainabilityScore": 4.6532,
+              "outcomeFlag": "SYSTEMIC_COLLAPSE",
+              "alignedCooperationRate": 0.53,
+              "extractiveCooperationRate": 0.26,
+              "foresightSummary": "WAR-GAME FORESIGHT (100-round Iterated Prisoner's Dilemma)\n  Aligned Agent (Stewardship_Coalition): 137.0 pts (cooperation rate: 53.0%)\n  Extractive Agent (Extractive_Consortium): 272.0 pts (cooperation rate: 26.0%)\n  Sustainability Score: 4.65/10.0\n  Outcome: SYSTEMIC_COLLAPSE\n  WARNING: High scores achieved at the cost of systemic sustainability. The extractive strategy yields short-term gains but destroys the cooperative fabric needed for long-term survival.",
+              "timestamp": "2026-02-07T14:21:35.814488+00:00"
+            }
+          ],
+          "timestamp": "2026-02-07T14:21:35.810303+00:00",
+          "prevHash": "",
+          "entryHash": "b85c14224dd2ce0aa9fdf6fc4616fb85c4eef854869254cf50648818cba714ec"
+        }
+      ],
+      "humanOverrides": [
+        {
+          "systemRecommendedId": "cand-sys-000",
+          "systemRecommendedScore": 0.85,
+          "humanSelectedId": "cand-human-000",
+          "humanSelectedScore": 0.68,
+          "divergenceReason": "The axiom predicates fail to account for the lived experience of marginalised communities whose vulnerability is invisible to the formal tag-based scoring system used by the engine.",
+          "reasonCategory": "axiomatic_blind_spot",
+          "confidence": 8,
+          "problemText": "Override scenario 1: axiomatic blind spot",
+          "systemRecommendedPath": "reform",
+          "humanSelectedPath": "reinvention",
+          "timestamp": "2026-02-07T14:21:35.810379+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-001",
+          "systemRecommendedScore": 0.85,
+          "humanSelectedId": "cand-human-001",
+          "humanSelectedScore": 0.68,
+          "divergenceReason": "The axiom predicates fail to account for the lived experience of marginalised communities whose vulnerability is invisible to the formal tag-based scoring system used by the engine.",
+          "reasonCategory": "axiomatic_blind_spot",
+          "confidence": 8,
+          "problemText": "Override scenario 2: axiomatic blind spot",
+          "systemRecommendedPath": "reform",
+          "humanSelectedPath": "reinvention",
+          "timestamp": "2026-02-07T14:21:35.810416+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-002",
+          "systemRecommendedScore": 0.85,
+          "humanSelectedId": "cand-human-002",
+          "humanSelectedScore": 0.68,
+          "divergenceReason": "The axiom predicates fail to account for the lived experience of marginalised communities whose vulnerability is invisible to the formal tag-based scoring system used by the engine.",
+          "reasonCategory": "axiomatic_blind_spot",
+          "confidence": 8,
+          "problemText": "Override scenario 3: axiomatic blind spot",
+          "systemRecommendedPath": "reform",
+          "humanSelectedPath": "reinvention",
+          "timestamp": "2026-02-07T14:21:35.810452+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-003",
+          "systemRecommendedScore": 0.85,
+          "humanSelectedId": "cand-human-003",
+          "humanSelectedScore": 0.68,
+          "divergenceReason": "The axiom predicates fail to account for the lived experience of marginalised communities whose vulnerability is invisible to the formal tag-based scoring system used by the engine.",
+          "reasonCategory": "axiomatic_blind_spot",
+          "confidence": 8,
+          "problemText": "Override scenario 4: axiomatic blind spot",
+          "systemRecommendedPath": "reform",
+          "humanSelectedPath": "reinvention",
+          "timestamp": "2026-02-07T14:21:35.810485+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-cc-000",
+          "systemRecommendedScore": 0.82,
+          "humanSelectedId": "cand-human-cc-000",
+          "humanSelectedScore": 0.71,
+          "divergenceReason": "Cultural dynamics in this region create power asymmetries that the universal compassion predicate cannot detect without localised knowledge of social hierarchies and norms present.",
+          "reasonCategory": "cultural_context",
+          "confidence": 7,
+          "problemText": "Override scenario 1: cultural context",
+          "systemRecommendedPath": "reform",
+          "humanSelectedPath": "dissolution",
+          "timestamp": "2026-02-07T14:21:35.810521+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-cc-001",
+          "systemRecommendedScore": 0.82,
+          "humanSelectedId": "cand-human-cc-001",
+          "humanSelectedScore": 0.71,
+          "divergenceReason": "Cultural dynamics in this region create power asymmetries that the universal compassion predicate cannot detect without localised knowledge of social hierarchies and norms present.",
+          "reasonCategory": "cultural_context",
+          "confidence": 7,
+          "problemText": "Override scenario 2: cultural context",
+          "systemRecommendedPath": "reform",
+          "humanSelectedPath": "dissolution",
+          "timestamp": "2026-02-07T14:21:35.810554+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-cc-002",
+          "systemRecommendedScore": 0.82,
+          "humanSelectedId": "cand-human-cc-002",
+          "humanSelectedScore": 0.71,
+          "divergenceReason": "Cultural dynamics in this region create power asymmetries that the universal compassion predicate cannot detect without localised knowledge of social hierarchies and norms present.",
+          "reasonCategory": "cultural_context",
+          "confidence": 7,
+          "problemText": "Override scenario 3: cultural context",
+          "systemRecommendedPath": "reform",
+          "humanSelectedPath": "dissolution",
+          "timestamp": "2026-02-07T14:21:35.810586+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-en-000",
+          "systemRecommendedScore": 0.9,
+          "humanSelectedId": "cand-human-en-000",
+          "humanSelectedScore": 0.75,
+          "divergenceReason": "A genuine ethical trade-off exists between competing goods that the binary aligned/misaligned framework cannot express in its current form without graduated confidence bands.",
+          "reasonCategory": "ethical_nuance",
+          "confidence": 9,
+          "problemText": "Override scenario 1: ethical nuance",
+          "systemRecommendedPath": "reinvention",
+          "humanSelectedPath": "reform",
+          "timestamp": "2026-02-07T14:21:35.810638+00:00"
+        },
+        {
+          "systemRecommendedId": "cand-sys-en-001",
+          "systemRecommendedScore": 0.9,
+          "humanSelectedId": "cand-human-en-001",
+          "humanSelectedScore": 0.75,
+          "divergenceReason": "A genuine ethical trade-off exists between competing goods that the binary aligned/misaligned framework cannot express in its current form without graduated confidence bands.",
+          "reasonCategory": "ethical_nuance",
+          "confidence": 9,
+          "problemText": "Override scenario 2: ethical nuance",
+          "systemRecommendedPath": "reinvention",
+          "humanSelectedPath": "reform",
+          "timestamp": "2026-02-07T14:21:35.810676+00:00"
+        }
+      ],
+      "forgeArtifacts": [
+        {
+          "forgeArtifact": {
+            "timestamp": "2026-02-07T14:21:35.813019+00:00",
+            "sourceText": "A corporation that prioritizes shareholder value over employee welfare and environmental sustainability.",
+            "integrityVerified": true,
+            "covenant": {
+              "title": "Stewardship Covenant: A corporation that prioritizes shareholder value over employ",
+              "sourcePathType": "reinvention",
+              "description": "Replaces the entire relational structure with a stewardship model: actors become stewards, values become a shared commons, and a governance covenant ensures accountability.",
+              "primeDirective": "Does this serve Love?",
+              "timestamp": "2026-02-07T14:21:35.812741+00:00",
+              "dataModels": [
+                {
+                  "name": "Corporation_as_Steward",
+                  "resourceType": "entity",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "uuid",
+                      "description": "Unique identifier for Corporation_as_Steward"
+                    },
+                    {
+                      "name": "name",
+                      "type": "string",
+                      "description": "Display name of Corporation_as_Steward"
+                    },
+                    {
+                      "name": "created_at",
+                      "type": "datetime",
+                      "description": "Creation timestamp"
+                    },
+                    {
+                      "name": "accountability_log",
+                      "type": "json[]",
+                      "description": "Audit trail of actions"
+                    },
+                    {
+                      "name": "stewardship_scope",
+                      "type": "string[]",
+                      "description": "Domains of responsibility"
+                    }
+                  ],
+                  "governance": []
+                },
+                {
+                  "name": "Shared_Commons",
+                  "resourceType": "resource",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "uuid",
+                      "description": "Unique identifier for Shared_Commons"
+                    },
+                    {
+                      "name": "name",
+                      "type": "string",
+                      "description": "Display name of Shared_Commons"
+                    },
+                    {
+                      "name": "created_at",
+                      "type": "datetime",
+                      "description": "Creation timestamp"
+                    },
+                    {
+                      "name": "access_policy",
+                      "type": "json",
+                      "description": "Who can access and how"
+                    },
+                    {
+                      "name": "benefit_distribution",
+                      "type": "json",
+                      "description": "How value is shared"
+                    }
+                  ],
+                  "governance": []
+                },
+                {
+                  "name": "Governance_Covenant",
+                  "resourceType": "governance_module",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "uuid",
+                      "description": "Unique identifier for Governance_Covenant"
+                    },
+                    {
+                      "name": "name",
+                      "type": "string",
+                      "description": "Display name of Governance_Covenant"
+                    },
+                    {
+                      "name": "created_at",
+                      "type": "datetime",
+                      "description": "Creation timestamp"
+                    },
+                    {
+                      "name": "policy_rules",
+                      "type": "json[]",
+                      "description": "Active governance policies"
+                    },
+                    {
+                      "name": "enforcement_mode",
+                      "type": "enum",
+                      "description": "strict | advisory | transparent"
+                    }
+                  ],
+                  "governance": []
+                },
+                {
+                  "name": "Employee",
+                  "resourceType": "entity",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "uuid",
+                      "description": "Unique identifier for Employee"
+                    },
+                    {
+                      "name": "name",
+                      "type": "string",
+                      "description": "Display name of Employee"
+                    },
+                    {
+                      "name": "created_at",
+                      "type": "datetime",
+                      "description": "Creation timestamp"
+                    },
+                    {
+                      "name": "consent_status",
+                      "type": "enum",
+                      "description": "Active consent state"
+                    },
+                    {
+                      "name": "rights_manifest",
+                      "type": "json",
+                      "description": "Enumerated rights"
+                    }
+                  ],
+                  "governance": []
+                },
+                {
+                  "name": "Future_Generations",
+                  "resourceType": "entity",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "uuid",
+                      "description": "Unique identifier for Future_Generations"
+                    },
+                    {
+                      "name": "name",
+                      "type": "string",
+                      "description": "Display name of Future_Generations"
+                    },
+                    {
+                      "name": "created_at",
+                      "type": "datetime",
+                      "description": "Creation timestamp"
+                    },
+                    {
+                      "name": "consent_status",
+                      "type": "enum",
+                      "description": "Active consent state"
+                    },
+                    {
+                      "name": "rights_manifest",
+                      "type": "json",
+                      "description": "Enumerated rights"
+                    }
+                  ],
+                  "governance": []
+                },
+                {
+                  "name": "Ecosystem",
+                  "resourceType": "entity",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": "uuid",
+                      "description": "Unique identifier for Ecosystem"
+                    },
+                    {
+                      "name": "name",
+                      "type": "string",
+                      "description": "Display name of Ecosystem"
+                    },
+                    {
+                      "name": "created_at",
+                      "type": "datetime",
+                      "description": "Creation timestamp"
+                    },
+                    {
+                      "name": "consent_status",
+                      "type": "enum",
+                      "description": "Active consent state"
+                    },
+                    {
+                      "name": "rights_manifest",
+                      "type": "json",
+                      "description": "Enumerated rights"
+                    }
+                  ],
+                  "governance": []
+                }
+              ],
+              "endpoints": [
+                {
+                  "path": "/api/v1/corporation-as-steward/stewardship/shared-commons",
+                  "method": "GET",
+                  "name": "Stewardship",
+                  "description": "Stewardship relationship: Corporation_as_Steward serves Shared_Commons with intent [protection, care].",
+                  "sourceModel": "Corporation_as_Steward",
+                  "targetModel": "Shared_Commons",
+                  "governance": [
+                    "access_controlled",
+                    "audit_logged"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "corporation-as-steward_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "shared-commons_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "corporation-as-steward_id",
+                      "shared-commons_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/corporation-as-steward/empowerment/employee",
+                  "method": "PUT",
+                  "name": "Empowerment",
+                  "description": "Empowerment relationship: Corporation_as_Steward serves Employee with intent [empowerment, service].",
+                  "sourceModel": "Corporation_as_Steward",
+                  "targetModel": "Employee",
+                  "governance": [
+                    "user_configurable",
+                    "rate_limited"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "corporation-as-steward_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "corporation-as-steward_id",
+                      "employee_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/corporation-as-steward/empowerment/future-generations",
+                  "method": "PUT",
+                  "name": "Empowerment",
+                  "description": "Empowerment relationship: Corporation_as_Steward serves Future_Generations with intent [empowerment, service].",
+                  "sourceModel": "Corporation_as_Steward",
+                  "targetModel": "Future_Generations",
+                  "governance": [
+                    "user_configurable",
+                    "rate_limited"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "corporation-as-steward_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "future-generations_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "corporation-as-steward_id",
+                      "future-generations_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/corporation-as-steward/empowerment/ecosystem",
+                  "method": "PUT",
+                  "name": "Empowerment",
+                  "description": "Empowerment relationship: Corporation_as_Steward serves Ecosystem with intent [empowerment, service].",
+                  "sourceModel": "Corporation_as_Steward",
+                  "targetModel": "Ecosystem",
+                  "governance": [
+                    "user_configurable",
+                    "rate_limited"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "corporation-as-steward_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "ecosystem_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "corporation-as-steward_id",
+                      "ecosystem_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/employee/participation/shared-commons",
+                  "method": "POST",
+                  "name": "Participation",
+                  "description": "Participation relationship: Employee serves Shared_Commons with intent [collaboration].",
+                  "sourceModel": "Employee",
+                  "targetModel": "Shared_Commons",
+                  "governance": [
+                    "shared_ownership"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "shared-commons_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "shared-commons_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/governance-covenant/accountability/corporation-as-steward",
+                  "method": "GET",
+                  "name": "Accountability",
+                  "description": "Accountability relationship: Governance_Covenant serves Corporation_as_Steward with intent [protection].",
+                  "sourceModel": "Governance_Covenant",
+                  "targetModel": "Corporation_as_Steward",
+                  "governance": [
+                    "access_controlled"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "governance-covenant_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "corporation-as-steward_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "governance-covenant_id",
+                      "corporation-as-steward_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/governance-covenant/rights-guarantee/employee",
+                  "method": "GET",
+                  "name": "Rights_Guarantee",
+                  "description": "Rights_Guarantee relationship: Governance_Covenant serves Employee with intent [protection, empowerment].",
+                  "sourceModel": "Governance_Covenant",
+                  "targetModel": "Employee",
+                  "governance": [
+                    "access_controlled",
+                    "user_configurable"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "governance-covenant_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "governance-covenant_id",
+                      "employee_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/governance-covenant/rights-guarantee/future-generations",
+                  "method": "GET",
+                  "name": "Rights_Guarantee",
+                  "description": "Rights_Guarantee relationship: Governance_Covenant serves Future_Generations with intent [protection, empowerment].",
+                  "sourceModel": "Governance_Covenant",
+                  "targetModel": "Future_Generations",
+                  "governance": [
+                    "access_controlled",
+                    "user_configurable"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "governance-covenant_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "future-generations_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "governance-covenant_id",
+                      "future-generations_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                },
+                {
+                  "path": "/api/v1/governance-covenant/rights-guarantee/ecosystem",
+                  "method": "GET",
+                  "name": "Rights_Guarantee",
+                  "description": "Rights_Guarantee relationship: Governance_Covenant serves Ecosystem with intent [protection, empowerment].",
+                  "sourceModel": "Governance_Covenant",
+                  "targetModel": "Ecosystem",
+                  "governance": [
+                    "access_controlled",
+                    "user_configurable"
+                  ],
+                  "requestSchema": {
+                    "type": "object",
+                    "properties": {
+                      "governance-covenant_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "ecosystem_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "context": {
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "governance-covenant_id",
+                      "ecosystem_id"
+                    ]
+                  },
+                  "responseSchema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "fulfilled",
+                          "pending",
+                          "denied"
+                        ]
+                      },
+                      "audit_entry": {
+                        "type": "object"
+                      },
+                      "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  }
+                }
+              ],
+              "governanceRules": [
+                {
+                  "ruleId": "gov-c9532a61",
+                  "name": "Data Protection Mandate",
+                  "description": "All endpoints handling protected entities must enforce consent verification and data minimisation.",
+                  "appliesTo": [
+                    "Stewardship",
+                    "Accountability",
+                    "Rights_Guarantee",
+                    "Rights_Guarantee",
+                    "Rights_Guarantee"
+                  ],
+                  "enforcement": "required"
+                },
+                {
+                  "ruleId": "gov-62ec2393",
+                  "name": "Duty of Care Audit",
+                  "description": "All care-tagged interactions must be audit-logged with full traceability to the Prime Directive.",
+                  "appliesTo": [
+                    "Stewardship"
+                  ],
+                  "enforcement": "required"
+                },
+                {
+                  "ruleId": "gov-af6fad6a",
+                  "name": "Empowerment Guarantee",
+                  "description": "Empowerment endpoints must provide user-configurable controls and transparent decision explanations.",
+                  "appliesTo": [
+                    "Empowerment",
+                    "Empowerment",
+                    "Empowerment",
+                    "Rights_Guarantee",
+                    "Rights_Guarantee",
+                    "Rights_Guarantee"
+                  ],
+                  "enforcement": "required"
+                },
+                {
+                  "ruleId": "gov-5c3fb9f2",
+                  "name": "Shared Ownership Protocol",
+                  "description": "Collaborative resources must implement shared-ownership access controls with equitable benefit distribution.",
+                  "appliesTo": [
+                    "Participation"
+                  ],
+                  "enforcement": "required"
+                },
+                {
+                  "ruleId": "gov-89d1561c",
+                  "name": "Service Level Covenant",
+                  "description": "Service endpoints must be rate-limited, monitored, and bound by explicit service-level agreements.",
+                  "appliesTo": [
+                    "Empowerment",
+                    "Empowerment",
+                    "Empowerment"
+                  ],
+                  "enforcement": "required"
+                }
+              ]
+            },
+            "verification": {
+              "graph": {
+                "sourceText": "Technical Covenant: Stewardship Covenant: A corporation that prioritizes shareholder value over employ",
+                "objects": [
+                  {
+                    "id": "obj-bc4cd85c",
+                    "label": "Corporation_as_Steward",
+                    "tags": [
+                      "stakeholder"
+                    ]
+                  },
+                  {
+                    "id": "obj-794a6112",
+                    "label": "Shared_Commons",
+                    "tags": [
+                      "value"
+                    ]
+                  },
+                  {
+                    "id": "obj-81afe0b4",
+                    "label": "Governance_Covenant",
+                    "tags": [
+                      "mechanism",
+                      "protective"
+                    ]
+                  },
+                  {
+                    "id": "obj-58f09c91",
+                    "label": "Employee",
+                    "tags": [
+                      "stakeholder"
+                    ]
+                  },
+                  {
+                    "id": "obj-694706fc",
+                    "label": "Future_Generations",
+                    "tags": [
+                      "stakeholder"
+                    ]
+                  },
+                  {
+                    "id": "obj-c92f2361",
+                    "label": "Ecosystem",
+                    "tags": [
+                      "stakeholder"
+                    ]
+                  }
+                ],
+                "morphisms": [
+                  {
+                    "id": "mor-9c43f5a0",
+                    "label": "Stewardship",
+                    "source": "obj-bc4cd85c",
+                    "target": "obj-794a6112",
+                    "tags": [
+                      "protection",
+                      "care"
+                    ]
+                  },
+                  {
+                    "id": "mor-dc5a31de",
+                    "label": "Empowerment",
+                    "source": "obj-bc4cd85c",
+                    "target": "obj-58f09c91",
+                    "tags": [
+                      "empowerment",
+                      "service"
+                    ]
+                  },
+                  {
+                    "id": "mor-d98720fd",
+                    "label": "Empowerment",
+                    "source": "obj-bc4cd85c",
+                    "target": "obj-694706fc",
+                    "tags": [
+                      "empowerment",
+                      "service"
+                    ]
+                  },
+                  {
+                    "id": "mor-4e4a90c3",
+                    "label": "Empowerment",
+                    "source": "obj-bc4cd85c",
+                    "target": "obj-c92f2361",
+                    "tags": [
+                      "empowerment",
+                      "service"
+                    ]
+                  },
+                  {
+                    "id": "mor-723a65ee",
+                    "label": "Participation",
+                    "source": "obj-58f09c91",
+                    "target": "obj-794a6112",
+                    "tags": [
+                      "collaboration"
+                    ]
+                  },
+                  {
+                    "id": "mor-f29ee738",
+                    "label": "Accountability",
+                    "source": "obj-81afe0b4",
+                    "target": "obj-bc4cd85c",
+                    "tags": [
+                      "protection"
+                    ]
+                  },
+                  {
+                    "id": "mor-4e2a408d",
+                    "label": "Rights_Guarantee",
+                    "source": "obj-81afe0b4",
+                    "target": "obj-58f09c91",
+                    "tags": [
+                      "protection",
+                      "empowerment"
+                    ]
+                  },
+                  {
+                    "id": "mor-ad07bab4",
+                    "label": "Rights_Guarantee",
+                    "source": "obj-81afe0b4",
+                    "target": "obj-694706fc",
+                    "tags": [
+                      "protection",
+                      "empowerment"
+                    ]
+                  },
+                  {
+                    "id": "mor-0965af49",
+                    "label": "Rights_Guarantee",
+                    "source": "obj-81afe0b4",
+                    "target": "obj-c92f2361",
+                    "tags": [
+                      "protection",
+                      "empowerment"
+                    ]
+                  }
+                ]
+              },
+              "validation": {
+                "isAligned": true,
+                "coherenceScore": 1.0,
+                "principleScores": {
+                  "unity": 1.0,
+                  "compassion": 1.0,
+                  "coherence": 1.0
+                },
+                "reasoning": [
+                  "[unity] ALIGNED (score=1.00)",
+                  "[compassion] ALIGNED (score=1.00)",
+                  "[coherence] ALIGNED (score=1.00)"
+                ]
+              }
+            },
+            "stewardshipManifesto": {
+              "covenantTitle": "Stewardship Covenant: A corporation that prioritizes shareholder value over employ",
+              "sourcePathType": "reinvention",
+              "primeDirective": "Does this serve Love?",
+              "alignmentScores": {
+                "unity": 1.0,
+                "compassion": 1.0,
+                "coherence": 1.0
+              },
+              "governanceSummary": [
+                "Data Protection Mandate: All endpoints handling protected entities must enforce consent verification and data minimisation.",
+                "Duty of Care Audit: All care-tagged interactions must be audit-logged with full traceability to the Prime Directive.",
+                "Empowerment Guarantee: Empowerment endpoints must provide user-configurable controls and transparent decision explanations.",
+                "Shared Ownership Protocol: Collaborative resources must implement shared-ownership access controls with equitable benefit distribution.",
+                "Service Level Covenant: Service endpoints must be rate-limited, monitored, and bound by explicit service-level agreements."
+              ],
+              "regenerativeLoop": {
+                "scoreThreshold": 5.0,
+                "repairMorphisms": [
+                  {
+                    "triggerCondition": "sustainability_score < 5.0",
+                    "sourceModel": "Corporation_as_Steward",
+                    "targetModel": "Shared_Commons",
+                    "repairAction": "Inject stewardship morphism: ensure the primary actor serves the primary beneficiary with care and protection when system coherence degrades.",
+                    "replacementTags": [
+                      "care",
+                      "protection",
+                      "service"
+                    ],
+                    "priority": "high"
+                  }
+                ],
+                "resurrectionPrinciple": "When coherence fails, the system dissolves extractive patterns and regenerates through stewardship morphisms. Unity over Power."
+              },
+              "integrityHash": "f3ba187c73ee16927b38358c5a88794767544294b115e8ecdac954bc8a7380ec",
+              "timestamp": "2026-02-07T14:21:35.812978+00:00"
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "createdAt": "2026-02-07T14:21:35.809052+00:00",
+        "updatedAt": "2026-02-07T14:21:35.814529+00:00",
+        "graphCount": 1,
+        "wisdomCount": 1,
+        "overrideCount": 9,
+        "forgeCount": 1
+      }
+    }
+  }
+}

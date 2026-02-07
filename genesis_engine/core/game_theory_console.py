@@ -15,9 +15,16 @@ The console tracks cumulative scores, Sustainability Score per round, and
 flags **SYSTEMIC_COLLAPSE** when a Pyrrhic Victory occurs (high score but
 Sustainability < 5.0).
 
+Sprint 7 Extensions:
+- **Final Exam**: Automates a 100-round "Economic War" that a blueprint
+  must pass before it can be forged. Blueprints with a SustainabilityScore
+  below 7.0 are blocked from production.
+- **FinalExamResult**: Structured result of the exam including pass/fail.
+
 Integration:
 - Called from the Aria Interface for visualisation.
 - Results feed into the Continuity Bridge ``foresight_projections`` array.
+- The Final Exam gates the Architectural Forge (Sprint 7).
 """
 
 from __future__ import annotations
@@ -487,3 +494,111 @@ class GameTheoryConsole:
             )
 
         return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Final Exam (Sprint 7 — Module 3.5 Extension)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class FinalExamResult:
+    """Result of the 100-round Economic War Final Exam.
+
+    A blueprint must achieve a SustainabilityScore >= ``pass_threshold``
+    (default 7.0) to be forged. This gates the Architectural Forge,
+    ensuring only sustainable blueprints reach production.
+
+    Compassion-Driven Resilience: the exam is not punitive — it protects
+    the future by refusing to build what will collapse. Unity over Power.
+    """
+
+    passed: bool
+    sustainability_score: float
+    pass_threshold: float
+    outcome: WarGameOutcome
+    blocking_reason: str = ""
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "finalExam": {
+                "passed": self.passed,
+                "sustainabilityScore": round(self.sustainability_score, 4),
+                "passThreshold": self.pass_threshold,
+                "outcomeFlag": self.outcome.outcome_flag.value,
+                "alignedScore": round(self.outcome.aligned_final_score, 2),
+                "extractiveScore": round(self.outcome.extractive_final_score, 2),
+                "blockingReason": self.blocking_reason,
+            }
+        }
+
+
+class FinalExam:
+    """Automates the 100-round "Economic War" that blueprints must pass.
+
+    No blueprint may be forged if its SustainabilityScore is below the
+    pass threshold (default 7.0). The exam runs a full war-game simulation
+    and returns a structured pass/fail result.
+
+    Usage::
+
+        exam = FinalExam(pass_threshold=7.0)
+        result = exam.administer(seed=42)
+        if not result.passed:
+            # Block the forge
+            raise ValueError(result.blocking_reason)
+
+    Parameters
+    ----------
+    pass_threshold : float
+        Minimum SustainabilityScore required to pass (default 7.0).
+    rounds : int
+        Number of IPD rounds in the exam (default 100).
+    """
+
+    def __init__(
+        self,
+        pass_threshold: float = 7.0,
+        rounds: int = 100,
+    ) -> None:
+        self.pass_threshold = pass_threshold
+        self.rounds = rounds
+
+    def administer(self, seed: int | None = None) -> FinalExamResult:
+        """Run the Final Exam and return the result.
+
+        Parameters
+        ----------
+        seed : int | None
+            Random seed for reproducible results.
+
+        Returns
+        -------
+        FinalExamResult
+            Structured result including pass/fail, scores, and reason.
+        """
+        console = GameTheoryConsole(seed=seed)
+        outcome = console.run_war_game(
+            rounds=self.rounds,
+            sustainability_threshold=self.pass_threshold,
+        )
+
+        passed = outcome.sustainability_score >= self.pass_threshold
+        blocking_reason = ""
+
+        if not passed:
+            blocking_reason = (
+                f"BLOCKED: SustainabilityScore {outcome.sustainability_score:.4f} "
+                f"is below the required threshold of {self.pass_threshold:.1f}. "
+                f"Outcome: {outcome.outcome_flag.value}. "
+                f"The blueprint cannot be forged until the underlying system "
+                f"demonstrates sustainable cooperation. "
+                f"Unity over Power — the machine refuses to build what will collapse."
+            )
+
+        return FinalExamResult(
+            passed=passed,
+            sustainability_score=outcome.sustainability_score,
+            pass_threshold=self.pass_threshold,
+            outcome=outcome,
+            blocking_reason=blocking_reason,
+        )
