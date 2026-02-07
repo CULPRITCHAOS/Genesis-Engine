@@ -7,6 +7,10 @@ The "Hands of Creation" — takes a selected ``DreamPath`` from a
 * **Technical Covenant** — a JSON specification defining the APIs, data
   models, roles, and governance rules required to implement the healed
   relational structure.
+* **Stewardship Manifesto** — a Markdown/YAML index for every blueprint
+  containing alignment scores, governance summary, and a RegenerativeLoop
+  section defining Repair Morphisms that trigger when simulation scores
+  fall below 5.0.
 * **AxiomLogix Verification** — every generated artifact is translated
   back into a ``CategoricalGraph`` via the AxiomLogix Translator and
   validated against the Prime Directive to ensure Compositional Integrity.
@@ -19,12 +23,14 @@ Pipeline
    - Morphisms  → API endpoints / service contracts
    - Tags       → Access-control and governance annotations
 3. Compose a ``TechnicalCovenant`` (the blueprint).
-4. Re-translate the covenant back through AxiomLogix and validate.
-5. Emit a ``ForgeArtifact`` containing the covenant and verification.
+4. Generate a ``StewardshipManifesto`` (the index).
+5. Re-translate the covenant back through AxiomLogix and validate.
+6. Emit a ``ForgeArtifact`` containing the covenant, manifesto, and verification.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import uuid
 from dataclasses import dataclass, field
@@ -153,6 +159,186 @@ class GovernanceRule:
 
 
 # ---------------------------------------------------------------------------
+# Repair Morphism (Sprint 7 — Regenerative Blueprinting)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class RepairMorphism:
+    """A self-healing morphism that triggers when a simulation score drops.
+
+    Repair Morphisms embody Compassion-Driven Resilience: the system
+    "dies" to extraction and "resurrects" in coherence by automatically
+    proposing structural corrections.
+    """
+
+    trigger_condition: str  # e.g. "sustainability_score < 5.0"
+    source_model: str
+    target_model: str
+    repair_action: str  # human-readable description of the repair
+    replacement_tags: list[str] = field(default_factory=list)
+    priority: str = "critical"  # critical | high | medium
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "triggerCondition": self.trigger_condition,
+            "sourceModel": self.source_model,
+            "targetModel": self.target_model,
+            "repairAction": self.repair_action,
+            "replacementTags": self.replacement_tags,
+            "priority": self.priority,
+        }
+
+
+# ---------------------------------------------------------------------------
+# Regenerative Loop (Sprint 7 — Regenerative Blueprinting)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class RegenerativeLoop:
+    """Defines the self-healing contract for a blueprint.
+
+    The RegenerativeLoop section of a Stewardship Manifesto specifies:
+    - The simulation score threshold below which repair triggers
+    - The Repair Morphisms that activate when the threshold is breached
+    - The resurrection principle: Unity over Power
+    """
+
+    score_threshold: float = 5.0
+    repair_morphisms: list[RepairMorphism] = field(default_factory=list)
+    resurrection_principle: str = (
+        "When coherence fails, the system dissolves extractive patterns "
+        "and regenerates through stewardship morphisms. Unity over Power."
+    )
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "scoreThreshold": self.score_threshold,
+            "repairMorphisms": [rm.as_dict() for rm in self.repair_morphisms],
+            "resurrectionPrinciple": self.resurrection_principle,
+        }
+
+    def to_yaml_block(self) -> str:
+        """Render as a YAML-compatible block for the manifesto."""
+        lines = [
+            "regenerative_loop:",
+            f"  score_threshold: {self.score_threshold}",
+            f"  resurrection_principle: \"{self.resurrection_principle}\"",
+            "  repair_morphisms:",
+        ]
+        for rm in self.repair_morphisms:
+            lines.append(f"    - trigger: \"{rm.trigger_condition}\"")
+            lines.append(f"      source: \"{rm.source_model}\"")
+            lines.append(f"      target: \"{rm.target_model}\"")
+            lines.append(f"      action: \"{rm.repair_action}\"")
+            lines.append(f"      tags: [{', '.join(rm.replacement_tags)}]")
+            lines.append(f"      priority: {rm.priority}")
+        return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Stewardship Manifesto (Sprint 7 — Regenerative Blueprinting)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class StewardshipManifesto:
+    """The index document for every blueprint produced by the Forge.
+
+    Rendered as Markdown with YAML frontmatter, the manifesto serves as
+    the human-readable "soul" of a Technical Covenant — making the
+    blueprint's alignment scores, governance rules, and regenerative
+    contracts visible at a glance.
+    """
+
+    covenant_title: str
+    source_path_type: str
+    prime_directive: str
+    alignment_scores: dict[str, float] = field(default_factory=dict)
+    governance_summary: list[str] = field(default_factory=list)
+    regenerative_loop: RegenerativeLoop = field(default_factory=RegenerativeLoop)
+    integrity_hash: str = ""
+    timestamp: str = field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "stewardshipManifesto": {
+                "covenantTitle": self.covenant_title,
+                "sourcePathType": self.source_path_type,
+                "primeDirective": self.prime_directive,
+                "alignmentScores": {
+                    k: round(v, 4) for k, v in self.alignment_scores.items()
+                },
+                "governanceSummary": self.governance_summary,
+                "regenerativeLoop": self.regenerative_loop.as_dict(),
+                "integrityHash": self.integrity_hash,
+                "timestamp": self.timestamp,
+            }
+        }
+
+    def to_markdown(self) -> str:
+        """Render the manifesto as Markdown with YAML frontmatter."""
+        lines = ["---"]
+        lines.append(f"title: \"{self.covenant_title}\"")
+        lines.append(f"path_type: {self.source_path_type}")
+        lines.append(f"prime_directive: \"{self.prime_directive}\"")
+        lines.append(f"integrity_hash: \"{self.integrity_hash}\"")
+        lines.append(f"timestamp: \"{self.timestamp}\"")
+
+        # Alignment scores
+        lines.append("alignment_scores:")
+        for k, v in self.alignment_scores.items():
+            lines.append(f"  {k}: {v:.4f}")
+
+        # Regenerative Loop as YAML
+        lines.append(self.regenerative_loop.to_yaml_block())
+        lines.append("---")
+        lines.append("")
+
+        # Markdown body
+        lines.append(f"# {self.covenant_title}")
+        lines.append("")
+        lines.append(f"> *\"{self.prime_directive}\"*")
+        lines.append("")
+
+        lines.append("## Alignment Scores")
+        lines.append("")
+        for k, v in self.alignment_scores.items():
+            bar = "█" * int(v * 10) + "░" * (10 - int(v * 10))
+            lines.append(f"- **{k}**: `{v:.4f}` {bar}")
+        lines.append("")
+
+        lines.append("## Governance Summary")
+        lines.append("")
+        for rule in self.governance_summary:
+            lines.append(f"- {rule}")
+        lines.append("")
+
+        lines.append("## Regenerative Loop")
+        lines.append("")
+        lines.append(
+            f"**Threshold**: Score below `{self.regenerative_loop.score_threshold}` "
+            f"triggers repair."
+        )
+        lines.append("")
+        lines.append(f"**Principle**: {self.regenerative_loop.resurrection_principle}")
+        lines.append("")
+
+        if self.regenerative_loop.repair_morphisms:
+            lines.append("### Repair Morphisms")
+            lines.append("")
+            for rm in self.regenerative_loop.repair_morphisms:
+                lines.append(f"- **{rm.source_model} → {rm.target_model}**")
+                lines.append(f"  - Trigger: `{rm.trigger_condition}`")
+                lines.append(f"  - Action: {rm.repair_action}")
+                lines.append(f"  - Tags: `{', '.join(rm.replacement_tags)}`")
+                lines.append(f"  - Priority: {rm.priority}")
+            lines.append("")
+
+        return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
 # Technical Covenant
 # ---------------------------------------------------------------------------
 
@@ -199,11 +385,12 @@ class ForgeArtifact:
     verification_graph: CategoricalGraph
     verification_result: ValidationResult
     integrity_verified: bool
+    manifesto: StewardshipManifesto | None = None
     source_text: str = ""
     timestamp: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        result: dict[str, Any] = {
             "forgeArtifact": {
                 "timestamp": self.timestamp,
                 "sourceText": self.source_text,
@@ -215,6 +402,11 @@ class ForgeArtifact:
                 },
             }
         }
+        if self.manifesto:
+            result["forgeArtifact"]["stewardshipManifesto"] = (
+                self.manifesto.as_dict()["stewardshipManifesto"]
+            )
+        return result
 
     def to_json(self, indent: int = 2) -> str:
         return json.dumps(self.as_dict(), indent=indent)
@@ -279,13 +471,128 @@ class ArchitecturalForge:
             verification_graph.as_artefact(),
         )
 
+        # Step 6: Generate Stewardship Manifesto (Sprint 7).
+        manifesto = self._generate_manifesto(
+            covenant, verification_result, graph,
+        )
+
         return ForgeArtifact(
             covenant=covenant,
             verification_graph=verification_graph,
             verification_result=verification_result,
             integrity_verified=verification_result.is_aligned,
+            manifesto=manifesto,
             source_text=graph.source_text,
         )
+
+    # -- manifesto generation (Sprint 7) ------------------------------------
+
+    def _generate_manifesto(
+        self,
+        covenant: TechnicalCovenant,
+        validation: ValidationResult,
+        source_graph: CategoricalGraph,
+    ) -> StewardshipManifesto:
+        """Generate a Stewardship Manifesto as the index for this blueprint.
+
+        The manifesto includes alignment scores, governance summary, and
+        a RegenerativeLoop section with Repair Morphisms.
+        """
+        # Build governance summary from rules
+        governance_summary = [
+            f"{rule.name}: {rule.description}"
+            for rule in covenant.governance_rules
+        ]
+
+        # Generate repair morphisms from the graph's structure
+        repair_morphisms = self._generate_repair_morphisms(
+            covenant, source_graph,
+        )
+
+        regen_loop = RegenerativeLoop(
+            score_threshold=5.0,
+            repair_morphisms=repair_morphisms,
+        )
+
+        manifesto = StewardshipManifesto(
+            covenant_title=covenant.title,
+            source_path_type=covenant.source_path_type,
+            prime_directive=covenant.prime_directive_statement,
+            alignment_scores=dict(validation.principle_scores),
+            governance_summary=governance_summary,
+            regenerative_loop=regen_loop,
+        )
+
+        # Compute integrity hash
+        hash_content = json.dumps(
+            manifesto.as_dict(), sort_keys=True
+        ).encode("utf-8")
+        manifesto.integrity_hash = hashlib.sha256(hash_content).hexdigest()
+
+        return manifesto
+
+    @staticmethod
+    def _generate_repair_morphisms(
+        covenant: TechnicalCovenant,
+        source_graph: CategoricalGraph,
+    ) -> list[RepairMorphism]:
+        """Generate Repair Morphisms for the RegenerativeLoop.
+
+        For each endpoint in the covenant, if the underlying morphism
+        has extractive/harmful potential, create a repair morphism that
+        would replace it with a stewardship pattern if the simulation
+        score drops below threshold.
+
+        Compassion-Driven Resilience: the system "dies" to extraction
+        and "resurrects" in coherence.
+        """
+        repairs: list[RepairMorphism] = []
+
+        # Map of extractive tag patterns → their healing replacements
+        _HEAL_MAP: dict[str, tuple[str, list[str]]] = {
+            "extraction": ("Fair_Reciprocity", ["service", "collaboration"]),
+            "exploitation": ("Mutual_Benefit", ["service", "empowerment"]),
+            "coercion": ("Informed_Consent", ["empowerment", "protection"]),
+            "neglect": ("Active_Care", ["care", "protection"]),
+            "division": ("Unification", ["collaboration", "care"]),
+        }
+
+        for endpoint in covenant.endpoints:
+            # Check if any governance annotation suggests vulnerability
+            for tag, (healed_label, healed_tags) in _HEAL_MAP.items():
+                if tag in endpoint.name.lower() or tag in " ".join(endpoint.governance).lower():
+                    repairs.append(RepairMorphism(
+                        trigger_condition="sustainability_score < 5.0",
+                        source_model=endpoint.source_model,
+                        target_model=endpoint.target_model,
+                        repair_action=(
+                            f"Replace {endpoint.name} with {healed_label}: "
+                            f"dissolve extractive pattern, resurrect as "
+                            f"stewardship morphism."
+                        ),
+                        replacement_tags=healed_tags,
+                        priority="critical",
+                    ))
+
+        # Always add a universal repair morphism for any blueprint:
+        # if no specific repairs were generated, add a generic stewardship repair
+        if not repairs:
+            model_names = [m.name for m in covenant.data_models]
+            if len(model_names) >= 2:
+                repairs.append(RepairMorphism(
+                    trigger_condition="sustainability_score < 5.0",
+                    source_model=model_names[0],
+                    target_model=model_names[1],
+                    repair_action=(
+                        "Inject stewardship morphism: ensure the primary actor "
+                        "serves the primary beneficiary with care and protection "
+                        "when system coherence degrades."
+                    ),
+                    replacement_tags=["care", "protection", "service"],
+                    priority="high",
+                ))
+
+        return repairs
 
     # -- internal -----------------------------------------------------------
 

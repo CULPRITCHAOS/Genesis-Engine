@@ -8,7 +8,10 @@ from genesis_engine.core.axiom_anchor import (
 from genesis_engine.core.axiomlogix import AxiomLogixTranslator, CategoricalGraph, Object, Morphism
 from genesis_engine.core.deconstruction_engine import DeconstructionEngine, DisharmonyReport
 from genesis_engine.core.dream_engine import DreamEngine, DreamPath, PossibilityReport, PathType
-from genesis_engine.core.architectural_forge import ArchitecturalForge, ForgeArtifact, TechnicalCovenant
+from genesis_engine.core.architectural_forge import (
+    ArchitecturalForge, ForgeArtifact, TechnicalCovenant,
+    StewardshipManifesto, RegenerativeLoop, RepairMorphism,
+)
 from genesis_engine.core.continuity_bridge import (
     ContinuityBridge, ForesightProjection, GenesisSoul, HumanOverrideEntry,
     OVERRIDE_REASON_CATEGORIES, redact_sensitive,
@@ -19,7 +22,12 @@ from genesis_engine.core.aria_interface import AriaInterface, AriaRenderer
 from genesis_engine.core.game_theory_console import (
     GameTheoryConsole, WarGameOutcome, OutcomeFlag,
     AgentType, AgentState, RoundResult,
+    FinalExam, FinalExamResult,
 )
+from genesis_engine.core.wisdom_mirror import (
+    WisdomMirror, MirrorReport, CovenantPatch, DivergencePattern,
+)
+from genesis_engine.core.obsidian_exporter import ObsidianExporter, ObsidianVault
 
 __all__ = [
     # Axiom Anchor (Module 2.1)
@@ -44,10 +52,13 @@ __all__ = [
     "DreamPath",
     "PossibilityReport",
     "PathType",
-    # Architectural Forge (Module 1.3)
+    # Architectural Forge (Module 1.3) + Regenerative Blueprinting (Sprint 7)
     "ArchitecturalForge",
     "ForgeArtifact",
     "TechnicalCovenant",
+    "StewardshipManifesto",
+    "RegenerativeLoop",
+    "RepairMorphism",
     # Continuity Bridge (Module 2.3)
     "ContinuityBridge",
     "ForesightProjection",
@@ -69,11 +80,21 @@ __all__ = [
     # Aria Interface (Module 3.2)
     "AriaInterface",
     "AriaRenderer",
-    # Game Theory Console (Module 3.5 — Sprint 6.1)
+    # Game Theory Console (Module 3.5) + Final Exam (Sprint 7)
     "GameTheoryConsole",
     "WarGameOutcome",
     "OutcomeFlag",
     "AgentType",
     "AgentState",
     "RoundResult",
+    "FinalExam",
+    "FinalExamResult",
+    # Wisdom Mirror (Module 3.6 — Sprint 7)
+    "WisdomMirror",
+    "MirrorReport",
+    "CovenantPatch",
+    "DivergencePattern",
+    # Obsidian Exporter (Module 2.3 Extension — Sprint 7)
+    "ObsidianExporter",
+    "ObsidianVault",
 ]

@@ -1,0 +1,156 @@
+{
+  "mirrorReport": {
+    "soulId": "soul-ed117e28a2ff",
+    "totalOverrides": 9,
+    "actionablePatterns": 2,
+    "patterns": [
+      {
+        "category": "axiomatic_blind_spot",
+        "occurrences": 4,
+        "averageConfidence": 8.0,
+        "averageScoreDelta": 0.17,
+        "isActionable": true,
+        "commonKeywords": [
+          "axiom",
+          "predicates",
+          "fail",
+          "account",
+          "lived",
+          "experience",
+          "marginalised",
+          "communities",
+          "whose",
+          "vulnerability"
+        ],
+        "overrideTimestamps": [
+          "2026-02-07T14:21:35.810379+00:00",
+          "2026-02-07T14:21:35.810416+00:00",
+          "2026-02-07T14:21:35.810452+00:00",
+          "2026-02-07T14:21:35.810485+00:00"
+        ]
+      },
+      {
+        "category": "cultural_context",
+        "occurrences": 3,
+        "averageConfidence": 7.0,
+        "averageScoreDelta": 0.11,
+        "isActionable": true,
+        "commonKeywords": [
+          "cultural",
+          "dynamics",
+          "region",
+          "create",
+          "power",
+          "asymmetries",
+          "universal",
+          "compassion",
+          "predicate",
+          "cannot"
+        ],
+        "overrideTimestamps": [
+          "2026-02-07T14:21:35.810521+00:00",
+          "2026-02-07T14:21:35.810554+00:00",
+          "2026-02-07T14:21:35.810586+00:00"
+        ]
+      },
+      {
+        "category": "ethical_nuance",
+        "occurrences": 2,
+        "averageConfidence": 9.0,
+        "averageScoreDelta": 0.15,
+        "isActionable": false,
+        "commonKeywords": [
+          "genuine",
+          "ethical",
+          "trade-off",
+          "exists",
+          "competing",
+          "goods",
+          "binary",
+          "aligned/misaligned",
+          "framework",
+          "cannot"
+        ],
+        "overrideTimestamps": [
+          "2026-02-07T14:21:35.810638+00:00",
+          "2026-02-07T14:21:35.810676+00:00"
+        ]
+      }
+    ],
+    "covenantPatches": [
+      {
+        "patchId": "patch-8b835f9fd703494c",
+        "category": "axiomatic_blind_spot",
+        "title": "Axiom Blind Spot Correction",
+        "description": "The human has repeatedly identified cases where the axiom predicates fail to capture a dimension of alignment that is visible to human moral intuition but invisible to the formal system.",
+        "rationale": "Detected 4 human overrides in category 'axiomatic_blind_spot' with average confidence 8.0/10. Average score delta: 0.1700. Common themes: axiom, predicates, fail, account, lived. The machine acknowledges this blind spot and proposes the following adjustment \u2014 pending human review.",
+        "suggestedPredicateAdjustment": "Extend the Unity predicate to include additional harmony tags derived from the override reasons. Consider adding a 'moral_intuition' weight factor that softens binary alignment thresholds.",
+        "priority": 8.0,
+        "status": "proposed",
+        "sourcePattern": {
+          "category": "axiomatic_blind_spot",
+          "occurrences": 4,
+          "averageConfidence": 8.0,
+          "averageScoreDelta": 0.17,
+          "isActionable": true,
+          "commonKeywords": [
+            "axiom",
+            "predicates",
+            "fail",
+            "account",
+            "lived",
+            "experience",
+            "marginalised",
+            "communities",
+            "whose",
+            "vulnerability"
+          ],
+          "overrideTimestamps": [
+            "2026-02-07T14:21:35.810379+00:00",
+            "2026-02-07T14:21:35.810416+00:00",
+            "2026-02-07T14:21:35.810452+00:00",
+            "2026-02-07T14:21:35.810485+00:00"
+          ]
+        },
+        "timestamp": "2026-02-07T14:21:35.811726+00:00"
+      },
+      {
+        "patchId": "patch-649997e341dfe33d",
+        "category": "cultural_context",
+        "title": "Cultural Sensitivity Expansion",
+        "description": "The system's axioms operate in a cultural vacuum. The human repeatedly corrects for cultural contexts that the universal predicates cannot capture.",
+        "rationale": "Detected 3 human overrides in category 'cultural_context' with average confidence 7.0/10. Average score delta: 0.1100. Common themes: cultural, dynamics, region, create, power. The machine acknowledges this blind spot and proposes the following adjustment \u2014 pending human review.",
+        "suggestedPredicateAdjustment": "Introduce a 'cultural_context' modifier to the Compassion predicate that adjusts vulnerability assessments based on culturally-specific power dynamics.",
+        "priority": 6.4,
+        "status": "proposed",
+        "sourcePattern": {
+          "category": "cultural_context",
+          "occurrences": 3,
+          "averageConfidence": 7.0,
+          "averageScoreDelta": 0.11,
+          "isActionable": true,
+          "commonKeywords": [
+            "cultural",
+            "dynamics",
+            "region",
+            "create",
+            "power",
+            "asymmetries",
+            "universal",
+            "compassion",
+            "predicate",
+            "cannot"
+          ],
+          "overrideTimestamps": [
+            "2026-02-07T14:21:35.810521+00:00",
+            "2026-02-07T14:21:35.810554+00:00",
+            "2026-02-07T14:21:35.810586+00:00"
+          ]
+        },
+        "timestamp": "2026-02-07T14:21:35.811737+00:00"
+      }
+    ],
+    "integrityHash": "316433ac77dababc2e8684249194504bf15e9b9047aa5dc58c145e488484f68c",
+    "timestamp": "2026-02-07T14:21:35.811744+00:00"
+  }
+}
