@@ -9,6 +9,8 @@ A CLI visualization layer for the Crucible Engine that displays the
 * **Crystallization Command** — Finalizes a confirmed candidate into a
   Technical Covenant within the .genesis_soul file.
 * **Soul Inspector** — Displays the current state of the EternalBox.
+* **Refinement Panel** (Sprint 8) — Displays the Mirror of Truth's
+  self-critique findings alongside the final Stewardship Manifesto.
 
 This module provides both programmatic access and formatted CLI output
 for human operators to observe the multi-perspective reasoning process.
@@ -37,9 +39,16 @@ from genesis_engine.core.crucible import (
     PhaseRecord,
 )
 from genesis_engine.core.game_theory_console import (
+    BayesianFinalExam,
+    BlackoutShockResult,
     GameTheoryConsole,
     OutcomeFlag,
     WarGameOutcome,
+)
+from genesis_engine.core.mirror_of_truth import (
+    CritiqueFinding,
+    MirrorOfTruth,
+    RefinementTrace,
 )
 
 
@@ -436,6 +445,176 @@ class AriaRenderer:
 
         return "\n".join(lines) + "\n"
 
+    # -- Refinement Panel rendering (Sprint 8) --------------------------------
+
+    def render_refinement_panel(self, trace: RefinementTrace) -> str:
+        """Render the Mirror of Truth's Refinement Panel.
+
+        Displays:
+        - Surface Alignment detection status
+        - Deep Disharmony categories found
+        - Critique findings with severity
+        - Mandatory Regenerative Repair
+        - Path recommendation (with reinvention override if triggered)
+        """
+        c = self._c
+        lines = [self.render_header("MIRROR OF TRUTH — REFINEMENT PANEL")]
+
+        # Mirror Score
+        score = trace.mirror_score
+        score_color = c(Colors.ERROR) if score < 5.0 else (
+            c(Colors.WARNING) if score < 7.0 else c(Colors.SCORE)
+        )
+        lines.append(
+            f"  Mirror Score: {score_color}{score:.2f}/10.0{c(Colors.RESET)}"
+        )
+
+        # Surface Alignment
+        if trace.surface_alignment_detected:
+            lines.append(
+                f"\n  {c(Colors.ERROR)}*** SURFACE ALIGNMENT DETECTED ***{c(Colors.RESET)}"
+            )
+            lines.append(
+                f"  {c(Colors.DIM)}The proposal presents positive claims that "
+                f"mask extractive mechanisms.{c(Colors.RESET)}"
+            )
+        else:
+            lines.append(
+                f"\n  {c(Colors.SCORE)}No Surface Alignment detected.{c(Colors.RESET)}"
+            )
+
+        # Deep Disharmony Categories
+        if trace.deep_disharmony_categories:
+            lines.append(
+                f"\n  {c(Colors.WARNING)}Deep Disharmony Categories:{c(Colors.RESET)}"
+            )
+            for cat in trace.deep_disharmony_categories:
+                cat_display = cat.replace("_", " ").title()
+                lines.append(f"    {c(Colors.ERROR)}• {cat_display}{c(Colors.RESET)}")
+
+        # Vulnerable Node Protection
+        if trace.vulnerable_node_protected:
+            lines.append(
+                f"\n  Vulnerable Node: {c(Colors.SCORE)}PROTECTED{c(Colors.RESET)}"
+            )
+        else:
+            lines.append(
+                f"\n  Vulnerable Node: {c(Colors.ERROR)}UNPROTECTED{c(Colors.RESET)}"
+            )
+
+        # Critique Findings
+        if trace.critique_findings:
+            lines.append(
+                f"\n  {c(Colors.HEADER)}Critique Findings "
+                f"({len(trace.critique_findings)}):{c(Colors.RESET)}"
+            )
+            for i, finding in enumerate(trace.critique_findings, 1):
+                sev_color = c(Colors.ERROR) if finding.severity >= 7.0 else (
+                    c(Colors.WARNING) if finding.severity >= 4.0 else c(Colors.DIM)
+                )
+                lines.append(
+                    f"\n    [{i}] {sev_color}{finding.category}{c(Colors.RESET)} "
+                    f"(severity: {sev_color}{finding.severity:.1f}/10{c(Colors.RESET)})"
+                )
+                # Truncate description at 80 chars per line
+                desc = finding.description
+                desc_lines = [desc[j:j+72] for j in range(0, len(desc), 72)]
+                for dl in desc_lines:
+                    lines.append(f"        {c(Colors.DIM)}{dl}{c(Colors.RESET)}")
+
+                for ev in finding.evidence[:3]:
+                    lines.append(
+                        f"        {c(Colors.DIM)}Evidence: {ev}{c(Colors.RESET)}"
+                    )
+
+        # Reinvention Override
+        if trace.reinvention_triggered:
+            lines.append(
+                f"\n  {c(Colors.ERROR)}*** REINVENTION OVERRIDE TRIGGERED ***"
+                f"{c(Colors.RESET)}"
+            )
+            lines.append(
+                f"  {c(Colors.WARNING)}Original path: {trace.original_path_type} "
+                f"→ Recommended: {trace.recommended_path_type}{c(Colors.RESET)}"
+            )
+        else:
+            lines.append(
+                f"\n  Path: {c(Colors.SCORE)}{trace.original_path_type}"
+                f"{c(Colors.RESET)} (no override)"
+            )
+
+        # Mandatory Repair
+        if trace.mandatory_repair:
+            lines.append(
+                f"\n  {c(Colors.HEADER)}Mandatory Regenerative Repair:"
+                f"{c(Colors.RESET)}"
+            )
+            repairs = trace.mandatory_repair.split(" | ")
+            for repair in repairs:
+                repair_lines = [repair[j:j+68] for j in range(0, len(repair), 68)]
+                for rl in repair_lines:
+                    lines.append(f"    {c(Colors.WARNING)}{rl}{c(Colors.RESET)}")
+
+        return "\n".join(lines) + "\n"
+
+    def render_blackout_shock(self, result: BlackoutShockResult) -> str:
+        """Render the Bayesian Blackout Shock exam result."""
+        c = self._c
+        lines = [self.render_subheader(
+            f"{c(Colors.HEADER)}BAYESIAN BLACKOUT SHOCK EXAM{c(Colors.RESET)}"
+        )]
+
+        # Bayesian Score
+        score = result.bayesian_sustainability_score
+        score_color = c(Colors.ERROR) if score < 5.0 else (
+            c(Colors.WARNING) if score < 7.0 else c(Colors.SCORE)
+        )
+        lines.append(
+            f"  Bayesian Sustainability: {score_color}"
+            f"{score:.2f}/10.0{c(Colors.RESET)}"
+        )
+        lines.append(
+            f"  Base Score:              "
+            f"{result.base_result.sustainability_score:.2f}/10.0"
+        )
+
+        # Bayesian Parameters
+        lines.append(
+            f"\n  Prior Viability:     {result.prior_viability:.4f}"
+        )
+        lines.append(
+            f"  Posterior Viability:  {result.posterior_viability:.4f}"
+        )
+        lines.append(
+            f"  Fragility Amplifier: {result.fragility_amplifier:.1f}x"
+        )
+
+        # Blackout Probability
+        bp = result.blackout_probability
+        bp_color = c(Colors.ERROR) if bp > 0.3 else (
+            c(Colors.WARNING) if bp > 0.1 else c(Colors.SCORE)
+        )
+        lines.append(
+            f"  Blackout Probability: {bp_color}"
+            f"{bp:.2%}{c(Colors.RESET)}"
+        )
+
+        # Pass/Fail
+        if result.passed:
+            lines.append(
+                f"\n  {c(Colors.SCORE)}PASSED — Grid can sustain this "
+                f"load profile.{c(Colors.RESET)}"
+            )
+        else:
+            lines.append(
+                f"\n  {c(Colors.ERROR)}FAILED — Grid cannot sustain this "
+                f"load profile.{c(Colors.RESET)}"
+            )
+            if result.blocking_reason:
+                lines.append(f"  {c(Colors.DIM)}{result.blocking_reason[:120]}{c(Colors.RESET)}")
+
+        return "\n".join(lines) + "\n"
+
     def render_foresight_projections(self, soul: GenesisSoul, limit: int = 3) -> str:
         """Render foresight projections from the wisdom log."""
         c = self._c
@@ -677,6 +856,67 @@ class AriaInterface:
             print(self.renderer.render_human_overrides(self.soul, limit=1))
 
         return entry
+
+    # -- Mirror of Truth command (Sprint 8) ---------------------------------
+
+    def refinement_panel(
+        self,
+        trace: RefinementTrace,
+        verbose: bool = True,
+    ) -> dict[str, Any]:
+        """Display the Mirror of Truth's Refinement Panel.
+
+        Parameters
+        ----------
+        trace : RefinementTrace
+            The Mirror's critique output.
+        verbose : bool
+            Print to CLI if True.
+
+        Returns
+        -------
+        dict
+            The trace as a dictionary.
+        """
+        if verbose:
+            print(self.renderer.render_refinement_panel(trace))
+        return trace.as_dict()
+
+    def blackout_shock_exam(
+        self,
+        fragility_amplifier: float = 1.5,
+        prior_viability: float = 0.6,
+        seed: int | None = None,
+        verbose: bool = True,
+    ) -> BlackoutShockResult:
+        """Run the Bayesian Blackout Shock Final Exam.
+
+        Parameters
+        ----------
+        fragility_amplifier : float
+            Multiplier for fragility penalties (default 1.5).
+        prior_viability : float
+            Prior belief about grid viability (default 0.6).
+        seed : int | None
+            Random seed for reproducibility.
+        verbose : bool
+            Print results to CLI.
+
+        Returns
+        -------
+        BlackoutShockResult
+            Full Bayesian exam result.
+        """
+        exam = BayesianFinalExam(
+            fragility_amplifier=fragility_amplifier,
+            prior_viability=prior_viability,
+        )
+        result = exam.administer(seed=seed)
+
+        if verbose:
+            print(self.renderer.render_blackout_shock(result))
+
+        return result
 
     # -- Game Theory command ------------------------------------------------
 
