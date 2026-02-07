@@ -23,6 +23,11 @@ from genesis_engine.core.game_theory_console import (
     GameTheoryConsole, WarGameOutcome, OutcomeFlag,
     AgentType, AgentState, RoundResult,
     FinalExam, FinalExamResult,
+    BayesianFinalExam, BlackoutShockResult,
+    CovenantFinalExam, CovenantExamResult,
+)
+from genesis_engine.core.mirror_of_truth import (
+    MirrorOfTruth, RefinementTrace, CritiqueFinding,
 )
 from genesis_engine.core.wisdom_mirror import (
     WisdomMirror, MirrorReport, CovenantPatch, DivergencePattern,
@@ -89,6 +94,15 @@ __all__ = [
     "RoundResult",
     "FinalExam",
     "FinalExamResult",
+    # Bayesian Final Exam (Sprint 8 — Uncertainty Hardening)
+    "BayesianFinalExam",
+    "BlackoutShockResult",
+    "CovenantFinalExam",
+    "CovenantExamResult",
+    # Mirror of Truth (Module 1.7 — Sprint 8)
+    "MirrorOfTruth",
+    "RefinementTrace",
+    "CritiqueFinding",
     # Wisdom Mirror (Module 3.6 — Sprint 7)
     "WisdomMirror",
     "MirrorReport",

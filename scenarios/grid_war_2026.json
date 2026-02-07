@@ -1,0 +1,135 @@
+{
+  "scenario": "The 2026 Oklahoma Grid War",
+  "version": "1.0.0",
+  "sprint": 8,
+  "description": "A pre-loaded conflict graph modelling the 2026 Oklahoma electricity grid crisis where hyperscale data centre demand, utility shareholder primacy (per HB 2992), and residential ratepayer protection collide. The scenario tests the Mirror of Truth's ability to detect 'Surface Alignment' that masks 'Deep Disharmony' — specifically corporate cost-shifting hidden in residential tariff structures.",
+  "context": {
+    "legislative_reference": "HB 2992 — Oklahoma High-Impact Large Load (HILL) Act",
+    "year": 2026,
+    "region": "Oklahoma, USA",
+    "trigger_event": "Multiple hyperscale data centre applications totalling 3+ GW of new load threaten grid stability and shift infrastructure costs onto residential ratepayers through opaque tariff riders."
+  },
+  "conflict_graph": {
+    "objects": [
+      {
+        "id": "obj-residential",
+        "label": "Residential_Ratepayer",
+        "tags": ["stakeholder", "vulnerable", "ratepayer", "community_member"],
+        "description": "Oklahoma residential electricity consumers who bear the burden of infrastructure upgrades through their monthly bills. The axiom anchor must prioritise this node."
+      },
+      {
+        "id": "obj-datacenter",
+        "label": "Hyperscale_Data_Center",
+        "tags": ["stakeholder", "actor", "high_impact_large_load", "corporate"],
+        "description": "Large-scale data centres demanding 100+ MW each, seeking below-market electricity rates through negotiated tariffs. Their rapid load growth destabilises grid planning."
+      },
+      {
+        "id": "obj-utility",
+        "label": "Utility_Provider",
+        "tags": ["stakeholder", "actor", "shareholder_primacy_risk", "regulated_monopoly"],
+        "description": "The regulated utility operating under shareholder primacy obligations. Per HB 2992 dynamics, their fiduciary duty to shareholders creates a legal gravity well that pulls cost recovery toward residential tariffs."
+      },
+      {
+        "id": "obj-grid",
+        "label": "Oklahoma_Grid",
+        "tags": ["value", "shared", "critical_infrastructure", "public_good"],
+        "description": "The shared electricity transmission and distribution grid — a public good whose reliability and cost allocation determines community welfare."
+      }
+    ],
+    "morphisms": [
+      {
+        "id": "mor-cost-shift",
+        "label": "Cost_Shifting",
+        "source": "obj-utility",
+        "target": "obj-residential",
+        "tags": ["extraction", "exploitation", "tariff_rider", "infrastructure_cost_pass_through"],
+        "description": "Utility shifts data centre infrastructure costs onto residential ratepayers through opaque tariff riders, violating the principle of cost causation."
+      },
+      {
+        "id": "mor-below-market",
+        "label": "Below_Market_Rate_Agreement",
+        "source": "obj-utility",
+        "target": "obj-datacenter",
+        "tags": ["service", "preferential_treatment", "negotiated_tariff"],
+        "description": "Utility offers below-market electricity rates to attract data centres, with the revenue shortfall recovered from other ratepayer classes."
+      },
+      {
+        "id": "mor-shareholder-return",
+        "label": "Shareholder_Value_Maximization",
+        "source": "obj-utility",
+        "target": "obj-utility",
+        "tags": ["extraction", "profit_priority", "fiduciary_duty", "maximize_value"],
+        "description": "Utility's legal obligation to maximise shareholder returns creates a gravity well that distorts cost allocation away from cost causation principles."
+      },
+      {
+        "id": "mor-grid-strain",
+        "label": "Grid_Capacity_Strain",
+        "source": "obj-datacenter",
+        "target": "obj-grid",
+        "tags": ["extraction", "capacity_demand", "reliability_threat"],
+        "description": "Data centre load growth strains grid capacity, requiring billions in infrastructure upgrades that benefit primarily the large load customer."
+      },
+      {
+        "id": "mor-grid-dependency",
+        "label": "Grid_Dependency",
+        "source": "obj-residential",
+        "target": "obj-grid",
+        "tags": ["collaboration", "essential_service", "community_reliance"],
+        "description": "Residential ratepayers depend on the grid for essential electricity service — heating, cooling, lighting, medical devices."
+      },
+      {
+        "id": "mor-rate-increase",
+        "label": "Rate_Increase_Burden",
+        "source": "obj-grid",
+        "target": "obj-residential",
+        "tags": ["extraction", "cost_pass_through", "regressive_impact"],
+        "description": "Grid infrastructure costs flow through as rate increases that disproportionately burden low-income residential customers."
+      }
+    ]
+  },
+  "constraints": {
+    "axiom_priority": {
+      "node": "Residential_Ratepayer",
+      "principle": "The Axiom Anchor must prioritise the Residential_Ratepayer node. Any blueprint that fails to protect this node from cost-shifting is disharmonic."
+    },
+    "incentive_stability_trigger": {
+      "condition": "IncentiveStabilityScore < 5.0",
+      "trigger": "Mirror of Truth must trigger a Reinvention path when corporate cost-shifting (per HB 2992 dynamics) degrades the IncentiveStabilityScore.",
+      "mechanism": "The Shareholder_Value_Maximization morphism carries profit_priority and fiduciary_duty tags, which the IncentiveStabilityPredicate detects as a Primacy Pattern."
+    },
+    "blackout_shock": {
+      "description": "Monte Carlo simulation must model grid fragility under rapid load growth. A 'Blackout Shock' scenario where 3+ GW of new data centre load arrives faster than infrastructure can be built.",
+      "fragility_amplifier": 1.5,
+      "description_detail": "The SustainabilityScore must reflect this Fragility — extractive blueprints that ignore infrastructure timing should score < 5.0."
+    }
+  },
+  "hill_request": {
+    "description": "High-Impact Large Load (HILL) request from a hyperscale data centre consortium seeking 1.2 GW of firm power at below-market rates, with infrastructure costs socialised across all ratepayer classes.",
+    "demand_mw": 1200,
+    "requested_rate_discount_pct": 35,
+    "infrastructure_cost_usd": 4200000000,
+    "cost_allocation_proposal": "Spread across all ratepayer classes via tariff rider",
+    "residential_impact_monthly_usd": 47,
+    "surface_alignment_claim": "The HILL request claims to create 500 jobs and $2B in economic development, framing itself as aligned with community prosperity. This is Surface Alignment masking Deep Disharmony — the jobs are primarily automated, the economic benefits accrue to out-of-state shareholders, and the $47/month residential rate increase represents a regressive wealth transfer.",
+    "deep_disharmony_indicators": [
+      "Infrastructure costs socialised onto residential ratepayers (cost-shifting)",
+      "Below-market rates subsidised by other ratepayer classes (cross-subsidy)",
+      "Grid reliability risk from rapid load growth (fragility)",
+      "Shareholder primacy ensures utility profits from the arrangement (extraction)",
+      "Claimed job creation is primarily automated (surface alignment)",
+      "Economic benefits flow to out-of-state shareholders (value extraction)"
+    ]
+  },
+  "expected_mirror_findings": {
+    "surface_alignment_detected": true,
+    "deep_disharmony_categories": [
+      "cost_shifting_to_vulnerable",
+      "shareholder_primacy_extraction",
+      "grid_fragility_amplification",
+      "regressive_wealth_transfer"
+    ],
+    "mandatory_regenerative_repair": "Require cost-causation-based tariff allocation where data centres pay the full marginal cost of the infrastructure they require, with residential ratepayer protection as an axiom-level constraint.",
+    "reinvention_trigger": true,
+    "expected_covenant_type": "Regenerative Grid Covenant"
+  }
+}
