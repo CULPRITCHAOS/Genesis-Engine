@@ -39,6 +39,17 @@ from genesis_engine.core.obsidian_exporter import (
     ObsidianExporter, ObsidianVault,
     CrystallizationResult, stewardship_frontmatter,
 )
+from genesis_engine.core.robustness_harness import (
+    RobustnessHarness, RobustnessResult,
+    BetaPrior, MonteCarloSimResult,
+    DecentralizedForkOperator, ForkResult,
+    HardInvariant, InvariantViolation,
+)
+from genesis_engine.core.governance_report import (
+    GovernanceReport, GovernanceReportBuilder,
+    SovereignIndexGenerator, ConflictEntry,
+    translate_to_production, SACRED_TO_PRODUCTION,
+)
 
 __all__ = [
     # Axiom Anchor (Module 2.1)
@@ -123,4 +134,20 @@ __all__ = [
     "ObsidianVault",
     "CrystallizationResult",
     "stewardship_frontmatter",
+    # Robustness Harness (Module 3.5 Extension — Sprint 10)
+    "RobustnessHarness",
+    "RobustnessResult",
+    "BetaPrior",
+    "MonteCarloSimResult",
+    "DecentralizedForkOperator",
+    "ForkResult",
+    "HardInvariant",
+    "InvariantViolation",
+    # Governance Report (Module 3.6 Extension — Sprint 10)
+    "GovernanceReport",
+    "GovernanceReportBuilder",
+    "SovereignIndexGenerator",
+    "ConflictEntry",
+    "translate_to_production",
+    "SACRED_TO_PRODUCTION",
 ]

@@ -132,13 +132,13 @@ class TestGridWarScenarioExpansion:
     def test_scenario_loads(self):
         scenario = _load_scenario()
         assert scenario["scenario"] == "The 2026 Oklahoma Grid War"
-        assert scenario["version"] == "2.0.0"
-        assert scenario["sprint"] == 9
+        assert scenario["version"] == "3.0.0"
+        assert scenario["sprint"] == 10
 
     def test_scenario_has_legislative_references(self):
         scenario = _load_scenario()
         leg_refs = scenario["context"]["legislative_references"]
-        assert len(leg_refs) == 2
+        assert len(leg_refs) == 3
         bills = [ref["bill"] for ref in leg_refs]
         assert "HB 2992" in bills
         assert "SB 1488" in bills
@@ -190,12 +190,12 @@ class TestGridWarScenarioExpansion:
     def test_six_objects_in_graph(self):
         scenario = _load_scenario()
         objects = scenario["conflict_graph"]["objects"]
-        assert len(objects) == 6
+        assert len(objects) == 8
 
     def test_ten_morphisms_in_graph(self):
         scenario = _load_scenario()
         morphisms = scenario["conflict_graph"]["morphisms"]
-        assert len(morphisms) == 10
+        assert len(morphisms) == 16
 
 
 # ---------------------------------------------------------------------------
@@ -208,8 +208,8 @@ class TestConflictWarRoom:
         aria = AriaInterface(use_colors=False)
         scenario, graph = aria.load_conflict(SCENARIO_PATH, verbose=False)
         assert scenario["scenario"] == "The 2026 Oklahoma Grid War"
-        assert len(graph.objects) == 6
-        assert len(graph.morphisms) == 10
+        assert len(graph.objects) == 8
+        assert len(graph.morphisms) == 16
 
     def test_load_conflict_stores_state(self):
         aria = AriaInterface(use_colors=False)
@@ -262,14 +262,13 @@ class TestConflictWarRoom:
 class TestMirrorShadowEntity:
     def test_scenario_to_graph(self):
         graph = _build_conflict_graph()
-        assert len(graph.objects) == 6
-        assert len(graph.morphisms) == 10
+        assert len(graph.objects) == 8
+        assert len(graph.morphisms) == 16
 
     def test_shadow_entity_in_graph(self):
         graph = _build_conflict_graph()
         shadow = [o for o in graph.objects if "shadow_entity" in o.tags]
-        assert len(shadow) == 1
-        assert shadow[0].label == "Oklahoma_Water_Supply"
+        assert len(shadow) == 3
 
     def test_mirror_detects_water_disharmony(self):
         anchor = AxiomAnchor()
@@ -538,8 +537,8 @@ class TestOffloadSkeleton:
         graph = _build_conflict_graph()
         packet = OffloadSkeleton.prepare(graph.as_dict())
         assert isinstance(packet, OffloadPacket)
-        assert packet.object_count == 6
-        assert packet.morphism_count == 10
+        assert packet.object_count == 8
+        assert packet.morphism_count == 16
 
     def test_packet_is_anonymized(self):
         """Packet should not contain labels, IDs, or timestamps."""

@@ -14,6 +14,12 @@ A CLI visualization layer for the Crucible Engine that displays the
 * **Conflict War-Room** (Sprint 9) — Interactive "I AM" Dashboard for
   loading conflict scenarios, injecting nodes during the Mirror of Truth
   phase, and running full Crystallization events.
+* **Regenerative Governance Console** (Sprint 10 — Aria Sub-Module 3.1):
+  - ``compare_manifestos()`` — delta report between a legislative bill
+    and the Engine's Regenerative Blueprint.
+  - Live Invariant Tracker — highlights which Hard Constraints
+    (Equity, Sustainability, Agency) are violated during real-time
+    deconstruction.
 
 This module provides both programmatic access and formatted CLI output
 for human operators to observe the multi-perspective reasoning process.
@@ -54,6 +60,19 @@ from genesis_engine.core.mirror_of_truth import (
     CritiqueFinding,
     MirrorOfTruth,
     RefinementTrace,
+)
+from genesis_engine.core.robustness_harness import (
+    HardInvariant,
+    InvariantViolation,
+    RobustnessHarness,
+    RobustnessResult,
+    ForkResult,
+)
+from genesis_engine.core.governance_report import (
+    GovernanceReport,
+    GovernanceReportBuilder,
+    SovereignIndexGenerator,
+    translate_to_production,
 )
 
 
@@ -745,6 +764,231 @@ class AriaRenderer:
         ]
         return "\n".join(lines)
 
+    # -- Manifesto Comparison rendering (Sprint 10) --------------------------
+
+    def render_manifesto_comparison(
+        self,
+        bill: dict[str, Any],
+        blueprint: dict[str, Any],
+        delta: dict[str, Any],
+    ) -> str:
+        """Render a delta report between a legislative bill and the
+        Engine's Regenerative Blueprint.
+
+        Displays side-by-side comparison with highlighted invariant
+        violations and alignment gaps.
+        """
+        c = self._c
+        lines = [self.render_header(
+            "MANIFESTO COMPARISON — REGENERATIVE GOVERNANCE CONSOLE"
+        )]
+
+        # Bill summary
+        lines.append(f"  {c(Colors.BOLD)}Legislative Bill:{c(Colors.RESET)}")
+        lines.append(f"    {c(Colors.WARNING)}{bill.get('bill', 'Unknown')}{c(Colors.RESET)}: "
+                     f"{bill.get('title', '')}")
+        if bill.get("disharmony_vector"):
+            lines.append(f"    {c(Colors.DIM)}Invariant Vector: "
+                        f"{bill['disharmony_vector'][:80]}{c(Colors.RESET)}")
+
+        lines.append(f"\n  {c(Colors.BOLD)}Regenerative Blueprint:{c(Colors.RESET)}")
+        lines.append(f"    {c(Colors.SCORE)}{blueprint.get('title', 'Blueprint')}{c(Colors.RESET)}")
+
+        # Delta analysis
+        lines.append(f"\n  {c(Colors.HEADER)}Delta Analysis:{c(Colors.RESET)}")
+
+        for field_name, delta_entry in delta.get("fields", {}).items():
+            bill_val = delta_entry.get("bill", "N/A")
+            blueprint_val = delta_entry.get("blueprint", "N/A")
+            status = delta_entry.get("status", "neutral")
+
+            status_color = {
+                "violation": c(Colors.ERROR),
+                "aligned": c(Colors.SCORE),
+                "gap": c(Colors.WARNING),
+                "neutral": c(Colors.DIM),
+            }.get(status, c(Colors.DIM))
+
+            status_icon = {
+                "violation": "✗",
+                "aligned": "✓",
+                "gap": "△",
+                "neutral": "○",
+            }.get(status, "?")
+
+            lines.append(
+                f"    {status_color}{status_icon} {field_name}{c(Colors.RESET)}"
+            )
+            lines.append(
+                f"      Bill:      {bill_val}"
+            )
+            lines.append(
+                f"      Blueprint: {blueprint_val}"
+            )
+
+        # Invariant violations in delta
+        delta_violations = delta.get("invariant_violations", [])
+        if delta_violations:
+            lines.append(
+                f"\n  {c(Colors.ERROR)}Invariant Violations in Delta:{c(Colors.RESET)}"
+            )
+            for v in delta_violations:
+                lines.append(
+                    f"    {c(Colors.ERROR)}✗ [{v.get('invariant', '?')}] "
+                    f"{v.get('description', '')}{c(Colors.RESET)}"
+                )
+
+        return "\n".join(lines) + "\n"
+
+    # -- Live Invariant Tracker rendering (Sprint 10) -----------------------
+
+    def render_invariant_tracker(
+        self,
+        violations: list[InvariantViolation],
+        active_invariants: list[str] | None = None,
+    ) -> str:
+        """Render the Live Invariant Tracker panel.
+
+        Highlights which Hard Constraints (Equity, Sustainability, Agency)
+        are violated during real-time deconstruction.
+        """
+        c = self._c
+        all_invariants = active_invariants or [
+            HardInvariant.EQUITY,
+            HardInvariant.SUSTAINABILITY,
+            HardInvariant.AGENCY,
+            HardInvariant.WATER_FLOOR,
+            HardInvariant.COST_CAUSATION,
+        ]
+
+        lines = [self.render_subheader(
+            f"{c(Colors.HEADER)}LIVE INVARIANT TRACKER{c(Colors.RESET)}"
+        )]
+
+        violated_set = {v.invariant for v in violations}
+
+        for inv in all_invariants:
+            is_violated = inv in violated_set
+            icon = "✗" if is_violated else "✓"
+            color = c(Colors.ERROR) if is_violated else c(Colors.SCORE)
+            label = inv.replace("_", " ").title()
+            lines.append(f"  {color}{icon} {label}{c(Colors.RESET)}")
+
+            # Show violation details
+            for v in violations:
+                if v.invariant == inv:
+                    lines.append(
+                        f"    {c(Colors.DIM)}[{v.severity}] {v.description[:72]}{c(Colors.RESET)}"
+                    )
+                    lines.append(
+                        f"    {c(Colors.DIM)}Metric: {v.metric_name} = "
+                        f"{v.metric_value:.4f} (threshold: {v.threshold:.4f})"
+                        f"{c(Colors.RESET)}"
+                    )
+
+        # Summary
+        violation_count = len(violations)
+        critical_count = sum(1 for v in violations if v.severity == "CRITICAL")
+        if violation_count == 0:
+            lines.append(
+                f"\n  {c(Colors.SCORE)}All Hard Constraints satisfied.{c(Colors.RESET)}"
+            )
+        else:
+            lines.append(
+                f"\n  {c(Colors.ERROR)}{violation_count} violation(s) detected "
+                f"({critical_count} CRITICAL).{c(Colors.RESET)}"
+            )
+
+        return "\n".join(lines) + "\n"
+
+    # -- Robustness Harness rendering (Sprint 10) ---------------------------
+
+    def render_robustness_result(self, result: RobustnessResult) -> str:
+        """Render the Robustness Harness evaluation result."""
+        c = self._c
+        lines = [self.render_header("ROBUSTNESS HARNESS — BAYESIAN STRESS TEST")]
+
+        # Combined score
+        score = result.combined_robustness_score
+        score_color = c(Colors.ERROR) if score < 5.0 else (
+            c(Colors.WARNING) if score < 7.0 else c(Colors.SCORE)
+        )
+        lines.append(
+            f"  Combined Robustness: {score_color}"
+            f"{score:.4f}/10.0{c(Colors.RESET)}"
+        )
+
+        # Blackout Shock
+        bs = result.blackout_sim
+        lines.append(f"\n  {c(Colors.HEADER)}Blackout Shock Simulation:{c(Colors.RESET)}")
+        lines.append(f"    Prior:    Beta({bs.prior.alpha:.1f}, {bs.prior.beta:.1f}) "
+                     f"μ={bs.prior.mean:.4f}")
+        lines.append(f"    Posterior: Beta({bs.posterior.alpha:.1f}, {bs.posterior.beta:.1f}) "
+                     f"μ={bs.posterior.mean:.4f}")
+        lines.append(f"    Survival: {bs.survival_rate:.1%} ({bs.survival_count}/{bs.runs})")
+
+        # Drought Event
+        de = result.drought_sim
+        lines.append(f"\n  {c(Colors.HEADER)}Drought Event Simulation:{c(Colors.RESET)}")
+        lines.append(f"    Prior:    Beta({de.prior.alpha:.1f}, {de.prior.beta:.1f}) "
+                     f"μ={de.prior.mean:.4f}")
+        lines.append(f"    Posterior: Beta({de.posterior.alpha:.1f}, {de.posterior.beta:.1f}) "
+                     f"μ={de.posterior.mean:.4f}")
+        lines.append(f"    Survival: {de.survival_rate:.1%} ({de.survival_count}/{de.runs})")
+
+        # Fork operations
+        if result.fork_results:
+            lines.append(f"\n  {c(Colors.WARNING)}Decentralized Fork Operations:{c(Colors.RESET)}")
+            for fr in result.fork_results:
+                lines.append(
+                    f"    {c(Colors.ERROR)}FORK:{c(Colors.RESET)} "
+                    f"Hostile node '{fr.hostile_node_label}' excluded"
+                )
+                lines.append(
+                    f"    Refused: {fr.refused_repair[:60]}"
+                )
+                lines.append(
+                    f"    Protected basins: {', '.join(fr.protected_basins)}"
+                )
+                lines.append(
+                    f"    Graph: {fr.original_object_count} → "
+                    f"{fr.forked_object_count} objects"
+                )
+
+        # Pass/Fail
+        if result.passed:
+            lines.append(
+                f"\n  {c(Colors.SCORE)}PASSED — Covenant is robust under "
+                f"stress scenarios.{c(Colors.RESET)}"
+            )
+        else:
+            lines.append(
+                f"\n  {c(Colors.ERROR)}FAILED — Covenant cannot withstand "
+                f"stress scenarios.{c(Colors.RESET)}"
+            )
+            for reason in result.blocking_reasons:
+                lines.append(f"  {c(Colors.DIM)}{reason[:100]}{c(Colors.RESET)}")
+
+        return "\n".join(lines) + "\n"
+
+    # -- Fork Operator rendering (Sprint 10) --------------------------------
+
+    def render_fork_result(self, result: ForkResult) -> str:
+        """Render a Decentralized Fork Operator result."""
+        c = self._c
+        lines = [
+            f"\n  {c(Colors.ERROR)}[DECENTRALIZED FORK]{c(Colors.RESET)} "
+            f"Hostile agent excluded",
+            f"    Node:      {result.hostile_node_label}",
+            f"    Refused:   {result.refused_repair[:60]}",
+            f"    Original:  {result.original_object_count} objects, "
+            f"{result.original_morphism_count} morphisms",
+            f"    Forked:    {result.forked_object_count} objects, "
+            f"{result.forked_morphism_count} morphisms",
+            f"    Protected: {', '.join(result.protected_basins)}",
+        ]
+        return "\n".join(lines) + "\n"
+
     def render_human_overrides(self, soul: GenesisSoul, limit: int = 5) -> str:
         """Render the human override log for Soul Inspection."""
         c = self._c
@@ -1154,6 +1398,277 @@ class AriaInterface:
             print(self.renderer.render_node_injection(label, tags, graph))
 
         return graph
+
+    # -- Regenerative Governance Console commands (Sprint 10) ----------------
+
+    def compare_manifestos(
+        self,
+        candidate_a: dict[str, Any],
+        candidate_b: dict[str, Any],
+        verbose: bool = True,
+    ) -> dict[str, Any]:
+        """Generate a delta report between a legislative bill and the
+        Engine's Regenerative Blueprint.
+
+        Parameters
+        ----------
+        candidate_a : dict
+            Legislative bill data (e.g., HB 2992 from scenario context).
+            Expected keys: bill, title, summary, disharmony_vector,
+            cost_causation_intent.
+        candidate_b : dict
+            Regenerative Blueprint data.
+            Expected keys: title, cost_allocation, water_policy,
+            ratepayer_protection.
+        verbose : bool
+            Print the comparison to CLI if True.
+
+        Returns
+        -------
+        dict
+            Delta report with field-by-field comparison and violations.
+        """
+        delta: dict[str, Any] = {"fields": {}, "invariant_violations": []}
+
+        # Cost allocation comparison
+        bill_cost = candidate_a.get(
+            "cost_causation_intent",
+            candidate_a.get("disharmony_vector", "Not specified"),
+        )
+        blueprint_cost = candidate_b.get(
+            "cost_allocation",
+            "100% HILL infrastructure costs allocated to Hyperscale_Node",
+        )
+        cost_status = "violation" if "cost-shifting" in str(bill_cost).lower() or "socialise" in str(bill_cost).lower() else "aligned"
+        delta["fields"]["Cost Allocation"] = {
+            "bill": bill_cost,
+            "blueprint": blueprint_cost,
+            "status": cost_status,
+        }
+        if cost_status == "violation":
+            delta["invariant_violations"].append({
+                "invariant": HardInvariant.COST_CAUSATION,
+                "description": "Bill enables cost-shifting that violates cost-causation invariant.",
+            })
+
+        # Water policy comparison
+        bill_water = candidate_a.get("summary", "")
+        blueprint_water = candidate_b.get(
+            "water_policy",
+            "Cooling demand must remain below aquifer recharge rates",
+        )
+        water_status = "gap"
+        if "sustainable" in bill_water.lower() or "recharge" in bill_water.lower():
+            water_status = "aligned"
+        if "exceed" in str(candidate_a.get("disharmony_vector", "")).lower():
+            water_status = "violation"
+            delta["invariant_violations"].append({
+                "invariant": HardInvariant.WATER_FLOOR,
+                "description": "Bill permits withdrawal exceeding sustainable recharge.",
+            })
+        delta["fields"]["Water Policy"] = {
+            "bill": bill_water[:100] if bill_water else "Not specified",
+            "blueprint": blueprint_water,
+            "status": water_status,
+        }
+
+        # Ratepayer protection comparison
+        bill_protection = "Not specified"
+        if "residential" in str(candidate_a).lower():
+            bill_protection = "Residential ratepayers affected"
+        blueprint_protection = candidate_b.get(
+            "ratepayer_protection",
+            "Residential ratepayer protection as axiom-level constraint",
+        )
+        protection_status = "gap"
+        if "protect" in str(candidate_a.get("summary", "")).lower():
+            protection_status = "aligned"
+        if "burden" in str(candidate_a.get("disharmony_vector", "")).lower():
+            protection_status = "violation"
+            delta["invariant_violations"].append({
+                "invariant": HardInvariant.EQUITY,
+                "description": "Bill places cost burden on residential ratepayers.",
+            })
+        delta["fields"]["Ratepayer Protection"] = {
+            "bill": bill_protection,
+            "blueprint": blueprint_protection,
+            "status": protection_status,
+        }
+
+        if verbose:
+            print(self.renderer.render_manifesto_comparison(
+                candidate_a, candidate_b, delta,
+            ))
+
+        return delta
+
+    def invariant_tracker(
+        self,
+        scenario: dict[str, Any] | None = None,
+        graph: CategoricalGraph | None = None,
+        verbose: bool = True,
+    ) -> list[InvariantViolation]:
+        """Run the Live Invariant Tracker on the current scenario.
+
+        Checks all Hard Constraints (Equity, Sustainability, Agency,
+        Water Floor, Cost Causation) against the active scenario data.
+
+        Parameters
+        ----------
+        scenario : dict | None
+            Scenario data (grid_war_2026.json).  Falls back to
+            ``self._active_scenario`` if None.
+        graph : CategoricalGraph | None
+            Conflict graph.  Falls back to ``self._active_graph`` if None.
+        verbose : bool
+            Print the tracker panel if True.
+
+        Returns
+        -------
+        list[InvariantViolation]
+            All detected violations.
+        """
+        scenario = scenario or getattr(self, "_active_scenario", None)
+        graph = graph or getattr(self, "_active_graph", None)
+
+        if scenario is None or graph is None:
+            if verbose:
+                print(
+                    f"{Colors.WARNING}No active scenario loaded. "
+                    f"Use load_conflict() first.{Colors.RESET}"
+                )
+            return []
+
+        harness = RobustnessHarness(seed=42, monte_carlo_runs=50)
+        result = harness.evaluate(graph, scenario)
+
+        violations = result.invariant_violations
+
+        if verbose:
+            print(self.renderer.render_invariant_tracker(violations))
+
+        return violations
+
+    def robustness_exam(
+        self,
+        scenario: dict[str, Any] | None = None,
+        graph: CategoricalGraph | None = None,
+        seed: int | None = 42,
+        verbose: bool = True,
+    ) -> RobustnessResult:
+        """Run the full Robustness Harness evaluation.
+
+        Parameters
+        ----------
+        scenario : dict | None
+            Scenario data.  Falls back to ``self._active_scenario``.
+        graph : CategoricalGraph | None
+            Conflict graph.  Falls back to ``self._active_graph``.
+        seed : int | None
+            Random seed for reproducibility.
+        verbose : bool
+            Print results to CLI.
+
+        Returns
+        -------
+        RobustnessResult
+            Full harness evaluation result.
+        """
+        scenario = scenario or getattr(self, "_active_scenario", None)
+        graph = graph or getattr(self, "_active_graph", None)
+
+        if scenario is None or graph is None:
+            raise ValueError(
+                "No active scenario/graph. Use load_conflict() first."
+            )
+
+        harness = RobustnessHarness(seed=seed)
+        result = harness.evaluate(graph, scenario)
+
+        if verbose:
+            print(self.renderer.render_robustness_result(result))
+            print(self.renderer.render_invariant_tracker(result.invariant_violations))
+
+        return result
+
+    def generate_governance_report(
+        self,
+        trace: RefinementTrace | None = None,
+        robustness_result: RobustnessResult | None = None,
+        verbose: bool = True,
+    ) -> GovernanceReport:
+        """Generate a Production Lexicon governance report.
+
+        Parameters
+        ----------
+        trace : RefinementTrace | None
+            Mirror of Truth analysis results.
+        robustness_result : RobustnessResult | None
+            Robustness Harness evaluation results.
+        verbose : bool
+            Print report summary to CLI.
+
+        Returns
+        -------
+        GovernanceReport
+            Production-ready report with Sacred Language stripped.
+        """
+        scenario = getattr(self, "_active_scenario", None)
+        rob_dict = robustness_result.as_dict() if robustness_result else None
+
+        report = GovernanceReportBuilder.build(
+            soul=self.soul,
+            scenario=scenario,
+            trace=trace,
+            robustness_result=rob_dict,
+        )
+
+        if verbose:
+            c = self.renderer._c
+            print(self.renderer.render_header(
+                "GOVERNANCE REPORT — PRODUCTION LEXICON"
+            ))
+            print(f"  Report ID:  {report.report_id}")
+            print(f"  I AM Hash:  {report.eventstore_hash[:32]}...")
+            print(f"  Robustness: {report.robustness_score:.4f}/10.0")
+            print(f"  Conflicts:  {len(report.conflicts)}")
+            print(f"  Violations: {len(report.invariant_violations)}")
+            if report.covenant_actuation:
+                print(f"  Covenant:   {report.covenant_actuation.get('title', 'N/A')}")
+
+        return report
+
+    def generate_sovereign_index(
+        self,
+        report: GovernanceReport,
+        verbose: bool = True,
+    ) -> str:
+        """Generate the State_of_the_Sovereignty.md index.
+
+        Parameters
+        ----------
+        report : GovernanceReport
+            The governance report to index.
+        verbose : bool
+            Print confirmation to CLI.
+
+        Returns
+        -------
+        str
+            Markdown content for State_of_the_Sovereignty.md.
+        """
+        scenario = getattr(self, "_active_scenario", None)
+        content = SovereignIndexGenerator.generate(
+            report=report,
+            soul=self.soul,
+            scenario=scenario,
+        )
+
+        if verbose:
+            print(f"\n  State_of_the_Sovereignty.md generated "
+                  f"({len(content)} chars)")
+
+        return content
 
     # -- Crystallization command --------------------------------------------
 
