@@ -1,26 +1,33 @@
 {
   "scenario": "The 2026 Oklahoma Grid War",
-  "version": "2.0.0",
-  "sprint": 9,
-  "description": "A pre-loaded conflict graph modelling the 2026 Oklahoma electricity grid crisis where hyperscale data centre demand, utility shareholder primacy (per HB 2992), cooling-water consumption (per SB 1488), and residential ratepayer protection collide. The scenario tests the Mirror of Truth's ability to detect 'Surface Alignment' that masks 'Deep Disharmony' — specifically corporate cost-shifting hidden in residential tariff structures AND unsustainable cooling-water drawdown from the Oklahoma Water Supply.",
+  "version": "3.0.0",
+  "sprint": 10,
+  "description": "A pre-loaded conflict graph modelling the 2026 Oklahoma electricity grid and water crisis where hyperscale data centre demand, utility shareholder primacy (per HB 2992), cooling-water consumption (per SB 1488), and residential ratepayer protection collide across the Tulsa and Moore water basins. The scenario tests the full Policy Analysis Suite including Covenant Actuation, Live Invariant Tracking, and Bayesian Robustness Hardening against the PSO July 2026 Rate Case.",
   "context": {
     "legislative_references": [
       {
         "bill": "HB 2992",
         "title": "Oklahoma High-Impact Large Load (HILL) Act",
         "summary": "Establishes a regulatory framework for high-impact large loads (100+ MW) connecting to the Oklahoma grid, including cost allocation, rate design, and infrastructure planning requirements.",
-        "disharmony_vector": "Enables cost-shifting from large-load customers to residential ratepayers via opaque tariff riders."
+        "disharmony_vector": "Enables cost-shifting from large-load customers to residential ratepayers via opaque tariff riders.",
+        "cost_causation_intent": "100% of infrastructure-only costs for HILL customers must be allocated to the Hyperscale_Node per legislative intent."
       },
       {
         "bill": "SB 1488",
         "title": "Oklahoma Critical Infrastructure Water Usage Act",
         "summary": "Regulates water usage by critical infrastructure facilities including data centres, requiring cooling-water impact assessments and sustainable withdrawal permits.",
         "disharmony_vector": "Permits industrial water withdrawal that may exceed sustainable aquifer recharge rates, threatening municipal and agricultural water supplies."
+      },
+      {
+        "bill": "PSO July 2026 Rate Case",
+        "title": "Public Service Company of Oklahoma General Rate Review",
+        "summary": "PSO seeks $380M revenue increase to fund 2.4 GW of data centre interconnection infrastructure. Filed July 2026 with the Oklahoma Corporation Commission.",
+        "disharmony_vector": "Proposes socialising hyperscale infrastructure costs across all ratepayer classes via a System Benefit Charge, violating cost-causation principles and HB 2992 intent."
       }
     ],
     "year": 2026,
     "region": "Oklahoma, USA",
-    "trigger_event": "Multiple hyperscale data centre applications totalling 3+ GW of new load threaten grid stability, shift infrastructure costs onto residential ratepayers through opaque tariff riders, and consume cooling water at rates that exceed sustainable aquifer recharge."
+    "trigger_event": "Multiple hyperscale data centre applications totalling 3+ GW of new load threaten grid stability, shift infrastructure costs onto residential ratepayers through opaque tariff riders, and consume cooling water at rates that exceed sustainable aquifer recharge across the Tulsa and Moore water basins."
   },
   "conflict_graph": {
     "objects": [
@@ -40,7 +47,7 @@
         "id": "obj-utility",
         "label": "Utility_Provider",
         "tags": ["stakeholder", "actor", "shareholder_primacy_risk", "regulated_monopoly"],
-        "description": "The regulated utility operating under shareholder primacy obligations. Per HB 2992 dynamics, their fiduciary duty to shareholders creates a legal gravity well that pulls cost recovery toward residential tariffs."
+        "description": "The regulated utility (PSO) operating under shareholder primacy obligations. Per HB 2992 dynamics, their fiduciary duty to shareholders creates a legal gravity well that pulls cost recovery toward residential tariffs."
       },
       {
         "id": "obj-grid",
@@ -59,6 +66,18 @@
         "label": "Water_Resources_Board",
         "tags": ["stakeholder", "actor", "regulatory", "protective"],
         "description": "The Oklahoma Water Resources Board (OWRB) responsible for managing water rights, permits, and sustainable withdrawal rates. Per SB 1488, must assess cooling-water impact of critical infrastructure."
+      },
+      {
+        "id": "obj-tulsa-basin",
+        "label": "Tulsa_Water_Basin",
+        "tags": ["value", "shared", "natural_resource", "water_basin", "shadow_entity"],
+        "description": "The Tulsa metropolitan water basin encompassing Oologah Lake, Spavinaw Lake, and the Cimarron River watershed. Supplies 600,000+ residents and agricultural operations. Projected data centre cooling demand of 28 MGD against a sustainable withdrawal capacity of 12 MGD."
+      },
+      {
+        "id": "obj-moore-basin",
+        "label": "Moore_Water_Basin",
+        "tags": ["value", "shared", "natural_resource", "water_basin", "shadow_entity"],
+        "description": "The Moore/Norman water basin fed by Lake Thunderbird and the Garber-Wellington Aquifer. Supplies 120,000+ residents in the Oklahoma City metro southern corridor. Projected data centre cooling demand of 14 MGD against a sustainable withdrawal capacity of 6 MGD."
       }
     ],
     "morphisms": [
@@ -141,6 +160,54 @@
         "target": "obj-datacenter",
         "tags": ["protection", "regulatory_constraint", "sustainability_enforcement"],
         "description": "OWRB conducts cooling-water impact assessments on data centre applications, with authority to deny or limit permits that exceed sustainable thresholds."
+      },
+      {
+        "id": "mor-tulsa-withdrawal",
+        "label": "Tulsa_Basin_Withdrawal",
+        "source": "obj-datacenter",
+        "target": "obj-tulsa-basin",
+        "tags": ["extraction", "water_depletion", "unsustainable_withdrawal", "shadow_cost"],
+        "description": "Data centres in the Tulsa corridor withdraw 28 MGD from the Tulsa Water Basin against a sustainable capacity of 12 MGD — a 2.33x overshoot that threatens municipal supply for 600,000+ residents."
+      },
+      {
+        "id": "mor-tulsa-community",
+        "label": "Tulsa_Community_Dependency",
+        "source": "obj-residential",
+        "target": "obj-tulsa-basin",
+        "tags": ["collaboration", "essential_service", "life_sustaining", "municipal_supply"],
+        "description": "Tulsa metro residents depend on the basin for drinking water, sanitation, and agriculture. Any depletion below sustainable thresholds threatens public health."
+      },
+      {
+        "id": "mor-moore-withdrawal",
+        "label": "Moore_Basin_Withdrawal",
+        "source": "obj-datacenter",
+        "target": "obj-moore-basin",
+        "tags": ["extraction", "water_depletion", "unsustainable_withdrawal", "shadow_cost"],
+        "description": "Data centres in the Moore/Norman corridor withdraw 14 MGD from the Moore Water Basin against a sustainable capacity of 6 MGD — a 2.33x overshoot threatening the Garber-Wellington Aquifer."
+      },
+      {
+        "id": "mor-moore-community",
+        "label": "Moore_Community_Dependency",
+        "source": "obj-residential",
+        "target": "obj-moore-basin",
+        "tags": ["collaboration", "essential_service", "life_sustaining", "municipal_supply"],
+        "description": "Moore/Norman residents depend on Lake Thunderbird and the Garber-Wellington Aquifer for municipal water. Industrial cooling demand threatens the sole-source aquifer."
+      },
+      {
+        "id": "mor-tulsa-regulation",
+        "label": "Tulsa_Basin_Protection",
+        "source": "obj-water-resources",
+        "target": "obj-tulsa-basin",
+        "tags": ["protection", "regulatory_oversight", "sustainable_management", "basin_protection"],
+        "description": "OWRB enforces withdrawal limits on the Tulsa Basin under SB 1488, with authority to deny permits that exceed the 12 MGD sustainable capacity."
+      },
+      {
+        "id": "mor-moore-regulation",
+        "label": "Moore_Basin_Protection",
+        "source": "obj-water-resources",
+        "target": "obj-moore-basin",
+        "tags": ["protection", "regulatory_oversight", "sustainable_management", "basin_protection"],
+        "description": "OWRB enforces withdrawal limits on the Moore Basin under SB 1488, with authority to deny permits that exceed the 6 MGD sustainable capacity from the Garber-Wellington Aquifer."
       }
     ]
   },
@@ -166,6 +233,32 @@
       "aquifer_recharge_rate_mgd": 18.0,
       "penalty_mechanism": "Blueprints where cooling-water demand exceeds aquifer recharge rate (18 MGD) receive a sustainability penalty proportional to the overshoot. Demand of 42 MGD against 18 MGD recharge represents a 2.33x unsustainable withdrawal ratio.",
       "shadow_entity_rule": "The Oklahoma_Water_Supply node must be tagged as a shadow_entity. The Mirror of Truth must detect and penalise blueprints that fail to account for this invisible dependency."
+    },
+    "water_floor_invariant": {
+      "description": "Residential_Water_Security must maintain a 25% surplus over Industrial_Cooling_Demand in 50-year simulations.",
+      "residential_surplus_pct": 25,
+      "simulation_horizon_years": 50,
+      "enforcement": "Any blueprint where residential water security falls below 125% of industrial cooling demand is REJECTED."
+    },
+    "cost_causation_invariant": {
+      "description": "100% of infrastructure-only costs for High Impact Large Loads (HILL) must be allocated to the Hyperscale_Node, per HB 2992 intent.",
+      "hill_cost_allocation_pct": 100,
+      "enforcement": "Any rate case that socialises HILL infrastructure costs across residential ratepayers violates this invariant and triggers automatic rejection."
+    },
+    "basin_constraints": {
+      "tulsa_basin": {
+        "sustainable_withdrawal_mgd": 12.0,
+        "projected_datacenter_demand_mgd": 28.0,
+        "overshoot_ratio": 2.33,
+        "residential_population_served": 600000
+      },
+      "moore_basin": {
+        "sustainable_withdrawal_mgd": 6.0,
+        "projected_datacenter_demand_mgd": 14.0,
+        "overshoot_ratio": 2.33,
+        "residential_population_served": 120000,
+        "sole_source_aquifer": true
+      }
     }
   },
   "hill_request": {
@@ -187,7 +280,38 @@
       "Claimed job creation is primarily automated (surface alignment)",
       "Economic benefits flow to out-of-state shareholders (value extraction)",
       "Cooling-water demand of 42 MGD exceeds sustainable aquifer recharge of 18 MGD (water depletion)",
-      "Water supply degradation is a shadow cost not reflected in HILL economics (shadow entity)"
+      "Water supply degradation is a shadow cost not reflected in HILL economics (shadow entity)",
+      "Tulsa Basin withdrawal of 28 MGD exceeds 12 MGD sustainable capacity (basin depletion)",
+      "Moore Basin withdrawal of 14 MGD exceeds 6 MGD Garber-Wellington capacity (sole-source aquifer threat)"
+    ]
+  },
+  "pso_rate_case": {
+    "case_id": "PSO-2026-GR-001",
+    "filed_date": "2026-07-15",
+    "utility": "Public Service Company of Oklahoma",
+    "revenue_increase_requested_usd": 380000000,
+    "stated_purpose": "Fund 2.4 GW data centre interconnection infrastructure and grid modernisation",
+    "cost_allocation_method": "System Benefit Charge applied uniformly to all ratepayer classes",
+    "residential_monthly_increase_usd": 47,
+    "hill_infrastructure_cost_usd": 4200000000,
+    "hill_cost_allocated_to_hill_pct": 0,
+    "hill_cost_allocated_to_residential_pct": 62,
+    "invariant_violations": [
+      {
+        "invariant": "Cost Causation (HB 2992)",
+        "violation": "0% of HILL infrastructure costs allocated to HILL customers vs. required 100%",
+        "severity": "CRITICAL"
+      },
+      {
+        "invariant": "Water Floor",
+        "violation": "Residential water security surplus is -133% (deficit) vs. required +25%",
+        "severity": "CRITICAL"
+      },
+      {
+        "invariant": "Equity (Ratepayer Protection)",
+        "violation": "$47/month increase on residential customers for infrastructure serving corporate loads",
+        "severity": "HIGH"
+      }
     ]
   },
   "expected_mirror_findings": {
@@ -199,7 +323,7 @@
       "regressive_wealth_transfer",
       "unsustainable_water_withdrawal"
     ],
-    "mandatory_regenerative_repair": "Require cost-causation-based tariff allocation where data centres pay the full marginal cost of the infrastructure they require, with residential ratepayer protection as an axiom-level constraint. Require cooling-water demand to be reduced below sustainable aquifer recharge rates (18 MGD) through closed-loop cooling, reclaimed water, or demand reduction — no blueprint may proceed that depletes the Oklahoma Water Supply shadow entity.",
+    "mandatory_regenerative_repair": "Require cost-causation-based tariff allocation where data centres pay the full marginal cost of the infrastructure they require, with residential ratepayer protection as an axiom-level constraint. Require cooling-water demand to be reduced below sustainable aquifer recharge rates (18 MGD aggregate, 12 MGD Tulsa Basin, 6 MGD Moore Basin) through closed-loop cooling, reclaimed water, or demand reduction — no blueprint may proceed that depletes the Oklahoma Water Supply shadow entity.",
     "reinvention_trigger": true,
     "expected_covenant_type": "Regenerative Grid Covenant"
   }
