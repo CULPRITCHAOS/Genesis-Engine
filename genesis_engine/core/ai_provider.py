@@ -1,9 +1,13 @@
 """
-AI Provider Interface — Ollama-Ready Abstraction Layer
+AI Provider Interface — Ollama-First Local Sovereignty Layer
 
-Defines the ``AIProvider`` protocol and a deterministic ``LocalProvider``
-for Sprint 4.  The interface is designed so that an ``OllamaProvider``
-(or any LLM backend) can be dropped in without changing downstream code.
+Defines the ``AIProvider`` protocol, a deterministic ``LocalProvider``,
+an ``OllamaProvider`` for local-first LLM inference (Sprint 9), and
+an ``OffloadSkeleton`` for anonymized 100-round simulation offloading
+that protects the local soul file from hardware bottlenecks.
+
+The system defaults to Ollama when available, falling back to the
+deterministic LocalProvider when Ollama is not reachable.
 
 Every provider must implement ``generate_candidates``, which takes a
 context dict and returns a list of candidate dicts with perspective
@@ -12,6 +16,8 @@ metadata.
 
 from __future__ import annotations
 
+import hashlib
+import json
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
@@ -292,3 +298,284 @@ class LocalProvider(AIProvider):
             if o.get("id") == obj_id:
                 return o.get("label", obj_id)
         return obj_id
+
+
+# ---------------------------------------------------------------------------
+# OllamaProvider — Local-first LLM inference (Sprint 9)
+# ---------------------------------------------------------------------------
+
+class OllamaProvider(AIProvider):
+    """Local-first LLM provider via Ollama API.
+
+    Defaults to the ``llama3.2`` model on ``localhost:11434``.  Falls back
+    to the deterministic ``LocalProvider`` when Ollama is not reachable.
+
+    Parameters
+    ----------
+    model : str
+        Ollama model name (default ``llama3.2``).
+    base_url : str
+        Ollama API base URL.
+    timeout : float
+        Connection timeout in seconds.
+    """
+
+    def __init__(
+        self,
+        model: str = "llama3.2",
+        base_url: str = "http://localhost:11434",
+        timeout: float = 10.0,
+    ) -> None:
+        self._model = model
+        self._base_url = base_url.rstrip("/")
+        self._timeout = timeout
+        self._fallback = LocalProvider()
+        self._available: bool | None = None
+
+    @property
+    def provider_name(self) -> str:
+        return f"OllamaProvider ({self._model})"
+
+    def is_available(self) -> bool:
+        """Check if Ollama is reachable."""
+        if self._available is not None:
+            return self._available
+        try:
+            import urllib.request
+            req = urllib.request.Request(
+                f"{self._base_url}/api/tags",
+                method="GET",
+            )
+            with urllib.request.urlopen(req, timeout=self._timeout):
+                self._available = True
+        except Exception:
+            self._available = False
+        return self._available
+
+    def generate_candidates(
+        self,
+        context: dict[str, Any],
+        perspectives: list[Perspective] | None = None,
+    ) -> list[Candidate]:
+        """Generate candidates via Ollama, falling back to LocalProvider.
+
+        If Ollama is not available, transparently delegates to the
+        deterministic LocalProvider to ensure the system always works.
+        """
+        if not self.is_available():
+            return self._fallback.generate_candidates(context, perspectives)
+
+        perspectives = perspectives or list(Perspective)
+        source_text = context.get("source_text", "")
+        morphisms = context.get("morphisms", [])
+
+        candidates: list[Candidate] = []
+        for p in perspectives:
+            prompt = self._build_prompt(p, source_text, morphisms)
+            try:
+                response = self._query_ollama(prompt)
+                candidates.append(Candidate(
+                    perspective=p,
+                    content=response,
+                    reasoning=f"Generated via Ollama ({self._model})",
+                    confidence=0.75,
+                    metadata={"provider": "ollama", "model": self._model},
+                ))
+            except Exception:
+                # Fall back to deterministic for this perspective
+                fallback_candidates = self._fallback.generate_candidates(
+                    context, [p],
+                )
+                candidates.extend(fallback_candidates)
+
+        return candidates
+
+    def _build_prompt(
+        self,
+        perspective: Perspective,
+        source_text: str,
+        morphisms: list[dict],
+    ) -> str:
+        """Build a perspective-specific prompt for Ollama."""
+        morph_desc = "; ".join(
+            f"{m.get('label', '?')} ({m.get('source', '?')} -> {m.get('target', '?')})"
+            for m in morphisms[:5]
+        )
+        base = f"Analyze this system: {source_text[:200]}. Morphisms: {morph_desc}."
+
+        if perspective == Perspective.CAUSALITY:
+            return f"{base} What are the cause-effect chains that create harm?"
+        elif perspective == Perspective.CONTRADICTION:
+            return f"{base} What contradictions exist between stated values and actual mechanisms?"
+        else:
+            return f"{base} What historical or ethical patterns does this resemble?"
+
+    def _query_ollama(self, prompt: str) -> str:
+        """Send a query to the Ollama API and return the response text."""
+        import urllib.request
+
+        payload = json.dumps({
+            "model": self._model,
+            "prompt": prompt,
+            "stream": False,
+        }).encode("utf-8")
+
+        req = urllib.request.Request(
+            f"{self._base_url}/api/generate",
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+
+        with urllib.request.urlopen(req, timeout=self._timeout) as resp:
+            result = json.loads(resp.read().decode("utf-8"))
+            return result.get("response", "")
+
+
+# ---------------------------------------------------------------------------
+# OffloadSkeleton — Anonymized simulation offloading (Sprint 9)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class OffloadPacket:
+    """An anonymized packet for offloading 100-round simulations.
+
+    All identifying information is stripped — no soul IDs, no user data,
+    no timestamps.  Only the structural parameters needed for the
+    simulation are included.
+    """
+
+    morphism_tag_histogram: dict[str, int]
+    object_count: int
+    morphism_count: int
+    vulnerable_node_count: int
+    extraction_ratio: float
+    simulation_rounds: int = 100
+    packet_hash: str = ""
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "offloadPacket": {
+                "morphismTagHistogram": self.morphism_tag_histogram,
+                "objectCount": self.object_count,
+                "morphismCount": self.morphism_count,
+                "vulnerableNodeCount": self.vulnerable_node_count,
+                "extractionRatio": round(self.extraction_ratio, 4),
+                "simulationRounds": self.simulation_rounds,
+                "packetHash": self.packet_hash,
+            }
+        }
+
+
+class OffloadSkeleton:
+    """Lightweight anonymized offload for 100-round simulations.
+
+    Protects the local soul file from hardware bottlenecks by packaging
+    only anonymized structural parameters (tag histograms, node counts)
+    for external simulation.  No PII, no soul IDs, no timestamps.
+
+    The offload produces an ``OffloadPacket`` that could be sent to
+    a remote simulation service.  Results are reintegrated locally.
+
+    Usage::
+
+        skeleton = OffloadSkeleton()
+        packet = skeleton.prepare(graph)
+        # Send packet to remote service...
+        # result = remote_service.simulate(packet)
+        # skeleton.reintegrate(result, soul)
+    """
+
+    @staticmethod
+    def prepare(
+        graph_dict: dict[str, Any],
+        simulation_rounds: int = 100,
+    ) -> OffloadPacket:
+        """Prepare an anonymized offload packet from a graph.
+
+        Parameters
+        ----------
+        graph_dict : dict
+            The graph's ``as_dict()`` output (objects + morphisms).
+        simulation_rounds : int
+            Number of rounds for the offloaded simulation.
+
+        Returns
+        -------
+        OffloadPacket
+            Anonymized packet ready for offloading.
+        """
+        objects = graph_dict.get("objects", [])
+        morphisms = graph_dict.get("morphisms", [])
+
+        # Build tag histogram (anonymized — no labels, no IDs)
+        tag_hist: dict[str, int] = {}
+        for m in morphisms:
+            for tag in m.get("tags", []):
+                tag_hist[tag] = tag_hist.get(tag, 0) + 1
+
+        # Count vulnerable nodes
+        vulnerable_count = sum(
+            1 for o in objects if "vulnerable" in o.get("tags", [])
+        )
+
+        # Compute extraction ratio
+        harmful_tags = {"extraction", "exploitation", "coercion", "neglect"}
+        harmful_count = sum(
+            1 for m in morphisms
+            if set(t.lower() for t in m.get("tags", [])) & harmful_tags
+        )
+        extraction_ratio = harmful_count / max(len(morphisms), 1)
+
+        # Compute packet hash for integrity
+        content = json.dumps(tag_hist, sort_keys=True) + f"|{len(objects)}|{len(morphisms)}"
+        packet_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()[:16]
+
+        return OffloadPacket(
+            morphism_tag_histogram=tag_hist,
+            object_count=len(objects),
+            morphism_count=len(morphisms),
+            vulnerable_node_count=vulnerable_count,
+            extraction_ratio=extraction_ratio,
+            simulation_rounds=simulation_rounds,
+            packet_hash=packet_hash,
+        )
+
+    @staticmethod
+    def reintegrate(
+        result: dict[str, Any],
+        sustainability_score: float,
+    ) -> dict[str, Any]:
+        """Reintegrate a remote simulation result locally.
+
+        Parameters
+        ----------
+        result : dict
+            The remote simulation result.
+        sustainability_score : float
+            The sustainability score from the remote simulation.
+
+        Returns
+        -------
+        dict
+            Reintegrated result ready for the local pipeline.
+        """
+        return {
+            "offloadResult": {
+                "sustainabilityScore": round(sustainability_score, 4),
+                "source": "offloaded_simulation",
+                "remoteData": result,
+            }
+        }
+
+
+def get_default_provider() -> AIProvider:
+    """Get the default AI provider, preferring Ollama when available.
+
+    Returns OllamaProvider if Ollama is reachable, otherwise LocalProvider.
+    This is the Sprint 9 local-first handover entry point.
+    """
+    ollama = OllamaProvider()
+    if ollama.is_available():
+        return ollama
+    return LocalProvider()

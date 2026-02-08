@@ -35,6 +35,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 from genesis_engine.core.axiom_anchor import (
@@ -43,7 +44,7 @@ from genesis_engine.core.axiom_anchor import (
     SustainabilityPredicate,
     ValidationResult,
 )
-from genesis_engine.core.axiomlogix import CategoricalGraph
+from genesis_engine.core.axiomlogix import CategoricalGraph, Object
 from genesis_engine.core.deconstruction_engine import DisharmonyReport
 from genesis_engine.core.dream_engine import DreamPath, PathType, PossibilityReport
 
@@ -67,6 +68,7 @@ _DEEP_DISHARMONY_TAGS: set[str] = {
     "preferential_treatment", "cross_subsidy",
     "regressive_impact", "capacity_demand", "reliability_threat",
     "shareholder_primacy_risk",
+    "water_depletion", "unsustainable_withdrawal", "shadow_cost",
 }
 
 # Categories of Deep Disharmony
@@ -85,6 +87,9 @@ _DISHARMONY_CATEGORIES: dict[str, set[str]] = {
     "regressive_wealth_transfer": {
         "extraction", "exploitation", "preferential_treatment",
         "cross_subsidy",
+    },
+    "unsustainable_water_withdrawal": {
+        "water_depletion", "unsustainable_withdrawal", "shadow_cost",
     },
 }
 
@@ -190,6 +195,65 @@ class MirrorOfTruth:
         self.vulnerability_priority = vulnerability_priority
         self._incentive_predicate = IncentiveStabilityPredicate()
 
+    # -- Scenario loading (Sprint 9) ----------------------------------------
+
+    @staticmethod
+    def load_scenario(json_path: str) -> dict[str, Any]:
+        """Load a conflict scenario from a JSON file.
+
+        Parameters
+        ----------
+        json_path : str
+            Path to the scenario JSON file.
+
+        Returns
+        -------
+        dict
+            The parsed scenario data.
+        """
+        with open(json_path, "r") as f:
+            return json.load(f)
+
+    @staticmethod
+    def scenario_to_graph(scenario: dict[str, Any]) -> CategoricalGraph:
+        """Convert a scenario's conflict_graph into a CategoricalGraph.
+
+        Parameters
+        ----------
+        scenario : dict
+            The parsed scenario data.
+
+        Returns
+        -------
+        CategoricalGraph
+            A graph constructed from the scenario's objects and morphisms.
+        """
+        cg = scenario.get("conflict_graph", {})
+        source_text = scenario.get("description", "Loaded conflict scenario")
+        graph = CategoricalGraph(source_text=source_text)
+
+        # Build objects
+        obj_map: dict[str, Object] = {}
+        for obj_data in cg.get("objects", []):
+            obj = graph.add_object(
+                obj_data.get("label", "Unknown"),
+                obj_data.get("tags", []),
+            )
+            obj_map[obj_data.get("id", "")] = obj
+
+        # Build morphisms
+        for morph_data in cg.get("morphisms", []):
+            src = obj_map.get(morph_data.get("source", ""))
+            tgt = obj_map.get(morph_data.get("target", ""))
+            if src and tgt:
+                graph.add_morphism(
+                    morph_data.get("label", "Unknown"),
+                    src, tgt,
+                    morph_data.get("tags", []),
+                )
+
+        return graph
+
     # -- public API ---------------------------------------------------------
 
     def critique(
@@ -256,6 +320,12 @@ class MirrorOfTruth:
 
         # Probe 5: Check for cost-shifting patterns surviving reform
         self._probe_cost_shifting(
+            dream_path.healed_graph, original_graph, findings,
+            disharmony_categories,
+        )
+
+        # Probe 6: Shadow Entity detection — water sustainability (Sprint 9)
+        self._probe_shadow_entity(
             dream_path.healed_graph, original_graph, findings,
             disharmony_categories,
         )
@@ -623,6 +693,96 @@ class MirrorOfTruth:
                         affected_nodes=[target_obj.label],
                     ))
 
+    # -- Probe 6: Shadow Entity detection (Sprint 9) -----------------------
+
+    def _probe_shadow_entity(
+        self,
+        healed_graph: CategoricalGraph,
+        original_graph: CategoricalGraph,
+        findings: list[CritiqueFinding],
+        categories: list[str],
+    ) -> None:
+        """Detect Shadow Entity patterns — invisible dependencies whose
+        degradation is not priced into the proposal.
+
+        The canonical example is the Oklahoma Water Supply: data centre
+        cooling-water demand exceeds sustainable aquifer recharge rates,
+        but this cost is invisible in the HILL request economics.
+
+        A Shadow Entity is identified by the ``shadow_entity`` tag on a
+        node.  If any morphism targets such a node with extraction or
+        depletion tags, the Mirror flags an unsustainable withdrawal
+        pattern.
+        """
+        # Identify shadow entities in the original graph
+        shadow_nodes: list[str] = []
+        for obj in original_graph.objects:
+            if "shadow_entity" in obj.tags:
+                shadow_nodes.append(obj.label)
+
+        if not shadow_nodes:
+            return
+
+        # Check for extractive morphisms targeting shadow entities
+        water_tags = {"water_depletion", "unsustainable_withdrawal", "shadow_cost"}
+        for morph in original_graph.morphisms:
+            morph_tags = {t.lower() for t in morph.tags}
+            if morph_tags & water_tags:
+                # Find source label
+                src_label = morph.source
+                for obj in original_graph.objects:
+                    if obj.id == morph.source:
+                        src_label = obj.label
+                        break
+                tgt_label = morph.target
+                for obj in original_graph.objects:
+                    if obj.id == morph.target:
+                        tgt_label = obj.label
+                        break
+
+                categories.append("unsustainable_water_withdrawal")
+                findings.append(CritiqueFinding(
+                    category="shadow_entity_depletion",
+                    severity=9.0,
+                    description=(
+                        f"Shadow Entity detected: '{tgt_label}' is an invisible "
+                        f"dependency being depleted by '{src_label}' via "
+                        f"'{morph.label}'. This cost is not reflected in the "
+                        f"proposal economics. Blueprints that exceed sustainable "
+                        f"thresholds must be penalised."
+                    ),
+                    evidence=[
+                        f"Shadow entity: {tgt_label}",
+                        f"Depleting morphism: {morph.label}",
+                        f"Tags: {', '.join(sorted(morph_tags & water_tags))}",
+                    ],
+                    affected_nodes=[tgt_label, src_label],
+                ))
+
+        # Check if the healed graph addresses the shadow entity
+        healed_has_protection = False
+        for morph in healed_graph.morphisms:
+            morph_tags = {t.lower() for t in morph.tags}
+            if morph_tags & {"protection", "sustainable_management", "regulatory_oversight"}:
+                # Check if target is shadow-entity-related
+                for obj in healed_graph.objects:
+                    if obj.id == morph.target and "shadow_entity" in obj.tags:
+                        healed_has_protection = True
+                        break
+
+        if not healed_has_protection and shadow_nodes:
+            findings.append(CritiqueFinding(
+                category="shadow_entity_unaddressed",
+                severity=7.0,
+                description=(
+                    f"Shadow Entities {shadow_nodes} remain unprotected in "
+                    f"the healed graph. The solution does not include "
+                    f"sustainable management morphisms for these invisible "
+                    f"dependencies."
+                ),
+                affected_nodes=shadow_nodes,
+            ))
+
     # -- Score computation --------------------------------------------------
 
     @staticmethod
@@ -738,6 +898,15 @@ class MirrorOfTruth:
                 "design that shields low-income residential customers from "
                 "rate increases caused by large-load infrastructure. Establish "
                 "a ratepayer protection fund financed by data centre impact fees."
+            )
+
+        if "unsustainable_water_withdrawal" in unique_categories or "shadow_entity_depletion" in [f.category for f in findings]:
+            repair_parts.append(
+                "REPAIR-5 (Water Sustainability): Require cooling-water demand "
+                "to be reduced below sustainable aquifer recharge rates through "
+                "closed-loop cooling, reclaimed water, or demand reduction. No "
+                "blueprint may proceed that depletes the Oklahoma Water Supply "
+                "shadow entity beyond sustainable thresholds."
             )
 
         if not repair_parts:

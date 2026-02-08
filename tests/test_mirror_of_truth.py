@@ -334,8 +334,8 @@ class TestScenarioLoading:
         )
         scenario = MirrorOfTruth.load_scenario(path)
         graph = MirrorOfTruth.scenario_to_graph(scenario)
-        assert len(graph.objects) == 4
-        assert len(graph.morphisms) == 6
+        assert len(graph.objects) == 6
+        assert len(graph.morphisms) == 10
 
     def test_scenario_graph_has_vulnerable_node(self):
         path = os.path.join(

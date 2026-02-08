@@ -11,6 +11,9 @@ A CLI visualization layer for the Crucible Engine that displays the
 * **Soul Inspector** — Displays the current state of the EternalBox.
 * **Refinement Panel** (Sprint 8) — Displays the Mirror of Truth's
   self-critique findings alongside the final Stewardship Manifesto.
+* **Conflict War-Room** (Sprint 9) — Interactive "I AM" Dashboard for
+  loading conflict scenarios, injecting nodes during the Mirror of Truth
+  phase, and running full Crystallization events.
 
 This module provides both programmatic access and formatted CLI output
 for human operators to observe the multi-perspective reasoning process.
@@ -19,10 +22,12 @@ for human operators to observe the multi-perspective reasoning process.
 from __future__ import annotations
 
 import json
+import uuid
 from dataclasses import dataclass
 from typing import Any
 
 from genesis_engine.core.ai_provider import Perspective
+from genesis_engine.core.axiomlogix import CategoricalGraph, Object, Morphism
 from genesis_engine.core.continuity_bridge import (
     ContinuityBridge,
     ForesightProjection,
@@ -651,6 +656,95 @@ class AriaRenderer:
 
         return "\n".join(lines) + "\n"
 
+    # -- Conflict War-Room rendering (Sprint 9) ------------------------------
+
+    def render_conflict_war_room(
+        self,
+        scenario: dict[str, Any],
+        graph: CategoricalGraph,
+    ) -> str:
+        """Render the Conflict War-Room view for a loaded scenario.
+
+        Displays the scenario name, legislative context, conflict graph
+        summary, and HILL request details in a war-room dashboard format.
+        """
+        c = self._c
+        lines = [self.render_header("CONFLICT WAR-ROOM — I AM DASHBOARD")]
+
+        # Scenario overview
+        lines.append(f"  {c(Colors.BOLD)}Scenario:{c(Colors.RESET)} {scenario.get('scenario', 'Unknown')}")
+        lines.append(f"  {c(Colors.BOLD)}Version:{c(Colors.RESET)}  {scenario.get('version', '?')}")
+        lines.append(f"  {c(Colors.BOLD)}Sprint:{c(Colors.RESET)}   {scenario.get('sprint', '?')}")
+
+        # Legislative context
+        context = scenario.get("context", {})
+        leg_refs = context.get("legislative_references", [])
+        if not leg_refs:
+            # Fallback for v1 format
+            leg_ref = context.get("legislative_reference", "")
+            if leg_ref:
+                leg_refs = [{"bill": leg_ref, "title": "", "disharmony_vector": ""}]
+
+        if leg_refs:
+            lines.append(f"\n  {c(Colors.HEADER)}Legislative Context:{c(Colors.RESET)}")
+            for ref in leg_refs:
+                bill = ref.get("bill", "")
+                title = ref.get("title", "")
+                vector = ref.get("disharmony_vector", "")
+                lines.append(f"    {c(Colors.WARNING)}{bill}{c(Colors.RESET)}: {title}")
+                if vector:
+                    lines.append(f"      {c(Colors.DIM)}Disharmony: {vector[:80]}{c(Colors.RESET)}")
+
+        # Graph summary
+        lines.append(f"\n  {c(Colors.HEADER)}Conflict Graph:{c(Colors.RESET)}")
+        lines.append(f"    Objects:   {len(graph.objects)}")
+        lines.append(f"    Morphisms: {len(graph.morphisms)}")
+
+        for obj in graph.objects:
+            tag_str = ", ".join(obj.tags[:4])
+            icon = "!" if "shadow_entity" in obj.tags else ("*" if "vulnerable" in obj.tags else "-")
+            color = c(Colors.ERROR) if "shadow_entity" in obj.tags else (
+                c(Colors.WARNING) if "vulnerable" in obj.tags else c(Colors.DIM)
+            )
+            lines.append(f"    {color}{icon} {obj.label} [{tag_str}]{c(Colors.RESET)}")
+
+        # HILL request summary
+        hill = scenario.get("hill_request", {})
+        if hill:
+            lines.append(f"\n  {c(Colors.HEADER)}HILL Request:{c(Colors.RESET)}")
+            lines.append(f"    Demand:       {hill.get('demand_mw', '?')} MW")
+            lines.append(f"    Infra Cost:   ${hill.get('infrastructure_cost_usd', 0):,}")
+            lines.append(f"    Rate Impact:  ${hill.get('residential_impact_monthly_usd', '?')}/month")
+            water_demand = hill.get("cooling_water_demand_mgd")
+            if water_demand:
+                water_limit = hill.get("sustainable_withdrawal_limit_mgd", "?")
+                overshoot = hill.get("water_overshoot_ratio", "?")
+                lines.append(f"    Water Demand: {water_demand} MGD (limit: {water_limit} MGD, {overshoot}x overshoot)")
+
+        # Water sustainability constraints
+        constraints = scenario.get("constraints", {})
+        water = constraints.get("water_sustainability", {})
+        if water:
+            lines.append(f"\n  {c(Colors.ERROR)}Shadow Entity Alert:{c(Colors.RESET)}")
+            lines.append(f"    {c(Colors.DIM)}{water.get('shadow_entity_rule', '')[:100]}{c(Colors.RESET)}")
+
+        return "\n".join(lines) + "\n"
+
+    def render_node_injection(
+        self,
+        label: str,
+        tags: list[str],
+        graph: CategoricalGraph,
+    ) -> str:
+        """Render confirmation of a node injection during Mirror of Truth phase."""
+        c = self._c
+        lines = [
+            f"\n  {c(Colors.SCORE)}[NODE INJECTED]{c(Colors.RESET)} {label}",
+            f"    Tags: {', '.join(tags)}",
+            f"    Graph now has {len(graph.objects)} objects, {len(graph.morphisms)} morphisms",
+        ]
+        return "\n".join(lines)
+
     def render_human_overrides(self, soul: GenesisSoul, limit: int = 5) -> str:
         """Render the human override log for Soul Inspection."""
         c = self._c
@@ -972,6 +1066,94 @@ class AriaInterface:
             print(self.renderer.render_war_game(outcome))
 
         return outcome
+
+    # -- Conflict War-Room commands (Sprint 9) ------------------------------
+
+    def load_conflict(
+        self,
+        json_path: str,
+        verbose: bool = True,
+    ) -> tuple[dict[str, Any], CategoricalGraph]:
+        """Load a conflict scenario from a JSON file into the War-Room.
+
+        Parameters
+        ----------
+        json_path : str
+            Path to the scenario JSON file (e.g. grid_war_2026.json).
+        verbose : bool
+            Print the War-Room dashboard if True.
+
+        Returns
+        -------
+        tuple[dict, CategoricalGraph]
+            The parsed scenario data and the constructed conflict graph.
+        """
+        scenario = MirrorOfTruth.load_scenario(json_path)
+        graph = MirrorOfTruth.scenario_to_graph(scenario)
+
+        # Store in instance for subsequent commands
+        self._active_scenario = scenario
+        self._active_graph = graph
+
+        if verbose:
+            print(self.renderer.render_conflict_war_room(scenario, graph))
+
+        return scenario, graph
+
+    def inject_node(
+        self,
+        graph: CategoricalGraph,
+        label: str,
+        tags: list[str],
+        connect_to: str | None = None,
+        morphism_label: str = "Injected_Relationship",
+        morphism_tags: list[str] | None = None,
+        verbose: bool = True,
+    ) -> CategoricalGraph:
+        """Inject a new node into a conflict graph during the Mirror of Truth phase.
+
+        This enables real-time node injection (e.g., adding Water_Resources
+        or Local_Innovation) to explore alternative scenario structures.
+
+        Parameters
+        ----------
+        graph : CategoricalGraph
+            The graph to modify.
+        label : str
+            Label for the new node.
+        tags : list[str]
+            Tags for the new node.
+        connect_to : str | None
+            Optional label of an existing node to connect to.
+        morphism_label : str
+            Label for the connecting morphism.
+        morphism_tags : list[str] | None
+            Tags for the connecting morphism.
+        verbose : bool
+            Print injection confirmation.
+
+        Returns
+        -------
+        CategoricalGraph
+            The modified graph with the injected node.
+        """
+        new_obj = graph.add_object(label, tags)
+
+        if connect_to:
+            # Find the target object by label
+            target = None
+            for obj in graph.objects:
+                if obj.label == connect_to:
+                    target = obj
+                    break
+            if target:
+                m_tags = morphism_tags or ["collaboration", "service"]
+                graph.add_morphism(morphism_label, new_obj, target, m_tags)
+
+        if verbose:
+            print(self.renderer.render_node_injection(label, tags, graph))
+
+        return graph
 
     # -- Crystallization command --------------------------------------------
 
