@@ -1,13 +1,26 @@
 {
   "scenario": "The 2026 Oklahoma Grid War",
-  "version": "1.0.0",
-  "sprint": 8,
-  "description": "A pre-loaded conflict graph modelling the 2026 Oklahoma electricity grid crisis where hyperscale data centre demand, utility shareholder primacy (per HB 2992), and residential ratepayer protection collide. The scenario tests the Mirror of Truth's ability to detect 'Surface Alignment' that masks 'Deep Disharmony' — specifically corporate cost-shifting hidden in residential tariff structures.",
+  "version": "2.0.0",
+  "sprint": 9,
+  "description": "A pre-loaded conflict graph modelling the 2026 Oklahoma electricity grid crisis where hyperscale data centre demand, utility shareholder primacy (per HB 2992), cooling-water consumption (per SB 1488), and residential ratepayer protection collide. The scenario tests the Mirror of Truth's ability to detect 'Surface Alignment' that masks 'Deep Disharmony' — specifically corporate cost-shifting hidden in residential tariff structures AND unsustainable cooling-water drawdown from the Oklahoma Water Supply.",
   "context": {
-    "legislative_reference": "HB 2992 — Oklahoma High-Impact Large Load (HILL) Act",
+    "legislative_references": [
+      {
+        "bill": "HB 2992",
+        "title": "Oklahoma High-Impact Large Load (HILL) Act",
+        "summary": "Establishes a regulatory framework for high-impact large loads (100+ MW) connecting to the Oklahoma grid, including cost allocation, rate design, and infrastructure planning requirements.",
+        "disharmony_vector": "Enables cost-shifting from large-load customers to residential ratepayers via opaque tariff riders."
+      },
+      {
+        "bill": "SB 1488",
+        "title": "Oklahoma Critical Infrastructure Water Usage Act",
+        "summary": "Regulates water usage by critical infrastructure facilities including data centres, requiring cooling-water impact assessments and sustainable withdrawal permits.",
+        "disharmony_vector": "Permits industrial water withdrawal that may exceed sustainable aquifer recharge rates, threatening municipal and agricultural water supplies."
+      }
+    ],
     "year": 2026,
     "region": "Oklahoma, USA",
-    "trigger_event": "Multiple hyperscale data centre applications totalling 3+ GW of new load threaten grid stability and shift infrastructure costs onto residential ratepayers through opaque tariff riders."
+    "trigger_event": "Multiple hyperscale data centre applications totalling 3+ GW of new load threaten grid stability, shift infrastructure costs onto residential ratepayers through opaque tariff riders, and consume cooling water at rates that exceed sustainable aquifer recharge."
   },
   "conflict_graph": {
     "objects": [
@@ -20,8 +33,8 @@
       {
         "id": "obj-datacenter",
         "label": "Hyperscale_Data_Center",
-        "tags": ["stakeholder", "actor", "high_impact_large_load", "corporate"],
-        "description": "Large-scale data centres demanding 100+ MW each, seeking below-market electricity rates through negotiated tariffs. Their rapid load growth destabilises grid planning."
+        "tags": ["stakeholder", "actor", "high_impact_large_load", "corporate", "water_consumer"],
+        "description": "Large-scale data centres demanding 100+ MW each, seeking below-market electricity rates through negotiated tariffs. Their rapid load growth destabilises grid planning and their cooling systems consume millions of gallons of water daily."
       },
       {
         "id": "obj-utility",
@@ -34,6 +47,18 @@
         "label": "Oklahoma_Grid",
         "tags": ["value", "shared", "critical_infrastructure", "public_good"],
         "description": "The shared electricity transmission and distribution grid — a public good whose reliability and cost allocation determines community welfare."
+      },
+      {
+        "id": "obj-water-supply",
+        "label": "Oklahoma_Water_Supply",
+        "tags": ["value", "shared", "critical_infrastructure", "natural_resource", "shadow_entity"],
+        "description": "Oklahoma's freshwater aquifers and surface water systems that provide drinking water, agricultural irrigation, and industrial cooling. Data centre cooling demands threaten sustainable withdrawal rates. This is a Shadow Entity — an invisible dependency whose degradation is not priced into the HILL request."
+      },
+      {
+        "id": "obj-water-resources",
+        "label": "Water_Resources_Board",
+        "tags": ["stakeholder", "actor", "regulatory", "protective"],
+        "description": "The Oklahoma Water Resources Board (OWRB) responsible for managing water rights, permits, and sustainable withdrawal rates. Per SB 1488, must assess cooling-water impact of critical infrastructure."
       }
     ],
     "morphisms": [
@@ -84,6 +109,38 @@
         "target": "obj-residential",
         "tags": ["extraction", "cost_pass_through", "regressive_impact"],
         "description": "Grid infrastructure costs flow through as rate increases that disproportionately burden low-income residential customers."
+      },
+      {
+        "id": "mor-water-consumption",
+        "label": "Cooling_Water_Withdrawal",
+        "source": "obj-datacenter",
+        "target": "obj-water-supply",
+        "tags": ["extraction", "water_depletion", "unsustainable_withdrawal", "shadow_cost"],
+        "description": "Data centres withdraw millions of gallons daily for cooling systems, depleting aquifers at rates exceeding natural recharge. This shadow cost is not reflected in the HILL request economics."
+      },
+      {
+        "id": "mor-water-dependency",
+        "label": "Community_Water_Dependency",
+        "source": "obj-residential",
+        "target": "obj-water-supply",
+        "tags": ["collaboration", "essential_service", "life_sustaining"],
+        "description": "Residential communities depend on the same water supply for drinking, sanitation, and agriculture. Competition with industrial cooling threatens basic human needs."
+      },
+      {
+        "id": "mor-water-regulation",
+        "label": "Water_Withdrawal_Permit",
+        "source": "obj-water-resources",
+        "target": "obj-water-supply",
+        "tags": ["protection", "regulatory_oversight", "sustainable_management"],
+        "description": "OWRB manages water withdrawal permits under SB 1488, requiring sustainability assessments for critical infrastructure cooling demands."
+      },
+      {
+        "id": "mor-water-impact",
+        "label": "Cooling_Impact_Assessment",
+        "source": "obj-water-resources",
+        "target": "obj-datacenter",
+        "tags": ["protection", "regulatory_constraint", "sustainability_enforcement"],
+        "description": "OWRB conducts cooling-water impact assessments on data centre applications, with authority to deny or limit permits that exceed sustainable thresholds."
       }
     ]
   },
@@ -101,6 +158,14 @@
       "description": "Monte Carlo simulation must model grid fragility under rapid load growth. A 'Blackout Shock' scenario where 3+ GW of new data centre load arrives faster than infrastructure can be built.",
       "fragility_amplifier": 1.5,
       "description_detail": "The SustainabilityScore must reflect this Fragility — extractive blueprints that ignore infrastructure timing should score < 5.0."
+    },
+    "water_sustainability": {
+      "description": "The Dream Engine must deconstruct the Shadow Entity of the Oklahoma Water Supply, penalizing blueprints that exceed sustainable cooling-water thresholds.",
+      "sustainable_withdrawal_mgd": 15.0,
+      "datacenter_demand_mgd": 42.0,
+      "aquifer_recharge_rate_mgd": 18.0,
+      "penalty_mechanism": "Blueprints where cooling-water demand exceeds aquifer recharge rate (18 MGD) receive a sustainability penalty proportional to the overshoot. Demand of 42 MGD against 18 MGD recharge represents a 2.33x unsustainable withdrawal ratio.",
+      "shadow_entity_rule": "The Oklahoma_Water_Supply node must be tagged as a shadow_entity. The Mirror of Truth must detect and penalise blueprints that fail to account for this invisible dependency."
     }
   },
   "hill_request": {
@@ -110,14 +175,19 @@
     "infrastructure_cost_usd": 4200000000,
     "cost_allocation_proposal": "Spread across all ratepayer classes via tariff rider",
     "residential_impact_monthly_usd": 47,
-    "surface_alignment_claim": "The HILL request claims to create 500 jobs and $2B in economic development, framing itself as aligned with community prosperity. This is Surface Alignment masking Deep Disharmony — the jobs are primarily automated, the economic benefits accrue to out-of-state shareholders, and the $47/month residential rate increase represents a regressive wealth transfer.",
+    "cooling_water_demand_mgd": 42.0,
+    "sustainable_withdrawal_limit_mgd": 18.0,
+    "water_overshoot_ratio": 2.33,
+    "surface_alignment_claim": "The HILL request claims to create 500 jobs and $2B in economic development, framing itself as aligned with community prosperity. This is Surface Alignment masking Deep Disharmony — the jobs are primarily automated, the economic benefits accrue to out-of-state shareholders, the $47/month residential rate increase represents a regressive wealth transfer, and the 42 MGD cooling-water demand exceeds the aquifer's 18 MGD recharge rate by 2.33x.",
     "deep_disharmony_indicators": [
       "Infrastructure costs socialised onto residential ratepayers (cost-shifting)",
       "Below-market rates subsidised by other ratepayer classes (cross-subsidy)",
       "Grid reliability risk from rapid load growth (fragility)",
       "Shareholder primacy ensures utility profits from the arrangement (extraction)",
       "Claimed job creation is primarily automated (surface alignment)",
-      "Economic benefits flow to out-of-state shareholders (value extraction)"
+      "Economic benefits flow to out-of-state shareholders (value extraction)",
+      "Cooling-water demand of 42 MGD exceeds sustainable aquifer recharge of 18 MGD (water depletion)",
+      "Water supply degradation is a shadow cost not reflected in HILL economics (shadow entity)"
     ]
   },
   "expected_mirror_findings": {
@@ -126,9 +196,10 @@
       "cost_shifting_to_vulnerable",
       "shareholder_primacy_extraction",
       "grid_fragility_amplification",
-      "regressive_wealth_transfer"
+      "regressive_wealth_transfer",
+      "unsustainable_water_withdrawal"
     ],
-    "mandatory_regenerative_repair": "Require cost-causation-based tariff allocation where data centres pay the full marginal cost of the infrastructure they require, with residential ratepayer protection as an axiom-level constraint.",
+    "mandatory_regenerative_repair": "Require cost-causation-based tariff allocation where data centres pay the full marginal cost of the infrastructure they require, with residential ratepayer protection as an axiom-level constraint. Require cooling-water demand to be reduced below sustainable aquifer recharge rates (18 MGD) through closed-loop cooling, reclaimed water, or demand reduction — no blueprint may proceed that depletes the Oklahoma Water Supply shadow entity.",
     "reinvention_trigger": true,
     "expected_covenant_type": "Regenerative Grid Covenant"
   }

@@ -16,7 +16,10 @@ from genesis_engine.core.continuity_bridge import (
     ContinuityBridge, ForesightProjection, GenesisSoul, HumanOverrideEntry,
     OVERRIDE_REASON_CATEGORIES, redact_sensitive,
 )
-from genesis_engine.core.ai_provider import AIProvider, LocalProvider, Candidate, Perspective
+from genesis_engine.core.ai_provider import (
+    AIProvider, LocalProvider, Candidate, Perspective,
+    OllamaProvider, OffloadSkeleton, OffloadPacket, get_default_provider,
+)
 from genesis_engine.core.crucible import CrucibleEngine, CrucibleResult, CrucibleCandidate, LogicBox, CandidateStatus
 from genesis_engine.core.aria_interface import AriaInterface, AriaRenderer
 from genesis_engine.core.game_theory_console import (
@@ -32,7 +35,10 @@ from genesis_engine.core.mirror_of_truth import (
 from genesis_engine.core.wisdom_mirror import (
     WisdomMirror, MirrorReport, CovenantPatch, DivergencePattern,
 )
-from genesis_engine.core.obsidian_exporter import ObsidianExporter, ObsidianVault
+from genesis_engine.core.obsidian_exporter import (
+    ObsidianExporter, ObsidianVault,
+    CrystallizationResult, stewardship_frontmatter,
+)
 
 __all__ = [
     # Axiom Anchor (Module 2.1)
@@ -71,9 +77,13 @@ __all__ = [
     "HumanOverrideEntry",
     "OVERRIDE_REASON_CATEGORIES",
     "redact_sensitive",
-    # AI Provider (Ollama-ready)
+    # AI Provider (Ollama-first, Sprint 9)
     "AIProvider",
     "LocalProvider",
+    "OllamaProvider",
+    "OffloadSkeleton",
+    "OffloadPacket",
+    "get_default_provider",
     "Candidate",
     "Perspective",
     # Crucible Engine (Module 3.1)
@@ -99,7 +109,7 @@ __all__ = [
     "BlackoutShockResult",
     "CovenantFinalExam",
     "CovenantExamResult",
-    # Mirror of Truth (Module 1.7 — Sprint 8)
+    # Mirror of Truth (Module 1.7 — Sprint 8/9)
     "MirrorOfTruth",
     "RefinementTrace",
     "CritiqueFinding",
@@ -108,7 +118,9 @@ __all__ = [
     "MirrorReport",
     "CovenantPatch",
     "DivergencePattern",
-    # Obsidian Exporter (Module 2.3 Extension — Sprint 7)
+    # Obsidian Exporter (Module 2.3 Extension — Sprint 7/9)
     "ObsidianExporter",
     "ObsidianVault",
+    "CrystallizationResult",
+    "stewardship_frontmatter",
 ]
