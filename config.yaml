@@ -1,0 +1,101 @@
+# Genesis Engine — Preflight Model Calibration (Sprint 11.5)
+# ============================================================
+#
+# Maps specific Ollama models to their designated "Socratic Roles"
+# within the Genesis Engine pipeline.  Each role targets a class of
+# reasoning task, optimising for the model's specific strengths.
+#
+# Override this file to match your local Ollama fleet.
+# Run `ollama list` to see available models.
+
+# ---------------------------------------------------------------
+# Ollama Server Configuration
+# ---------------------------------------------------------------
+ollama:
+  base_url: "http://localhost:11434"
+  timeout: 600          # 10 min — handles 100-round sims on 12B models
+  num_ctx: 128000       # 128K context window for large legislative PDFs
+
+# ---------------------------------------------------------------
+# Socratic Role → Model Mapping
+# ---------------------------------------------------------------
+#
+# Each role lists models in order of preference.
+# The engine uses the first available model from the list.
+#
+socratic_roles:
+
+  # ── THE THINKER (Policy Analysis / Adversarial Evaluator) ──
+  # Mapped to: AdversarialEvaluator (Mirror), PolicyKernel
+  # Why:       These models excel at unrestricted chain-of-thought
+  #            reasoning required to detect systemic capture,
+  #            sycophancy bias, and constitutional violations.
+  thinker:
+    models:
+      - "deepseek-r1:7b"
+      - "huihui_ai/am-thinking-abliterated"
+    pipeline_targets:
+      - "AdversarialEvaluator"   # FAIRGAME Debate Arena
+      - "PolicyKernel"           # Constitutional Self-Critique Loop
+      - "MirrorOfTruth"          # Surface Alignment Detection
+    temperature: 0.8
+    max_tokens: 4096
+    description: >
+      Deep reasoning models for policy analysis. Used by the Mirror
+      and the C3AI Self-Critique Loop to detect bias, sycophancy,
+      and constitutional violations through adversarial deliberation.
+
+  # ── THE BUILDER (PlanCompiler / Architectural Forge) ──
+  # Mapped to: ArchitecturalForge (PlanCompiler), DreamEngine
+  # Why:       Highest benchmarks for structured output, functional
+  #            code generation, and JSON/YAML schema compliance.
+  builder:
+    models:
+      - "qwen2.5-coder"
+      - "gemma3:12b"
+    pipeline_targets:
+      - "ArchitecturalForge"     # Technical Covenant generation
+      - "DreamEngine"            # Possibility space exploration
+      - "GovernanceReport"       # Production Lexicon translation
+    temperature: 0.3
+    max_tokens: 4096
+    description: >
+      Structured-output models for blueprint compilation. Used by the
+      Forge to generate Technical Covenants, Stewardship Manifestos,
+      and Repair Morphisms with high schema fidelity.
+
+  # ── THE SENTRY (InputValidator / Fast Parsing) ──
+  # Mapped to: InputValidator, CrucibleEngine (Phase 1: Ingest)
+  # Why:       Lightweight, fast models ideal for initial parsing
+  #            and validation with full 128K context window support.
+  sentry:
+    models:
+      - "gemma3:4b"
+      - "dolphin-llama3"
+    pipeline_targets:
+      - "InputValidator"         # Input parsing and validation
+      - "CrucibleEngine"         # Phase 1 Ingest
+      - "AxiomLogixTranslator"   # Graph construction
+    temperature: 0.2
+    max_tokens: 2048
+    description: >
+      Lightweight, fast models for input validation and initial
+      parsing. Optimised for speed with 128K context window to
+      handle large legislative PDF ingestions.
+
+# ---------------------------------------------------------------
+# Hardware-Aware Performance Tuning
+# ---------------------------------------------------------------
+performance:
+  # Timeout buffers for memory-heavy models (Gemma 3 12B, DeepSeek R1)
+  simulation_timeout: 600     # 10 min for 100-round war-game simulations
+  offload_timeout: 600        # 10 min for OffloadSkeleton remote sims
+  health_check_timeout: 5     # Quick Ollama reachability check
+
+  # Context management
+  default_num_ctx: 128000     # Hard-coded for 4B/12B models
+  max_batch_size: 1           # Sequential inference (memory safety)
+
+  # Monte Carlo simulation parameters
+  monte_carlo_runs: 500       # Bayesian stress test iterations
+  war_game_rounds: 100        # Default IPD simulation length

@@ -432,7 +432,6 @@ class SustainabilityPredicate:
         # Classify individual morphisms
         for m in morphisms:
             m_tags = {t.lower() for t in m.get("tags", [])}
-            m_label = m.get("label", "").lower()
 
             if m_tags & self.DEPLETION_TAGS:
                 depletion_morphisms.append({

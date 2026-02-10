@@ -43,13 +43,12 @@ Sprint 11 — Policy Auditor & Regenerative Blueprint Suite.
 
 from __future__ import annotations
 
-import math
 import random
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Any
 
-from genesis_engine.core.axiomlogix import CategoricalGraph, Object, Morphism
+from genesis_engine.core.axiomlogix import CategoricalGraph
 
 
 # ---------------------------------------------------------------------------
@@ -670,8 +669,6 @@ class RobustnessHarness:
         # Check water floor invariant
         water_floor = constraints.get("water_floor_invariant", {})
         surplus_pct = water_floor.get("residential_surplus_pct", 25)
-        required_ratio = 1.0 + surplus_pct / 100.0  # 1.25
-
         if overshoot > 1.0:
             residential_security = recharge_mgd / demand_mgd
             actual_surplus_pct = (residential_security - 1.0) * 100

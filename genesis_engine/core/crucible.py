@@ -28,7 +28,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
-from genesis_engine.core.ai_provider import AIProvider, Candidate, LocalProvider, Perspective
+from genesis_engine.core.ai_provider import AIProvider, LocalProvider, Perspective
 from genesis_engine.core.architectural_forge import ArchitecturalForge, ForgeArtifact
 from genesis_engine.core.axiom_anchor import AxiomAnchor, ValidationResult
 from genesis_engine.core.axiomlogix import AxiomLogixTranslator, CategoricalGraph
@@ -219,7 +219,7 @@ class CrucibleEngine:
         graph = self._phase_ingest(problem_text, result)
 
         # Phase 2: Retrieval
-        prior_wisdom = self._phase_retrieval(problem_text, result)
+        self._phase_retrieval(problem_text, result)
 
         # Phase 3: Divergence (skip if already aligned)
         report = self.decon.analyse(graph)

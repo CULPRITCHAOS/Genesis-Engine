@@ -21,12 +21,46 @@ import json
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Protocol
+from typing import Any
 
 
 # ---------------------------------------------------------------------------
 # Perspective types used by the multi-perspective Dream Engine
 # ---------------------------------------------------------------------------
+
+class SocraticRole(Enum):
+    """Socratic roles for model calibration (Sprint 11.5).
+
+    Each role maps to a class of Ollama model optimised for a specific
+    reasoning task within the Genesis Engine pipeline.
+    """
+
+    THINKER = "thinker"    # Policy analysis / unrestricted reasoning (Mirror)
+    BUILDER = "builder"    # Structured output / code generation (Forge)
+    SENTRY = "sentry"      # Input validation / fast parsing (Validator)
+
+
+# Default model assignments per Socratic Role.
+# Overridden by config.yaml when present.
+SOCRATIC_MODEL_MAP: dict[str, list[str]] = {
+    SocraticRole.THINKER.value: [
+        "deepseek-r1:7b",
+        "huihui_ai/am-thinking-abliterated",
+    ],
+    SocraticRole.BUILDER.value: [
+        "qwen2.5-coder",
+        "gemma3:12b",
+    ],
+    SocraticRole.SENTRY.value: [
+        "gemma3:4b",
+        "dolphin-llama3",
+    ],
+}
+
+# Hardware-aware defaults
+OLLAMA_TIMEOUT: int = 600      # 10 minutes for 100-round sims on 12B models
+OLLAMA_NUM_CTX: int = 128_000  # 128K context for large legislative PDF ingestion
+
 
 class Perspective(Enum):
     """Manus-style reasoning perspectives for candidate generation."""
@@ -318,6 +352,11 @@ class OllamaProvider(AIProvider):
         Ollama API base URL.
     timeout : float
         Connection timeout in seconds.
+    role : SocraticRole | None
+        Optional Socratic Role for model calibration (Sprint 11.5).
+        When set, ``model`` is resolved from ``SOCRATIC_MODEL_MAP``.
+    num_ctx : int
+        Context window size passed to Ollama (default from OLLAMA_NUM_CTX).
     """
 
     def __init__(
@@ -325,10 +364,20 @@ class OllamaProvider(AIProvider):
         model: str = "llama3.2",
         base_url: str = "http://localhost:11434",
         timeout: float = 10.0,
+        role: SocraticRole | None = None,
+        num_ctx: int = OLLAMA_NUM_CTX,
     ) -> None:
+        # If a Socratic Role is specified, resolve the preferred model
+        if role is not None:
+            preferred = SOCRATIC_MODEL_MAP.get(role.value, [])
+            if preferred:
+                model = preferred[0]
+            timeout = max(timeout, OLLAMA_TIMEOUT)
         self._model = model
         self._base_url = base_url.rstrip("/")
         self._timeout = timeout
+        self._num_ctx = num_ctx
+        self._role = role
         self._fallback = LocalProvider()
         self._available: bool | None = None
 
@@ -418,6 +467,9 @@ class OllamaProvider(AIProvider):
             "model": self._model,
             "prompt": prompt,
             "stream": False,
+            "options": {
+                "num_ctx": self._num_ctx,
+            },
         }).encode("utf-8")
 
         req = urllib.request.Request(
@@ -569,13 +621,23 @@ class OffloadSkeleton:
         }
 
 
-def get_default_provider() -> AIProvider:
+def get_default_provider(
+    role: SocraticRole | None = None,
+) -> AIProvider:
     """Get the default AI provider, preferring Ollama when available.
+
+    Parameters
+    ----------
+    role : SocraticRole | None
+        Optional Socratic Role to select a task-specific model
+        (Sprint 11.5 Model Calibration).  When provided, the
+        provider will use the first available model from
+        ``SOCRATIC_MODEL_MAP[role]``.
 
     Returns OllamaProvider if Ollama is reachable, otherwise LocalProvider.
     This is the Sprint 9 local-first handover entry point.
     """
-    ollama = OllamaProvider()
+    ollama = OllamaProvider(role=role)
     if ollama.is_available():
         return ollama
     return LocalProvider()

@@ -436,7 +436,6 @@ class GameTheoryConsole:
         - STALEMATE: Scores are close, sustainability is middling.
         """
         winner_score = max(aligned.score, extractive.score)
-        score_gap = abs(aligned.score - extractive.score)
         extractive_wins = extractive.score > aligned.score
 
         if sustainability < threshold:

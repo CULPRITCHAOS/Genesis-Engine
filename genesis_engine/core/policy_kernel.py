@@ -401,8 +401,6 @@ class PolicyKernel:
         chains: list[ReasonChain] = []
 
         violations = gov.get("invariantViolations", [])
-        conflicts = gov.get("conflicts", [])
-        robustness = gov.get("robustnessScore", 0.0)
 
         for principle in self.principles:
             chain = ReasonChain(
@@ -482,7 +480,6 @@ class PolicyKernel:
         for v in violations:
             category = str(v.get("category", "")).lower()
             description = str(v.get("description", "")).lower()
-            v_type = str(v.get("type", "")).lower()
 
             if (code_lower in category or name_lower in category
                     or code_lower in description or name_lower in description
@@ -636,9 +633,6 @@ class PolicyKernel:
         - Vulnerable populations
         """
         violations = gov.get("invariantViolations", [])
-        violation_categories = {
-            v.get("category", "") for v in violations
-        }
 
         # Check if shadow entities are considered
         has_shadow_analysis = any(
