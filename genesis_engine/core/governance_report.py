@@ -43,7 +43,6 @@ Sprint 11 Extensions:
 
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -54,7 +53,6 @@ from genesis_engine.core.continuity_bridge import (
     GenesisSoul,
 )
 from genesis_engine.core.mirror_of_truth import RefinementTrace
-from genesis_engine.core.obsidian_exporter import stewardship_frontmatter
 
 
 # ---------------------------------------------------------------------------

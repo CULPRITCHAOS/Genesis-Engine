@@ -33,19 +33,15 @@ for human operators to observe the multi-perspective reasoning process.
 
 from __future__ import annotations
 
-import json
-import uuid
-from dataclasses import dataclass
 from typing import Any
 
 from genesis_engine.core.ai_provider import Perspective
-from genesis_engine.core.axiomlogix import CategoricalGraph, Object, Morphism
+from genesis_engine.core.axiomlogix import CategoricalGraph
 from genesis_engine.core.continuity_bridge import (
     ContinuityBridge,
     ForesightProjection,
     GenesisSoul,
     HumanOverrideEntry,
-    OVERRIDE_REASON_CATEGORIES,
 )
 from genesis_engine.core.crucible import (
     CandidateStatus,
@@ -63,7 +59,6 @@ from genesis_engine.core.game_theory_console import (
     WarGameOutcome,
 )
 from genesis_engine.core.mirror_of_truth import (
-    CritiqueFinding,
     MirrorOfTruth,
     RefinementTrace,
 )
@@ -78,7 +73,6 @@ from genesis_engine.core.governance_report import (
     GovernanceReport,
     GovernanceReportBuilder,
     SovereignIndexGenerator,
-    translate_to_production,
 )
 
 

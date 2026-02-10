@@ -25,7 +25,7 @@ import logging
 import os
 import urllib.error
 import urllib.request
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from genesis_engine.core.ai_provider import (
@@ -44,13 +44,21 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class OllamaConfig:
-    """Configuration for the Ollama provider."""
+    """Configuration for the Ollama provider.
+
+    Sprint 11.5 updates:
+    - ``timeout`` increased to 600s for 100-round simulations on 12B models.
+    - ``num_ctx`` set to 128_000 for large legislative PDF ingestion.
+    - ``role`` selects task-specific model from SOCRATIC_MODEL_MAP.
+    """
 
     base_url: str = "http://localhost:11434"
     model: str = "llama3.1:8b"
-    timeout: int = 60  # seconds
+    timeout: int = 600  # seconds — increased for 100-round sims on 12B models
     temperature: float = 0.7
     max_tokens: int = 1024
+    num_ctx: int = 128_000  # 128K context for legislative PDF ingestion
+    role: str = ""  # Socratic Role (thinker, builder, sentry)
 
     @property
     def generate_url(self) -> str:
@@ -246,6 +254,7 @@ class OllamaProvider(AIProvider):
             "options": {
                 "temperature": self._config.temperature,
                 "num_predict": self._config.max_tokens,
+                "num_ctx": self._config.num_ctx,
             },
         }
 

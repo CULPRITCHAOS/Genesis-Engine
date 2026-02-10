@@ -34,7 +34,7 @@ from typing import Any
 
 from genesis_engine.core.axiom_anchor import AxiomAnchor, ValidationResult
 from genesis_engine.core.axiomlogix import CategoricalGraph, Object, Morphism
-from genesis_engine.core.deconstruction_engine import DisharmonyReport, MorphismFinding
+from genesis_engine.core.deconstruction_engine import DisharmonyReport
 
 
 # ---------------------------------------------------------------------------

@@ -43,10 +43,10 @@ from typing import Any
 
 import re
 
-from genesis_engine.core.axiom_anchor import AxiomAnchor, PrimeDirective, ValidationResult
+from genesis_engine.core.axiom_anchor import AxiomAnchor, PrimeDirective
 from genesis_engine.core.axiomlogix import CategoricalGraph
 from genesis_engine.core.deconstruction_engine import DisharmonyReport
-from genesis_engine.core.dream_engine import DreamPath, PossibilityReport
+
 
 
 # ---------------------------------------------------------------------------

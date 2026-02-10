@@ -43,7 +43,6 @@ from typing import Any
 from genesis_engine.core.continuity_bridge import (
     GenesisSoul,
     HumanOverrideEntry,
-    OVERRIDE_REASON_CATEGORIES,
 )
 
 
