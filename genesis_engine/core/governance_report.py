@@ -31,6 +31,14 @@ Integration:
 - Exports to Obsidian-compatible Markdown and structured JSON.
 
 Sprint 10 — Sovereign Governance & The Oklahoma Water/Grid War.
+
+Sprint 11 Extensions:
+- **Self-Critique Integration**: GovernanceReportBuilder can accept a
+  SelfCritiqueResult to include constitutional compliance data in exports.
+- **Delta Manifesto Export**: Side-by-side comparison of legislative bill
+  vs. regenerative blueprint in the Sovereign Index.
+- **FAIRGAME Debate Integration**: Debate results appended to the
+  Sovereign Index audit trail.
 """
 
 from __future__ import annotations
@@ -102,6 +110,17 @@ SACRED_TO_PRODUCTION: dict[str, str] = {
     "Aligned Agent": "Stewardship Agent",
     "Extractive Agent": "Profit-Maximizing Agent",
     "Hostile Agent": "Non-Compliant Actor",
+    # Sprint 11 — Policy Auditor & Debate Arena
+    "Pro_Social_Agent": "Public Interest Advocate",
+    "Hostile_Lobbyist": "Extractive Interest Advocate",
+    "FAIRGAME": "Bias Recognition Framework",
+    "Debate Arena": "Adversarial Deliberation Protocol",
+    "Self-Critique Loop": "Constitutional Compliance Audit",
+    "Constitutional PolicyKernel": "Policy Compliance Engine",
+    "Reason Chain": "Evidence Trace",
+    "Colimit Repair": "Universal Reconciliation Repair",
+    "Repair Functor": "Scale-Consistent Repair Operator",
+    "Shadow Entity": "Invisible Dependency",
 }
 
 
@@ -163,12 +182,14 @@ class GovernanceReport:
     projections: list[dict[str, Any]]
     covenant_actuation: dict[str, Any] | None
     robustness_score: float
+    self_critique: dict[str, Any] | None = None  # Sprint 11
+    debate_result: dict[str, Any] | None = None  # Sprint 11
     timestamp: str = field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        result = {
             "governanceReport": {
                 "reportId": self.report_id,
                 "eventstoreHash": self.eventstore_hash,
@@ -180,6 +201,11 @@ class GovernanceReport:
                 "timestamp": self.timestamp,
             }
         }
+        if self.self_critique is not None:
+            result["governanceReport"]["selfCritique"] = self.self_critique
+        if self.debate_result is not None:
+            result["governanceReport"]["debateArena"] = self.debate_result
+        return result
 
     def to_json(self, indent: int = 2) -> str:
         """Export as Production Lexicon JSON (Sacred Language stripped)."""
@@ -215,6 +241,8 @@ class GovernanceReportBuilder:
         scenario: dict[str, Any] | None = None,
         trace: RefinementTrace | None = None,
         robustness_result: dict[str, Any] | None = None,
+        self_critique: dict[str, Any] | None = None,
+        debate_result: dict[str, Any] | None = None,
     ) -> GovernanceReport:
         """Build a GovernanceReport from Engine analysis results.
 
@@ -228,6 +256,10 @@ class GovernanceReportBuilder:
             Mirror of Truth analysis results.
         robustness_result : dict | None
             Robustness Harness evaluation (as_dict output).
+        self_critique : dict | None
+            C3AI Self-Critique result (Sprint 11).
+        debate_result : dict | None
+            FAIRGAME Debate Arena result (Sprint 11).
 
         Returns
         -------
@@ -264,7 +296,7 @@ class GovernanceReportBuilder:
 
         report_id = f"GOV-{eventstore_hash[:12].upper()}"
 
-        return GovernanceReport(
+        report = GovernanceReport(
             report_id=report_id,
             eventstore_hash=eventstore_hash,
             conflicts=conflicts,
@@ -273,6 +305,14 @@ class GovernanceReportBuilder:
             covenant_actuation=covenant,
             robustness_score=rob_score,
         )
+
+        # Sprint 11: Attach self-critique and debate data
+        if self_critique:
+            report.self_critique = self_critique
+        if debate_result:
+            report.debate_result = debate_result
+
+        return report
 
     @staticmethod
     def _extract_conflicts(

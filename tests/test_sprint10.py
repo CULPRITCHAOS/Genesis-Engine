@@ -687,8 +687,8 @@ class TestGridWar2026V3:
     """Tests for the updated Grid War 2026 scenario."""
 
     def test_scenario_version(self, scenario_data: dict[str, Any]) -> None:
-        assert scenario_data["version"] == "3.0.0"
-        assert scenario_data["sprint"] == 10
+        assert scenario_data["version"] == "4.0.0"
+        assert scenario_data["sprint"] == 11
 
     def test_tulsa_basin_node_exists(self, scenario_data: dict[str, Any]) -> None:
         objects = scenario_data["conflict_graph"]["objects"]

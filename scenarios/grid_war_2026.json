@@ -1,7 +1,7 @@
 {
   "scenario": "The 2026 Oklahoma Grid War",
-  "version": "3.0.0",
-  "sprint": 10,
+  "version": "4.0.0",
+  "sprint": 11,
   "description": "A pre-loaded conflict graph modelling the 2026 Oklahoma electricity grid and water crisis where hyperscale data centre demand, utility shareholder primacy (per HB 2992), cooling-water consumption (per SB 1488), and residential ratepayer protection collide across the Tulsa and Moore water basins. The scenario tests the full Policy Analysis Suite including Covenant Actuation, Live Invariant Tracking, and Bayesian Robustness Hardening against the PSO July 2026 Rate Case.",
   "context": {
     "legislative_references": [
@@ -313,6 +313,74 @@
         "severity": "HIGH"
       }
     ]
+  },
+  "water_basin_sustainability": {
+    "module": "Oklahoma Water/Energy Nexus",
+    "description": "Water Basin Sustainability module focusing on Tulsa-region industrial versus residential recharge rates. Models the competition between hyperscale data centre cooling demands and residential/agricultural water needs across the Tulsa metropolitan watershed.",
+    "tulsa_nexus": {
+      "basin": "Tulsa_Water_Basin",
+      "sources": ["Oologah Lake", "Spavinaw Lake", "Cimarron River Watershed"],
+      "industrial_demand_mgd": 28.0,
+      "residential_demand_mgd": 18.5,
+      "agricultural_demand_mgd": 8.2,
+      "total_demand_mgd": 54.7,
+      "sustainable_capacity_mgd": 12.0,
+      "natural_recharge_rate_mgd": 9.8,
+      "overshoot_ratio": 4.56,
+      "population_at_risk": 600000,
+      "critical_threshold_years": 8,
+      "projected_depletion_year": 2034,
+      "recharge_deficit_mgd": -44.9,
+      "industrial_vs_residential_ratio": 1.51,
+      "mitigation_options": [
+        "Closed-loop cooling mandate (reduces industrial demand 80%)",
+        "Reclaimed wastewater for cooling (offset 15 MGD)",
+        "Demand response curtailment during drought",
+        "Aquifer storage and recovery (ASR) injection wells"
+      ]
+    },
+    "moore_nexus": {
+      "basin": "Moore_Water_Basin",
+      "sources": ["Lake Thunderbird", "Garber-Wellington Aquifer"],
+      "industrial_demand_mgd": 14.0,
+      "residential_demand_mgd": 7.8,
+      "agricultural_demand_mgd": 3.1,
+      "total_demand_mgd": 24.9,
+      "sustainable_capacity_mgd": 6.0,
+      "natural_recharge_rate_mgd": 4.2,
+      "overshoot_ratio": 4.15,
+      "population_at_risk": 120000,
+      "critical_threshold_years": 6,
+      "projected_depletion_year": 2032,
+      "recharge_deficit_mgd": -20.7,
+      "sole_source_aquifer": true,
+      "sole_source_designation": "EPA Sole Source Aquifer designation — no alternative supply available",
+      "mitigation_options": [
+        "Air-cooled data centre mandate (zero water use)",
+        "Industrial permit denial under SB 1488",
+        "Emergency water rationing framework",
+        "Inter-basin transfer from Lake Eufaula"
+      ]
+    },
+    "combined_metrics": {
+      "total_industrial_demand_mgd": 42.0,
+      "total_residential_demand_mgd": 26.3,
+      "total_agricultural_demand_mgd": 11.3,
+      "total_sustainable_capacity_mgd": 18.0,
+      "total_natural_recharge_mgd": 14.0,
+      "aggregate_overshoot_ratio": 4.41,
+      "total_population_at_risk": 720000,
+      "water_security_index": 0.227,
+      "sustainability_horizon_years": 50,
+      "sustainability_verdict": "CRITICAL — aggregate demand exceeds sustainable capacity by 4.41x. Without intervention, both basins reach depletion within 8 years."
+    },
+    "energy_water_coupling": {
+      "description": "The energy-water nexus creates a feedback loop: data centres demand electricity (grid strain) AND water (basin depletion) simultaneously. Grid infrastructure buildout to serve HILL loads further increases water demand for construction cooling and thermal generation.",
+      "electricity_per_mgd_mw": 2.4,
+      "water_per_gw_mgd": 8.5,
+      "feedback_amplifier": 1.15,
+      "coupled_invariant": "Grid reliability and water sustainability are co-dependent. Violation of either invariant cascades to the other via the energy-water coupling coefficient."
+    }
   },
   "expected_mirror_findings": {
     "surface_alignment_detected": true,

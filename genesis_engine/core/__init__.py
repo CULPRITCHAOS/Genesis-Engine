@@ -50,6 +50,20 @@ from genesis_engine.core.governance_report import (
     SovereignIndexGenerator, ConflictEntry,
     translate_to_production, SACRED_TO_PRODUCTION,
 )
+# Sprint 11 — Policy Auditor & Regenerative Blueprint Suite
+from genesis_engine.core.policy_kernel import (
+    PolicyKernel, ConstitutionalPrinciple, ReasonChain, ReasonLink,
+    BiasDetection, SelfCritiqueResult, CONSTITUTIONAL_PRINCIPLES,
+)
+from genesis_engine.core.adversarial_evaluator import (
+    AdversarialEvaluator, ProSocialAgent, HostileLobbyist,
+    FAIRGAMEAnalyzer, FAIRGAMEBias, BiasTrace,
+    DebateArgument, DebateRound, DebateResult,
+)
+from genesis_engine.core.robustness_harness import (
+    RepairAction, ScaleLevel, RepairFunctor, RepairFunctorResult,
+    ColimitRepairOperator, ColimitResult, CategoricalRepairEngine,
+)
 
 __all__ = [
     # Axiom Anchor (Module 2.1)
@@ -150,4 +164,30 @@ __all__ = [
     "ConflictEntry",
     "translate_to_production",
     "SACRED_TO_PRODUCTION",
+    # Policy Kernel (Module 2.1 Extension — Sprint 11)
+    "PolicyKernel",
+    "ConstitutionalPrinciple",
+    "ReasonChain",
+    "ReasonLink",
+    "BiasDetection",
+    "SelfCritiqueResult",
+    "CONSTITUTIONAL_PRINCIPLES",
+    # Adversarial Evaluator / FAIRGAME Debate Arena (Module 3.5 — Sprint 11)
+    "AdversarialEvaluator",
+    "ProSocialAgent",
+    "HostileLobbyist",
+    "FAIRGAMEAnalyzer",
+    "FAIRGAMEBias",
+    "BiasTrace",
+    "DebateArgument",
+    "DebateRound",
+    "DebateResult",
+    # Categorical Repair Operators (Module 1.3 — Sprint 11)
+    "RepairAction",
+    "ScaleLevel",
+    "RepairFunctor",
+    "RepairFunctorResult",
+    "ColimitRepairOperator",
+    "ColimitResult",
+    "CategoricalRepairEngine",
 ]

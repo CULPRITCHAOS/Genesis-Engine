@@ -132,8 +132,8 @@ class TestGridWarScenarioExpansion:
     def test_scenario_loads(self):
         scenario = _load_scenario()
         assert scenario["scenario"] == "The 2026 Oklahoma Grid War"
-        assert scenario["version"] == "3.0.0"
-        assert scenario["sprint"] == 10
+        assert scenario["version"] == "4.0.0"
+        assert scenario["sprint"] == 11
 
     def test_scenario_has_legislative_references(self):
         scenario = _load_scenario()
